@@ -1,0 +1,14 @@
+com\mycompany\inventario\campos\usuario.class
+com\mycompany\inventario\clases\conexion.class
+com\mycompany\inventario\ClienteController.class
+com\mycompany\inventario\App.class
+com\mycompany\inventario\clases\reportes.class
+module-info.class
+com\mycompany\inventario\campos\proveedor.class
+com\mycompany\inventario\MateriaController.class
+com\mycompany\inventario\ProveedorController.class
+com\mycompany\inventario\campos\materia.class
+com\mycompany\inventario\clases\sentencias.class
+com\mycompany\inventario\PrimaryController.class
+com\mycompany\inventario\campos\cliente.class
+com\mycompany\inventario\LoginController.class
