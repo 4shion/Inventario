@@ -471,17 +471,9 @@ public class MateriaController extends App implements Initializable{
     private void switchToUsuarios(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/usuario.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-            
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("usuario");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -494,17 +486,9 @@ public class MateriaController extends App implements Initializable{
     private void switchToMateriales(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/materia.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-            
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("materia");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -513,15 +497,9 @@ public class MateriaController extends App implements Initializable{
     private void switchToCliente(ActionEvent event) {
         
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cliente.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("cliente");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -530,17 +508,9 @@ public class MateriaController extends App implements Initializable{
     private void switchToPedido(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pedido.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-            
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("pedido");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
