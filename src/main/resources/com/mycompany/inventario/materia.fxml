@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -30,15 +32,16 @@
                   <TableColumn fx:id="colCantMin" prefWidth="93.20001220703125" text="Cantidad_Min" />
                </columns>
             </TableView>
+            <Button id="getReportes" layoutX="373.0" layoutY="357.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="46.0" layoutY="523.0" prefHeight="46.0" prefWidth="722.0" style="-fx-background-color: white;">
+      <Pane layoutX="46.0" layoutY="523.0" prefHeight="46.0" prefWidth="766.0" style="-fx-background-color: white;">
          <children>
             <Button fx:id="btnNuevo" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#Nuevo" prefHeight="25.0" prefWidth="55.0" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
             <Button fx:id="btnModificar" layoutX="78.0" layoutY="10.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
             <Button fx:id="btnEliminar" layoutX="156.0" layoutY="10.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
             <Button fx:id="btnGuardar" layoutX="226.0" layoutY="10.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="660.0" layoutY="11.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
+            <Button fx:id="btnCancelar" layoutX="704.0" layoutY="11.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
             <Button fx:id="btnLimpiar" layoutX="297.0" layoutY="11.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
@@ -84,7 +87,13 @@
             </Button>
             <ButtonBar prefHeight="58.0" prefWidth="506.0">
                <buttons>
-                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="70.0" style="-fx-background-color: white;" text="Materiales" textFill="#ad1316">
+                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="70.0" style="-fx-background-color: white; -fx-background-radius: 3;" text="Materiales" textFill="#ad1316">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Blend />
+                     </effect>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

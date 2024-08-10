@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.proveedor;
+import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -444,6 +445,14 @@ public class MateriaController extends App implements Initializable{
     
     @FXML
     private void switchToMain(ActionEvent event) {
+        
+        try {
+            App.setRoot("main");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
     }
 
     @FXML
@@ -470,6 +479,13 @@ public class MateriaController extends App implements Initializable{
 
     @FXML
     private void switchToHistorial(ActionEvent event) {
+        
+        try {
+            App.setRoot("historial");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
@@ -502,6 +518,16 @@ public class MateriaController extends App implements Initializable{
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+
+    @FXML
+    private void Reporte(ActionEvent event) {
+        
+        reportes r=new reportes();
+        String ubicacion= "/reportes/materia.jasper";
+        String titulo= "Informe de Materiales";
+        r.generarReporte(ubicacion, titulo);
         
     }
     

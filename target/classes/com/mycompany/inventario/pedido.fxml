@@ -1,11 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.mycompany.inventario.PedidoController">
+   <children>
+      <HBox id="menuBar" layoutX="70.0" layoutY="67.0" prefHeight="58.0" prefWidth="816.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button id="mainLogoButton" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #ad1316;">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logo_frame-removebg-blanco.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin>
+            </Button>
+            <ButtonBar prefHeight="58.0" prefWidth="506.0">
+               <buttons>
+                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Button>
+                  <Button id="menuCliente" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Cliente" textFill="WHITE" />
+                  <Button id="menuPedido" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="62.0" style="-fx-background-color: white;" text="Pedido" textFill="#ad1316">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuProveedor" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Proveedor" textFill="WHITE" />
+                  <Button id="menuUsuarios" minWidth="74.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="53.0" prefWidth="106.0" style="-fx-background-color: #ad1316; -fx-border-radius: 0;" text="Usuarios" textFill="WHITE" />
+                  <Button id="menuHistorial" mnemonicParsing="false" onAction="#switchToHistorial" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Historial" textFill="WHITE" />
+               </buttons>
+            </ButtonBar>
+            <Button id="logoutButton" mnemonicParsing="false" prefHeight="54.0" prefWidth="48.0" style="-fx-background-color: #ad1316;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView id="logoutIMG" fitHeight="39.0" fitWidth="53.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logout_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="helpButton" mnemonicParsing="false" style="-fx-background-color: #ad1316;">
+               <HBox.margin>
+                  <Insets top="13.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView id="helpIMG" fitHeight="27.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ayuda_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </children>
 </AnchorPane>

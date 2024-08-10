@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.proveedor;
+import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -334,23 +335,23 @@ public class ProveedorController implements Initializable {
 
     @FXML
     private void switchToMain(ActionEvent event) {
+        
+        try {
+            App.setRoot("main");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
     }
 
     @FXML
     private void swicthToProveedor(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/proveedor.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-            
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("proveedor");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -359,23 +360,22 @@ public class ProveedorController implements Initializable {
     private void switchToUsuarios(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/usuario.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-            
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("usuario");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
 
     @FXML
     private void switchToHistorial(ActionEvent event) {
+        
+        try {
+            App.setRoot("historial");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
@@ -393,15 +393,9 @@ public class ProveedorController implements Initializable {
     private void switchToCliente(ActionEvent event) {
         
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cliente.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("cliente");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -410,18 +404,20 @@ public class ProveedorController implements Initializable {
     private void switchToPedido(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pedido.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-            
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("pedido");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+
+    @FXML
+    private void Reporte(ActionEvent event) {
+        
+        reportes r=new reportes();
+        String ubicacion= "/reportes/proveedor.jasper";
+        String titulo= "Informe de Proveedores";
+        r.generarReporte(ubicacion, titulo);
         
     }
     

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,22 +18,23 @@
 
 <AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.ProveedorController">
    <children>
-      <Pane layoutX="401.0" layoutY="162.0" prefHeight="274.0" prefWidth="401.0" style="-fx-background-color: white;">
+      <Pane layoutX="401.0" layoutY="134.0" prefHeight="348.0" prefWidth="402.0" style="-fx-background-color: white;">
          <children>
             <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="14.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="388.0" promptText="🔍 Busqueda" />
-            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="200.0" prefWidth="388.0">
+            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="241.0" prefWidth="388.0">
                <columns>
                   <TableColumn fx:id="ColumID" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="ColumNombre" prefWidth="104.0" text="Nombre" />
                   <TableColumn fx:id="ColumCorreo" prefWidth="206.4000244140625" text="Correo" />
                </columns>
             </TableView>
+            <Button id="getReportes" layoutX="291.0" layoutY="321.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
          </children>
       </Pane>
       <Pane layoutX="114.0" layoutY="149.0" prefHeight="274.0" prefWidth="186.0" style="-fx-background-color: white;">
          <children>
             <TextField fx:id="txtNombre" layoutX="19.0" layoutY="86.0" />
-            <TextField fx:id="txtCorreo" layoutX="19.0" layoutY="155.0" promptText="Correo:" />
+            <TextField fx:id="txtCorreo" layoutX="19.0" layoutY="155.0" />
             <TextField fx:id="txtId" disable="true" editable="false" layoutX="19.0" layoutY="28.0" visible="false" />
             <Text layoutX="19.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
                <font>
@@ -51,7 +54,7 @@
             <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
             <Button fx:id="btnEliminar" layoutX="165.0" layoutY="8.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
             <Button fx:id="btnGuardar" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="708.0" layoutY="9.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
+            <Button fx:id="btnCancelar" layoutX="702.0" layoutY="9.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
             <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
@@ -71,7 +74,14 @@
             </Button>
             <ButtonBar prefHeight="58.0" prefWidth="506.0">
                <buttons>
-                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE" />
+                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Button>
                   <Button id="menuCliente" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Cliente" textFill="WHITE" />
                   <Button id="menuPedido" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Pedido" textFill="WHITE" />
                   <Button id="menuProveedor" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="103.0" style="-fx-background-color: white;" text="Proveedor" textFill="#ad1316">
