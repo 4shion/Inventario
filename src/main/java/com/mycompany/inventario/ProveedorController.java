@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.proveedor;
+import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
@@ -16,10 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -28,7 +26,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -72,6 +69,8 @@ public class ProveedorController implements Initializable {
     
     ObservableList<proveedor> lista;
     ObservableList<proveedor> listaFiltrada;
+    
+    alertas alert = new alertas();
 
     /**
      * Initializes the controller class.
@@ -194,18 +193,12 @@ public class ProveedorController implements Initializable {
 
             if(one.eliminar()){
 
-                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("Eliminado correctamente");
-                    alerta.show();
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
 
                 }
                 else{
 
-                    Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("No se ha podido eliminar correctamente");
-                    alerta.show();
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
 
                 }
         } 
@@ -235,18 +228,12 @@ public class ProveedorController implements Initializable {
             
             if(one.modificar()){
                 
-                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                alerta.setHeaderText(null);
-                alerta.setContentText("Modificado correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
                 
             }
             else{
                 
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setHeaderText(null);
-                alerta.setContentText("No se ha podido modificar correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido modificado correctamente");
                 
             }
             
@@ -255,18 +242,12 @@ public class ProveedorController implements Initializable {
         
             if(one.insertar()){
 
-                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                alerta.setHeaderText(null);
-                alerta.setContentText("Insertado correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
 
             }
             else{
 
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setHeaderText(null);
-                alerta.setContentText("No se ha podido insertar correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
 
             }
             

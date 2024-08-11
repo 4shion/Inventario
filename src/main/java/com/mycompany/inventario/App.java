@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("materia"), 840, 615);
+        scene = new Scene(loadFXML("main"), 840, 615);
         stage.setScene(scene);
 
         // Cargar la imagen del icono

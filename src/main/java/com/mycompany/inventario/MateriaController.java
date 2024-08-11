@@ -6,6 +6,7 @@ package com.mycompany.inventario;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.proveedor;
 import com.mycompany.inventario.clases.reportes;
+import com.mycompany.inventario.clases.alertas;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -87,6 +88,8 @@ public class MateriaController extends App implements Initializable{
     private TextField txtId;
     @FXML
     private TextField txtCamMín;
+    
+    alertas alert = new alertas();
 
     /**
      * Initializes the controller class.
@@ -208,18 +211,12 @@ public class MateriaController extends App implements Initializable{
 
             if(m.eliminar()){
 
-                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("Eliminado correctamente");
-                    alerta.show();
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
 
                 }
                 else{
 
-                    Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("No se ha podido eliminar correctamente");
-                    alerta.show();
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
 
                 }
         } 
@@ -279,40 +276,30 @@ public class MateriaController extends App implements Initializable{
                 m.setId(Integer.parseInt(txtId.getText()));
 
                 if(m.modificar()){
+                
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                
+                }
+                else{
 
-                    Alert alerta=new Alert(Alert.AlertType.CONFIRMATION);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("Modificado correctamente");
-                    alerta.show();
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido modificado correctamente");
 
-                }else{
-
-                    Alert alerta=new Alert(Alert.AlertType.ERROR);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("No se ha podido modificar correctamente");
-                    alerta.show();
-
-                    }
+                }
 
             bandera = false; 
 
             }else{
 
-                    if(m.insertar()){//insertado
+                if(m.insertar()){
 
-                        Alert alerta=new Alert(Alert.AlertType.CONFIRMATION);
-                        alerta.setHeaderText(null);
-                        alerta.setContentText("Insertado correctamente");
-                        alerta.show();
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
 
-                    }else{
+                }
+                else{
 
-                        Alert alerta=new Alert(Alert.AlertType.ERROR);
-                        alerta.setHeaderText(null);
-                        alerta.setContentText("No se ha podido insertar correctamente");
-                        alerta.show();
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
 
-                        }
+                }
 
             } 
 

@@ -4,6 +4,7 @@ module com.mycompany.inventario {
     requires java.base;
     requires java.sql;
     requires jasperreports;
+    requires bcrypt;
 
     opens com.mycompany.inventario to javafx.fxml;
     exports com.mycompany.inventario;

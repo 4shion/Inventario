@@ -5,6 +5,8 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.cliente;
+import com.mycompany.inventario.clases.alertas;
+import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -71,6 +73,8 @@ public class ClienteController implements Initializable {
     private TableView<cliente> table;
     @FXML
     private TextField txtId;
+    
+    alertas alert = new alertas();
 
     /**
      * Initializes the controller class.
@@ -143,18 +147,12 @@ public class ClienteController implements Initializable {
 
             if(one.eliminar()){
 
-                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("Eliminado correctamente");
-                    alerta.show();
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
 
                 }
                 else{
 
-                    Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("No se ha podido eliminar correctamente");
-                    alerta.show();
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
 
                 }
         } 
@@ -184,18 +182,13 @@ public class ClienteController implements Initializable {
             
             if(one.modificar()){
                 
-                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                alerta.setHeaderText(null);
-                alerta.setContentText("Modificado correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
                 
             }
             else{
                 
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setHeaderText(null);
-                alerta.setContentText("No se ha podido modificar correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido modificado correctamente");
+
                 
             }
             
@@ -204,18 +197,12 @@ public class ClienteController implements Initializable {
         
             if(one.insertar()){
 
-                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                alerta.setHeaderText(null);
-                alerta.setContentText("Insertado correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
 
             }
             else{
 
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setHeaderText(null);
-                alerta.setContentText("No se ha podido insertar correctamente");
-                alerta.show();
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
 
             }
             
@@ -412,6 +399,16 @@ public class ClienteController implements Initializable {
             table.setItems(listaFiltrada);
             
         }
+        
+    }
+
+    @FXML
+    private void Reportes(ActionEvent event) {
+        
+        reportes r=new reportes();
+        String ubicacion= "/reportes/cliente.jasper";
+        String titulo= "Informe de Clientes";
+        r.generarReporte(ubicacion, titulo);
         
     }
     

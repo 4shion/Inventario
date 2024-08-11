@@ -18,19 +18,20 @@
 
 <AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.ClienteController">
    <children>
-      <Pane layoutX="414.0" layoutY="98.0" prefHeight="392.0" prefWidth="387.0" style="-fx-background-color: white;">
+      <Pane layoutX="353.0" layoutY="98.0" prefHeight="398.0" prefWidth="448.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="14.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="360.0" promptText="🔍 Busqueda" />
-            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="320.0" prefWidth="360.0">
+            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="46.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="400.0" promptText="🔍 Busqueda" />
+            <TableView fx:id="table" focusTraversable="false" layoutX="46.0" layoutY="54.0" onMouseClicked="#click" prefHeight="290.0" prefWidth="400.0">
               <columns>
                   <TableColumn fx:id="ColumID" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
-                <TableColumn fx:id="ColumNombre" prefWidth="90.0" text="Nombre" />
+                <TableColumn fx:id="ColumNombre" prefWidth="129.60006713867188" text="Nombre" />
                 <TableColumn fx:id="ColumCorreo" prefWidth="193.5999755859375" text="Correo" />
               </columns>
             </TableView>
+            <Button id="getReportes" layoutX="335.0" layoutY="372.0" mnemonicParsing="false" onAction="#Reportes" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="104.0" layoutY="170.0" prefHeight="274.0" prefWidth="186.0" style="-fx-background-color: white;">
+      <Pane layoutX="105.0" layoutY="170.0" prefHeight="274.0" prefWidth="186.0" style="-fx-background-color: white;">
          <children>
             <TextField fx:id="txtNombre" layoutX="19.0" layoutY="73.0" />
             <TextField fx:id="txtCorreo" layoutX="19.0" layoutY="155.0" />
@@ -47,13 +48,13 @@
             </Text>
          </children>
       </Pane>
-      <Pane layoutX="20.0" layoutY="516.0" prefHeight="50.0" prefWidth="816.0" style="-fx-background-color: white;">
+      <Pane layoutX="20.0" layoutY="516.0" prefHeight="50.0" prefWidth="772.0" style="-fx-background-color: white;">
          <children>
             <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
             <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
             <Button fx:id="btnEliminar" layoutX="165.0" layoutY="8.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
             <Button fx:id="btnGuardar" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="709.0" layoutY="8.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
+            <Button fx:id="btnCancelar" layoutX="716.0" layoutY="8.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
             <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="308.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
