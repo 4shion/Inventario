@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -19,6 +20,9 @@ import javafx.fxml.Initializable;
  * @author User
  */
 public class MainController implements Initializable {
+
+    @FXML
+    private Button btnSesion;
 
     /**
      * Initializes the controller class.
@@ -81,6 +85,10 @@ public class MainController implements Initializable {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+
+    @FXML
+    private void Sesion(ActionEvent event) {
     }
     
 }
