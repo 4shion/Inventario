@@ -84,7 +84,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane id="nombreUsuario" layoutX="64.0" layoutY="108.0" prefHeight="397.0" prefWidth="300.0">
+      <Pane id="nombreUsuario" layoutX="66.0" layoutY="151.0" prefHeight="355.0" prefWidth="300.0">
          <children>
             <TextField layoutX="26.0" layoutY="43.0" />
             <TextField id="codigoUsuario" layoutX="26.0" layoutY="98.0" />
@@ -98,19 +98,14 @@
                   <Font name="Corbel" size="12.0" />
                </font>
             </Text>
-            <TextField layoutX="26.0" layoutY="152.0" />
-            <Text layoutX="26.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
+            <TextField fx:id="txtID" layoutX="26.0" layoutY="152.0" visible="false" />
+            <TextField layoutX="26.0" layoutY="159.0" />
+            <Text layoutX="26.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
                <font>
                   <Font name="Corbel" size="12.0" />
                </font>
             </Text>
-            <TextField layoutX="26.0" layoutY="210.0" />
-            <Text layoutX="26.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
-               <font>
-                  <Font name="Corbel" size="12.0" />
-               </font>
-            </Text>
-            <Pane layoutX="17.0" layoutY="261.0" prefHeight="129.0" prefWidth="266.0">
+            <Pane layoutX="17.0" layoutY="207.0" prefHeight="129.0" prefWidth="266.0">
                <children>
                   <RadioButton id="radioMateriales" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" text="Materiales">
                      <font>
