@@ -86,8 +86,8 @@
       </HBox>
       <Pane id="nombreUsuario" layoutX="66.0" layoutY="151.0" prefHeight="355.0" prefWidth="300.0">
          <children>
-            <TextField layoutX="26.0" layoutY="43.0" />
-            <TextField id="codigoUsuario" layoutX="26.0" layoutY="98.0" />
+            <TextField fx:id="txtNombre" layoutX="26.0" layoutY="43.0" />
+            <TextField id="codigoUsuario" fx:id="txtCodigo" layoutX="26.0" layoutY="98.0" />
             <Text layoutX="26.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del Usuario:">
                <font>
                   <Font name="Corbel" size="12.0" />
@@ -99,7 +99,7 @@
                </font>
             </Text>
             <TextField fx:id="txtID" layoutX="26.0" layoutY="152.0" visible="false" />
-            <TextField layoutX="26.0" layoutY="159.0" />
+            <TextField fx:id="txtCorreo" layoutX="26.0" layoutY="159.0" />
             <Text layoutX="26.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
                <font>
                   <Font name="Corbel" size="12.0" />
@@ -107,32 +107,32 @@
             </Text>
             <Pane layoutX="17.0" layoutY="207.0" prefHeight="129.0" prefWidth="266.0">
                <children>
-                  <RadioButton id="radioMateriales" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" text="Materiales">
+                  <RadioButton id="radioMateriales" fx:id="radioMateriales" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" text="Materiales">
                      <font>
                         <Font name="Corbel" size="12.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton id="radioCliente" layoutX="158.0" layoutY="41.0" mnemonicParsing="false" text="Cliente">
+                  <RadioButton id="radioCliente" fx:id="radioCliente" layoutX="158.0" layoutY="41.0" mnemonicParsing="false" text="Cliente">
                      <font>
                         <Font name="Corbel" size="12.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton id="radioPedido" layoutX="14.0" layoutY="69.0" mnemonicParsing="false" text="Pedido">
+                  <RadioButton id="radioPedido" fx:id="radioPedidos" layoutX="14.0" layoutY="69.0" mnemonicParsing="false" text="Pedido">
                      <font>
                         <Font name="Corbel" size="12.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton id="radioFactura" layoutX="158.0" layoutY="69.0" mnemonicParsing="false" text="Facturación">
+                  <RadioButton id="radioFactura" fx:id="radioFactura" layoutX="158.0" layoutY="69.0" mnemonicParsing="false" text="Facturación">
                      <font>
                         <Font name="Corbel" size="12.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton id="radioProveedores" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" text="Proveedores">
+                  <RadioButton id="radioProveedores" fx:id="radioProveedores" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" text="Proveedores">
                      <font>
                         <Font name="Corbel" size="12.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton id="radioUsuarios" layoutX="158.0" layoutY="97.0" mnemonicParsing="false" text="Usuarios">
+                  <RadioButton id="radioUsuarios" fx:id="radioUsuarios" layoutX="158.0" layoutY="97.0" mnemonicParsing="false" text="Usuarios">
                      <font>
                         <Font name="Corbel" size="12.0" />
                      </font>
@@ -150,12 +150,12 @@
          <children>
             <TableView fx:id="table" layoutX="6.0" layoutY="57.0" prefHeight="335.0" prefWidth="375.0">
               <columns>
-                  <TableColumn id="IDUsuario" prefWidth="43.20001220703125" text="ID" />
-                  <TableColumn id="nombreUsuario" prefWidth="148.80007934570312" text="Nombre" />
-                  <TableColumn id="correoUsuario" prefWidth="181.5999755859375" text="Correo" />
+                  <TableColumn id="IDUsuario" fx:id="columId" prefWidth="43.20001220703125" text="ID" />
+                  <TableColumn id="nombreUsuario" fx:id="columNombre" prefWidth="148.80007934570312" text="Nombre" />
+                  <TableColumn id="correoUsuario" fx:id="columCorreo" prefWidth="181.5999755859375" text="Correo" />
               </columns>
             </TableView>
-            <TextField id="txtBusquedaUsuario" layoutX="6.0" layoutY="14.0" prefHeight="25.0" prefWidth="375.0" promptText="🔍 Busqueda" />
+            <TextField id="txtBusquedaUsuario" fx:id="txtBusqueda" layoutX="6.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="375.0" promptText="🔍 Busqueda" />
          </children>
       </Pane>
       <Pane layoutX="50.0" layoutY="523.0" prefHeight="42.0" prefWidth="770.0" style="-fx-background-color: white;">

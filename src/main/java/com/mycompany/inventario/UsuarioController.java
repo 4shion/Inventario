@@ -13,7 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
@@ -36,6 +39,34 @@ public class UsuarioController implements Initializable {
     private Button btnCancelar;
     @FXML
     private Button btnLimpiar;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextField txtCodigo;
+    @FXML
+    private TextField txtID;
+    @FXML
+    private TextField txtCorreo;
+    @FXML
+    private RadioButton radioMateriales;
+    @FXML
+    private RadioButton radioCliente;
+    @FXML
+    private RadioButton radioPedidos;
+    @FXML
+    private RadioButton radioFactura;
+    @FXML
+    private RadioButton radioProveedores;
+    @FXML
+    private RadioButton radioUsuarios;
+    @FXML
+    private TableColumn<?, ?> columId;
+    @FXML
+    private TableColumn<?, ?> columNombre;
+    @FXML
+    private TableColumn<?, ?> columCorreo;
+    @FXML
+    private TextField txtBusqueda;
     /**
      * Initializes the controller class.
      */
@@ -144,6 +175,10 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void Limpiar(ActionEvent event) {
+    }
+
+    @FXML
+    private void Busqueda(ActionEvent event) {
     }
 
 }
