@@ -4,8 +4,13 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.clases.conexion;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +24,7 @@ import javafx.scene.control.Button;
  *
  * @author User
  */
-public class MainController implements Initializable {
+public class MainController extends conexion implements Initializable {
 
     @FXML
     private Button btnSesion;
@@ -29,7 +34,9 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        verificarUsuario();
+        
     }
     
     @FXML
@@ -93,5 +100,34 @@ public class MainController implements Initializable {
         
         
     }
+    
+    private void verificarUsuario() {
+        
+        String sql = "SELECT COUNT(*) FROM usuario";
+        
+        try (Connection con = getCon();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()){
+
+            if (rs.next()) {
+                
+                int userCount = rs.getInt(1);
+                
+                if (userCount > 0) {
+                    
+                    btnSesion.setText("Iniciar Sesión");
+                    
+                } else {
+                    
+                    btnSesion.setText("Registrarse");
+                    
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     
 }
