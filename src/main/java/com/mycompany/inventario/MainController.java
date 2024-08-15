@@ -99,12 +99,17 @@ public class MainController extends conexion implements Initializable {
         
          try {
             if (btnSesion.getText().equals("Registrarse")) {
-                App.setRoot("loginAdmi");  // Cambia a la ventana de registro
+                
+                App.setRoot("loginAdmi");
+                
             } else if (btnSesion.getText().equals("Iniciar Sesión")) {
-                App.setRoot("login");  // Cambia a la ventana de inicio de sesión
+                
+                App.setRoot("login");
             }
         } catch (IOException ex) {
+            
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
     
