@@ -16,8 +16,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -97,18 +102,13 @@ public class MainController extends conexion implements Initializable {
     @FXML
     private void Sesion(ActionEvent event) {
         
-         try {
-            if (btnSesion.getText().equals("Registrarse")) {
-                
-                App.setRoot("loginAdmi");
-                
-            } else if (btnSesion.getText().equals("Iniciar Sesión")) {
-                
-                App.setRoot("login");
-            }
-        } catch (IOException ex) {
+        if (btnSesion.getText().equals("Registrarse")) {
             
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            abrirformularios("loginAdmi.fxml", "");
+            
+        } else if (btnSesion.getText().equals("Iniciar Sesión")) {
+            
+            abrirformularios("login.fxml", "");
             
         }
     }
@@ -140,6 +140,47 @@ public class MainController extends conexion implements Initializable {
         }
     }
     
+    public void abrirformularios(String fxml, String titulo){
+        
+        try {
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            
+            Parent root = loader.load();
+            
+            if (fxml.equals("loginAdmi.fxml")) {
+                LoginAdmiController controller = loader.getController();
+                controller.setMainController(this); // Pasar la referencia del MainController
+            }
+            
+            Stage stage = new Stage();
+            stage.setTitle(titulo);
+            //Medidas 660, 480
+            stage.setScene(new Scene(root, 660, 480));
+            
+            //Medidas X 260 Y 60
+            stage.setX(350);
+            stage.setY(100);
+            
+            // Cargar la imagen del icono
+            Image icon = new Image(getClass().getResourceAsStream("logo_e_corner.png"));
+            // Establecer el icono de la ventana
+            stage.getIcons().add(icon);
+            
+            stage.show();
+            
+        } catch (IOException ex) {
+            
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+    }
     
+    public void actualizarBotonSesion() {
+        
+        verificarUsuario();
+        
+    }
     
 }

@@ -88,12 +88,12 @@
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <Button layoutX="154.0" layoutY="182.0" mnemonicParsing="false" onAction="#Aceptar" style="-fx-background-color: #ad1316;" text="Aceptar" textFill="WHITE">
+            <Button fx:id="btnAceptar" defaultButton="true" layoutX="154.0" layoutY="182.0" mnemonicParsing="false" onAction="#Aceptar" style="-fx-background-color: #ad1316;" text="Aceptar" textFill="WHITE">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="255.0" layoutY="182.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="btnCancelar" layoutX="255.0" layoutY="182.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>

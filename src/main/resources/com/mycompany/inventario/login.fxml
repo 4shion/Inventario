@@ -13,8 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="555.0" prefWidth="847.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.mycompany.inventario.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="555.0" prefWidth="847.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.LoginController">
    <children>
       <HBox layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="847.0" />
       <Rectangle id="menu_bar" arcHeight="5.0" arcWidth="5.0" fill="#c2a957" height="51.0" layoutX="10.0" layoutY="-19.2" stroke="#c2a957" strokeType="INSIDE" strokeWidth="0.0" width="862.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -46,7 +45,7 @@
                   <Insets top="30.0" />
                </VBox.margin>
             </Text>
-            <TextField id="txt_usuario" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="145.0">
+            <TextField id="txt_usuario" fx:id="txtUsuario" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="145.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -56,12 +55,12 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <PasswordField id="txt_contra" maxWidth="-Infinity">
+            <PasswordField id="txt_contra" fx:id="txtContra" maxWidth="-Infinity">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </PasswordField>
-            <Button id="btn_ingresar" contentDisplay="CENTER" mnemonicParsing="false" text="Ingresar">
+            <Button id="btn_ingresar" fx:id="btnIngresar" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#Ingresar" text="Ingresar">
                <font>
                   <Font name="Corbel Bold" size="13.0" />
                </font>

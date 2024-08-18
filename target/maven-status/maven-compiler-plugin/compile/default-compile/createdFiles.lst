@@ -11,8 +11,11 @@ com\mycompany\inventario\MateriaController.class
 com\mycompany\inventario\ProveedorController.class
 com\mycompany\inventario\UsuarioController.class
 com\mycompany\inventario\campos\materia.class
+com\mycompany\inventario\campos\Administrador.class
 com\mycompany\inventario\clases\sentencias.class
 com\mycompany\inventario\MainController.class
 com\mycompany\inventario\clases\alertas.class
 com\mycompany\inventario\campos\cliente.class
+com\mycompany\inventario\LoginAdmiController.class
 com\mycompany\inventario\LoginController.class
+com\mycompany\inventario\campos\Login.class

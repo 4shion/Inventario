@@ -4,10 +4,17 @@
  */
 package com.mycompany.inventario;
 
-import com.mycompany.inventario.campos.usuario;
+import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 
 /**
@@ -17,14 +24,41 @@ import javafx.fxml.Initializable;
  */
 public class LoginController implements Initializable {
 
+    @FXML
+    private TextField txtUsuario;
+    @FXML
+    private PasswordField txtContra;
+    @FXML
+    private Button btnIngresar;
+
+    Login login = new Login();
+    
+    alertas alert = new alertas();
+    
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-       
-        usuario user = new usuario();
-        
+    public void initialize(URL url, ResourceBundle rb) {        
     }    
+
+    @FXML
+    private void Ingresar(ActionEvent event) {
+        
+        login.setUsuario(txtUsuario.getText());
+        login.setContra(txtContra.getText());
+        
+        if(login.verificar()){
+
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesion iniciada correctamente");
+
+                }
+                else{
+
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Usuario y/o Contraseña incorrect");
+
+                }
+        
+    }
     
 }
