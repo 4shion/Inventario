@@ -97,8 +97,15 @@ public class MainController extends conexion implements Initializable {
     @FXML
     private void Sesion(ActionEvent event) {
         
-        
-        
+         try {
+            if (btnSesion.getText().equals("Registrarse")) {
+                App.setRoot("loginAdmi");  // Cambia a la ventana de registro
+            } else if (btnSesion.getText().equals("Iniciar Sesión")) {
+                App.setRoot("login");  // Cambia a la ventana de inicio de sesión
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void verificarUsuario() {
