@@ -4,7 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -107,41 +107,17 @@
             </Text>
             <Pane layoutX="17.0" layoutY="207.0" prefHeight="129.0" prefWidth="266.0">
                <children>
-                  <RadioButton id="radioMateriales" fx:id="radioMateriales" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" text="Materiales">
-                     <font>
-                        <Font name="Corbel" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton id="radioCliente" fx:id="radioCliente" layoutX="158.0" layoutY="41.0" mnemonicParsing="false" text="Cliente">
-                     <font>
-                        <Font name="Corbel" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton id="radioPedido" fx:id="radioPedidos" layoutX="14.0" layoutY="69.0" mnemonicParsing="false" text="Pedido">
-                     <font>
-                        <Font name="Corbel" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton id="radioFactura" fx:id="radioFactura" layoutX="158.0" layoutY="69.0" mnemonicParsing="false" text="Facturación">
-                     <font>
-                        <Font name="Corbel" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton id="radioProveedores" fx:id="radioProveedores" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" text="Proveedores">
-                     <font>
-                        <Font name="Corbel" size="12.0" />
-                     </font>
-                  </RadioButton>
-                  <RadioButton id="radioUsuarios" fx:id="radioUsuarios" layoutX="158.0" layoutY="97.0" mnemonicParsing="false" text="Usuarios">
-                     <font>
-                        <Font name="Corbel" size="12.0" />
-                     </font>
-                  </RadioButton>
                   <Text fill="#7e0808" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Otorgar acceso a:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Text>
+                  <CheckBox fx:id="checkMateriales" layoutX="14.0" layoutY="35.0" mnemonicParsing="false" text="Materiales" />
+                  <CheckBox fx:id="checkCliente" layoutX="128.0" layoutY="35.0" mnemonicParsing="false" text="Cliente" />
+                  <CheckBox fx:id="checkPedido" layoutX="14.0" layoutY="65.0" mnemonicParsing="false" text="Pedido" />
+                  <CheckBox fx:id="checkFacturacion" layoutX="129.0" layoutY="65.0" mnemonicParsing="false" text="Facturacion" />
+                  <CheckBox fx:id="checkProveedor" layoutX="14.0" layoutY="92.0" mnemonicParsing="false" text="Proveedor" />
+                  <CheckBox fx:id="checkUsuarios" layoutX="128.0" layoutY="92.0" mnemonicParsing="false" text="Usuarios" />
                </children>
             </Pane>
          </children>
@@ -168,5 +144,17 @@
             <Button id="limpiarBTN" fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
+      <Button fx:id="perfilAdmin" layoutX="664.0" layoutY="506.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Perfil de Administrador" textFill="#ad1316">
+         <font>
+            <Font name="Corbel Italic" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

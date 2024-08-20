@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 
 /**
@@ -35,6 +36,12 @@ public class LoginController implements Initializable {
     
     alertas alert = new alertas();
     
+    private MainController mainController;
+    
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -49,15 +56,18 @@ public class LoginController implements Initializable {
         login.setContra(txtContra.getText());
         
         if(login.verificar()){
-
-                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesion iniciada correctamente");
-
-                }
-                else{
-
-                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Usuario y/o Contraseña incorrect");
-
-                }
+                
+            alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión iniciada correctamente");
+            mainController.iniciar();
+            Stage stage = (Stage) btnIngresar.getScene().getWindow();
+            // Cerrar la ventana
+            stage.close();
+        }
+        else {
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Usuario y/o Contraseña incorrectos");
+            
+        }
         
     }
     

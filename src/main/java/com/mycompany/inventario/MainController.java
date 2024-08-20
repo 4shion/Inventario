@@ -153,6 +153,11 @@ public class MainController extends conexion implements Initializable {
                 controller.setMainController(this); // Pasar la referencia del MainController
             }
             
+            if (fxml.equals("login.fxml")) {
+                LoginAdmiController controller = loader.getController();
+                controller.setMainController(this); // Pasar la referencia del MainController
+            }
+            
             Stage stage = new Stage();
             stage.setTitle(titulo);
             //Medidas 660, 480
@@ -183,4 +188,9 @@ public class MainController extends conexion implements Initializable {
         
     }
     
+    public void iniciar(){
+        
+        btnSesion.setText("Cerrar sesión");
+        
+    }
 }

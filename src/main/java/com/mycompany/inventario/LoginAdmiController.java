@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 /**
@@ -44,6 +45,10 @@ public class LoginAdmiController implements Initializable {
     private Button btnCancelar;
     
     private MainController mainController;
+    @FXML
+    private PasswordField pswd;
+    @FXML
+    private PasswordField pswdVerificacion;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -74,6 +79,17 @@ public class LoginAdmiController implements Initializable {
         admi.setNombre(nombreAdmin.getText());
         admi.setCorreo(correoAdmin.getText());
         admi.setCodAdmi(codAdmin.getText());
+        if(pswd.getText().equals(pswdVerificacion.getText())) {
+            
+            admi.setCod(pswdVerificacion.getText());
+            
+        }
+        else{
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Las contraseñas no coinciden");
+            return;
+            
+        }
         
         if(admi.insertar()){
 
@@ -100,5 +116,5 @@ public class LoginAdmiController implements Initializable {
         stage.close();
         
     }
-
+    
 }

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class Administrador extends conexion {
     
-    private String cod = "";
+    private String cod;
     private int id;
     private String nombre;
     private String correo;
@@ -56,10 +56,18 @@ public class Administrador extends conexion {
     public void setCodAdmi(String codAdmi) {
         this.codAdmi = codAdmi;
     }
+
+    public String getCod() {
+        return cod;
+    }
+
+    public void setCod(String cod) {
+        this.cod = cod;
+    }
     
     public boolean insertar(){
         
-        String codAdmiEncriptado = encriptacion.hash(this.codAdmi);
+        String codEncriptado = encriptacion.hash(this.cod);
         
         String sqlUsuario = "INSERT INTO usuario (codigoAdmin, nombre, IdUsuario, correo, codigo) VALUES (?, ?, NULL, ?, ?)";
         String sqlPermisos = "INSERT INTO permisos (materiales, pedido, cliente, facturacion, proveedores, usuarios, Usuario_idUsuario) VALUES (?, ?, ?, ?, ?, ?, LAST_INSERT_ID())";
@@ -69,10 +77,10 @@ public class Administrador extends conexion {
              PreparedStatement stmPermisos = con.prepareStatement(sqlPermisos)) {
             
             // Insertar en la tabla usuario
-            stmUsuario.setString(1, codAdmiEncriptado);
+            stmUsuario.setString(1, this.codAdmi);
             stmUsuario.setString(2, this.nombre);
             stmUsuario.setString(3, this.correo);
-            stmUsuario.setString(4, this.cod);
+            stmUsuario.setString(4, codEncriptado);
             stmUsuario.executeUpdate();
             
             // Insertar en la tabla permisos

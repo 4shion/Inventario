@@ -4,11 +4,20 @@
  */
 package com.mycompany.inventario.campos;
 
+import com.mycompany.inventario.clases.conexion;
+import com.mycompany.inventario.clases.encriptacion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author User
  */
-public class Login {
+public class Login extends conexion {
     
     private String usuario;
     private String contra;
@@ -39,7 +48,30 @@ public class Login {
     
     public boolean verificar(){
         
-        return true;
+        String sql = "SELECT codigo FROM usuario WHERE nombre = ?";
+    
+        try (Connection con = getCon();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, this.usuario);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String storedHashedPassword = rs.getString("codigo");
+
+                if (encriptacion.verify(this.contra, storedHashedPassword)) {
+                    
+                    return true;
+                    
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
         
     }
     

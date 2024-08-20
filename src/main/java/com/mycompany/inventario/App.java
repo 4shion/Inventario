@@ -23,6 +23,8 @@ public class App extends Application {
         conexion conec = new conexion();
         if(conec.getCon() != null){
             
+            //840, 615 Main
+            //660, 480 Login
             scene = new Scene(loadFXML("main"), 840, 615);
             stage.setScene(scene);
             stage.setTitle("Menú Principal");
