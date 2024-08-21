@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package com.mycompany.inventario;
+
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.proveedor;
 import com.mycompany.inventario.clases.reportes;
