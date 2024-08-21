@@ -5,41 +5,69 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: #ad1316;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.MainController">
    <children>
-      <Pane prefHeight="615.0" prefWidth="278.0" style="-fx-background-color: white;">
+      <Pane layoutX="4.0" layoutY="-37.0" prefHeight="780.0" prefWidth="1530.0" style="-fx-background-color: #ad1316;">
          <children>
-            <ImageView fitHeight="65.0" fitWidth="278.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@logo_frame-removebg-preview.png" />
-               </image>
-            </ImageView>
-            <Pane layoutX="39.0" layoutY="171.0" prefHeight="378.0" prefWidth="200.0">
+            <Pane layoutX="-5.0" layoutY="-3.0" prefHeight="856.0" prefWidth="405.0" style="-fx-background-color: white;">
                <children>
-                  <Button layoutX="25.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="51.0" prefWidth="151.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Materiales" textFill="WHITE" />
-                  <Button layoutX="25.0" layoutY="103.0" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="51.0" prefWidth="151.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Clientes" textFill="WHITE" />
-                  <Button layoutX="25.0" layoutY="171.0" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="51.0" prefWidth="151.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Pedidos" textFill="WHITE" />
-                  <Button layoutX="25.0" layoutY="241.0" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="51.0" prefWidth="151.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Proveedores" textFill="WHITE" />
-                  <Button layoutX="25.0" layoutY="306.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="51.0" prefWidth="151.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Usuarios" textFill="WHITE" />
+                  <ImageView fitHeight="169.0" fitWidth="405.0" layoutX="-7.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logo_frame-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="-19.0" layoutY="219.0" prefHeight="541.0" prefWidth="349.0">
+                     <children>
+                        <Button layoutX="123.0" layoutY="40.0" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="125.0" layoutY="140.0" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Clientes" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="123.0" layoutY="243.0" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Pedidos" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="123.0" layoutY="347.0" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Proveedores" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="121.0" layoutY="442.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Usuarios" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
-         </children>
-      </Pane>
-      <Pane layoutX="310.0" layoutY="187.0" prefHeight="205.0" prefWidth="516.0">
-         <children>
-            <ImageView fitHeight="51.0" fitWidth="334.0" layoutX="125.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@itswhatwedo.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnSesion" layoutX="220.0" layoutY="177.0" mnemonicParsing="false" onAction="#Sesion" style="-fx-background-color: white; -fx-background-radius: 120;" text="Registrarse" textFill="#ad1316" />
-            <ImageView fitHeight="105.0" fitWidth="422.0" layoutX="54.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@framing.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnSesion" layoutX="220.0" layoutY="177.0" mnemonicParsing="false" onAction="#Sesion" style="-fx-background-color: white; -fx-background-radius: 120;" text="Registrarse" textFill="#ad1316" />
+            <Pane layoutX="741.0" layoutY="190.0" prefHeight="395.0" prefWidth="516.0">
+               <children>
+                  <ImageView fitHeight="63.0" fitWidth="334.0" layoutX="89.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@itswhatwedo.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="139.0" fitWidth="526.0" layoutX="-7.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@framing.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btnSesion" layoutX="158.0" layoutY="294.0" mnemonicParsing="false" onAction="#Sesion" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 120;" text="Registrarse" textFill="#ad1316">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
