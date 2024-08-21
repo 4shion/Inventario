@@ -25,10 +25,19 @@ public class App extends Application {
             
             //840, 615 Main
             //660, 480 Login
+<<<<<<< HEAD
+            scene = new Scene(loadFXML("main"));
+=======
             //1530, 780 Full size
+<<<<<<< HEAD
             scene = new Scene(loadFXML("main"), 1530, 780);
+=======
+            scene = new Scene(loadFXML("proveedor"), 840, 615);
+>>>>>>> main
+>>>>>>> diseño
             stage.setScene(scene);
             stage.setTitle("Menú Principal");
+            stage.setMaximized(true);
             
             // Cargar la imagen del icono
             Image icon = new Image(getClass().getResourceAsStream("logo_e_corner.png"));

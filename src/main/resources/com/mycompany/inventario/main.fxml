@@ -61,7 +61,7 @@
                         <Image url="@framing.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnSesion" layoutX="158.0" layoutY="294.0" mnemonicParsing="false" onAction="#Sesion" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 120;" text="Registrarse" textFill="#ad1316">
+                  <Button fx:id="btnSesion" defaultButton="true" layoutX="158.0" layoutY="294.0" mnemonicParsing="false" onAction="#Sesion" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 120;" text="Registrarse" textFill="#ad1316">
                      <font>
                         <Font size="16.0" />
                      </font>
