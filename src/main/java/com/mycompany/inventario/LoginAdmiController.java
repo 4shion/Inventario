@@ -79,6 +79,7 @@ public class LoginAdmiController implements Initializable {
         admi.setNombre(nombreAdmin.getText());
         admi.setCorreo(correoAdmin.getText());
         admi.setCodAdmi(codAdmin.getText());
+        
         if(pswd.getText().equals(pswdVerificacion.getText())) {
             
             admi.setCod(pswdVerificacion.getText());

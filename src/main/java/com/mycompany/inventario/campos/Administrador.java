@@ -23,12 +23,6 @@ public class Administrador extends conexion {
     private String nombre;
     private String correo;
     private String codAdmi;
-    private boolean pMateriales = true;
-    private boolean pPedido = true;
-    private boolean pCliente = true;
-    private boolean pFactura = true;
-    private boolean pProveedor = true;
-    private boolean pUsuarios = true;
     
     public Administrador() {
     }
@@ -84,12 +78,12 @@ public class Administrador extends conexion {
             stmUsuario.executeUpdate();
             
             // Insertar en la tabla permisos
-            stmPermisos.setBoolean(1, pMateriales);
-            stmPermisos.setBoolean(2, pPedido);
-            stmPermisos.setBoolean(3, pCliente);
-            stmPermisos.setBoolean(4, pFactura);
-            stmPermisos.setBoolean(5, pProveedor);
-            stmPermisos.setBoolean(6, pUsuarios);
+            stmPermisos.setBoolean(1, true);
+            stmPermisos.setBoolean(2, true);
+            stmPermisos.setBoolean(3, true);
+            stmPermisos.setBoolean(4, true);
+            stmPermisos.setBoolean(5, true);
+            stmPermisos.setBoolean(6, true);
             stmPermisos.executeUpdate();
             
             return true;

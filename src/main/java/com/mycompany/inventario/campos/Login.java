@@ -58,9 +58,9 @@ public class Login extends conexion {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                String storedHashedPassword = rs.getString("codigo");
+                String ContraEncriptada = rs.getString("codigo");
 
-                if (encriptacion.verify(this.contra, storedHashedPassword)) {
+                if (encriptacion.verify(this.contra, ContraEncriptada)) {
                     
                     return true;
                     
