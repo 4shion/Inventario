@@ -39,11 +39,7 @@
                   <Image url="@framing.png" />
                </image>
             </ImageView>
-<<<<<<< HEAD
-            <Button layoutX="220.0" layoutY="177.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-background-radius: 120;" text="Registrarse" textFill="#ad1316" />
-=======
             <Button fx:id="btnSesion" layoutX="220.0" layoutY="177.0" mnemonicParsing="false" onAction="#Sesion" style="-fx-background-color: white; -fx-background-radius: 120;" text="Registrarse" textFill="#ad1316" />
->>>>>>> fccc887c7bbebca9d5da0f4291285ab512391ad2
          </children>
       </Pane>
    </children>

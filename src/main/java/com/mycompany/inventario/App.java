@@ -25,7 +25,7 @@ public class App extends Application {
             
             //840, 615 Main
             //660, 480 Login
-            scene = new Scene(loadFXML("main"), 840, 615);
+            scene = new Scene(loadFXML("main"), 1530, 780);
             stage.setScene(scene);
             stage.setTitle("Menú Principal");
             

@@ -18,34 +18,41 @@
 
 <AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.ProveedorController">
    <children>
-      <Pane layoutX="401.0" layoutY="134.0" prefHeight="348.0" prefWidth="402.0" style="-fx-background-color: white;">
+      <Pane layoutX="311.0" layoutY="104.0" prefHeight="382.0" prefWidth="512.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="14.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="388.0" promptText="🔍 Busqueda" />
-            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="241.0" prefWidth="388.0">
+            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="62.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="388.0" promptText="🔍 Busqueda" />
+            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="274.0" prefWidth="489.0">
                <columns>
                   <TableColumn fx:id="ColumID" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="ColumNombre" prefWidth="104.0" text="Nombre" />
                   <TableColumn fx:id="ColumCorreo" prefWidth="206.4000244140625" text="Correo" />
+                  <TableColumn prefWidth="101.7999267578125" text="Teléfono" />
                </columns>
             </TableView>
-            <Button id="getReportes" layoutX="291.0" layoutY="321.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
+            <Button id="getReportes" layoutX="392.0" layoutY="343.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="114.0" layoutY="149.0" prefHeight="274.0" prefWidth="186.0" style="-fx-background-color: white;">
+      <Pane layoutX="103.0" layoutY="150.0" prefHeight="274.0" prefWidth="186.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="txtNombre" layoutX="19.0" layoutY="86.0" />
-            <TextField fx:id="txtCorreo" layoutX="19.0" layoutY="155.0" />
+            <TextField fx:id="txtNombre" layoutX="19.0" layoutY="53.0" />
+            <TextField fx:id="txtCorreo" layoutX="19.0" layoutY="122.0" />
             <TextField fx:id="txtId" disable="true" editable="false" layoutX="19.0" layoutY="28.0" visible="false" />
-            <Text layoutX="19.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+            <Text layoutX="19.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
                <font>
                   <Font name="Corbel" size="12.0" />
                </font>
             </Text>
-            <Text layoutX="19.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
+            <Text layoutX="19.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
                <font>
                   <Font name="Corbel" size="12.0" />
                </font>
             </Text>
+            <Text layoutX="19.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de teléfono:">
+               <font>
+                  <Font name="Corbel" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="telefonoProveedor" layoutX="19.0" layoutY="197.0" />
          </children>
       </Pane>
       <Pane layoutX="40.0" layoutY="513.0" prefHeight="42.0" prefWidth="770.0" style="-fx-background-color: white;">
