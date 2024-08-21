@@ -26,7 +26,7 @@
                   <TableColumn fx:id="ColumID" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="ColumNombre" prefWidth="104.0" text="Nombre" />
                   <TableColumn fx:id="ColumCorreo" prefWidth="206.4000244140625" text="Correo" />
-                  <TableColumn prefWidth="101.7999267578125" text="Teléfono" />
+                  <TableColumn fx:id="ColumTelefono" prefWidth="101.7999267578125" text="Teléfono" />
                </columns>
             </TableView>
             <Button id="getReportes" layoutX="392.0" layoutY="343.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
@@ -52,7 +52,7 @@
                   <Font name="Corbel" size="12.0" />
                </font>
             </Text>
-            <TextField fx:id="telefonoProveedor" layoutX="19.0" layoutY="197.0" />
+            <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="197.0" />
          </children>
       </Pane>
       <Pane layoutX="40.0" layoutY="513.0" prefHeight="42.0" prefWidth="770.0" style="-fx-background-color: white;">
@@ -60,7 +60,7 @@
             <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
             <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
             <Button fx:id="btnEliminar" layoutX="165.0" layoutY="8.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
-            <Button fx:id="btnGuardar" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
+            <Button fx:id="btnGuardar" defaultButton="true" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
             <Button fx:id="btnCancelar" layoutX="702.0" layoutY="9.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
             <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>

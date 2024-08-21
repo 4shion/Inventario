@@ -75,6 +75,10 @@ public class ClienteController implements Initializable {
     private TextField txtId;
     
     alertas alert = new alertas();
+    @FXML
+    private TextField txtTelefono;
+    @FXML
+    private TableColumn<cliente, String> ColumTelefono;
 
     /**
      * Initializes the controller class.
@@ -84,6 +88,7 @@ public class ClienteController implements Initializable {
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
+        txtTelefono.setDisable(true);
         
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
@@ -98,6 +103,7 @@ public class ClienteController implements Initializable {
         
         txtNombre.setDisable(false);
         txtCorreo.setDisable(false);
+        txtTelefono.setDisable(false);
         
         btnGuardar.setDisable(false);
         btnCancelar.setDisable(false);
@@ -112,6 +118,7 @@ public class ClienteController implements Initializable {
         
        txtNombre.setDisable(false);
        txtCorreo.setDisable(false);
+       txtTelefono.setDisable(false);
         
        btnEliminar.setDisable(true);
        btnNuevo.setDisable(true);
@@ -164,6 +171,7 @@ public class ClienteController implements Initializable {
         
         txtCorreo.clear();
         txtNombre.clear();
+        txtTelefono.clear();
         
         mostrardatos();
         
@@ -172,8 +180,15 @@ public class ClienteController implements Initializable {
     @FXML
     private void Guardar(ActionEvent event) {
         
+        String telefono = txtTelefono.getText();
+        if (!telefono.matches("\\d+")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "El número de teléfono solo puede contener números.");
+            return;
+        }
+        
         one.setNombre(txtNombre.getText());
         one.setCorreo(txtCorreo.getText());
+        one.setTelefono(txtTelefono.getText());
         
         if(modificar){
             
@@ -210,6 +225,7 @@ public class ClienteController implements Initializable {
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
+        txtTelefono.setDisable(true);
         
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
@@ -222,6 +238,7 @@ public class ClienteController implements Initializable {
         
         txtNombre.clear();
         txtCorreo.clear();
+        txtTelefono.clear();
         
         modificar = false;
         
@@ -242,9 +259,12 @@ public class ClienteController implements Initializable {
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
+        txtTelefono.setDisable(true);
         
         txtNombre.clear();
         txtCorreo.clear();
+        txtTelefono.clear();
+                
         txtBusqueda.clear();
         
         modificar = false;
@@ -256,17 +276,20 @@ public class ClienteController implements Initializable {
         
         txtNombre.clear();
         txtCorreo.clear();
+        txtTelefono.clear();
+        
         txtBusqueda.clear();
         
     }
     
     public void mostrardatos(){
         
-    lista = FXCollections.observableArrayList(one.consulta());
-    ColumID.setCellValueFactory(new PropertyValueFactory<>("id"));
-    ColumNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-    ColumCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
-    table.setItems(lista);    
+        lista = FXCollections.observableArrayList(one.consulta());
+        ColumID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ColumNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        ColumCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+        ColumTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        table.setItems(lista);    
         
     }
 
@@ -277,6 +300,7 @@ public class ClienteController implements Initializable {
         txtNombre.setText(one.getNombre());
         txtCorreo.setText(one.getCorreo());
         txtId.setText(String.valueOf(one.getId()));
+        txtTelefono.setText(one.getTelefono());
         
         btnModificar.setDisable(false);
         btnEliminar.setDisable(false);
@@ -284,6 +308,7 @@ public class ClienteController implements Initializable {
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
+        txtTelefono.setDisable(true);
         
         btnNuevo.setDisable(true);
         
