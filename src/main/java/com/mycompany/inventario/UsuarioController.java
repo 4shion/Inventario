@@ -4,11 +4,14 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +30,7 @@ public class UsuarioController implements Initializable {
 
 
     @FXML
-    private TableView<?> table;
+    private TableView<usuario> table;
     @FXML
     private Button btnNuevo;
     @FXML
@@ -49,11 +52,11 @@ public class UsuarioController implements Initializable {
     @FXML
     private TextField txtCorreo;
     @FXML
-    private TableColumn<?, ?> columId;
+    private TableColumn<usuario, Integer> columId;
     @FXML
-    private TableColumn<?, ?> columNombre;
+    private TableColumn<usuario, String> columNombre;
     @FXML
-    private TableColumn<?, ?> columCorreo;
+    private TableColumn<usuario, String> columCorreo;
     @FXML
     private TextField txtBusqueda;
     @FXML
@@ -70,6 +73,12 @@ public class UsuarioController implements Initializable {
     private CheckBox checkUsuarios;
     @FXML
     private Button perfilAdmin;
+    
+    ObservableList<usuario> listaFiltrada;
+    ObservableList<usuario> listaUsuario;
+    
+    usuario one = new usuario();
+    
     /**
      * Initializes the controller class.
      */
@@ -182,10 +191,42 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void Busqueda(ActionEvent event) {
+        
+       listaFiltrada = FXCollections.observableArrayList();
+       String buscar = txtBusqueda.getText();
+        if(buscar.isEmpty()){
+            
+            table.setItems(listaUsuario);
+            
+        }
+        else{
+            
+            listaFiltrada.clear();
+            for (usuario listasUsuarios : listaUsuario) {
+                
+                if(listasUsuarios.getNombre().toLowerCase().contains(buscar.toLowerCase())){
+                    
+                    listaFiltrada.add(listasUsuarios);
+                    
+                }
+                
+            }
+            
+            table.setItems(listaUsuario);
+            
+        }
+        
     }
 
     @FXML
     private void swicthToAdmi(ActionEvent event) {
+        
+        try {
+            App.setRoot("perfil");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }
