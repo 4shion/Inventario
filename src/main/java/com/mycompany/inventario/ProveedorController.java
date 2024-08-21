@@ -71,6 +71,10 @@ public class ProveedorController implements Initializable {
     ObservableList<proveedor> listaFiltrada;
     
     alertas alert = new alertas();
+    @FXML
+    private TableColumn<proveedor, String> ColumTelefono;
+    @FXML
+    private TextField txtTelefono;
 
     /**
      * Initializes the controller class.
@@ -80,6 +84,7 @@ public class ProveedorController implements Initializable {
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
+        txtTelefono.setDisable(true);
         
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
@@ -125,6 +130,7 @@ public class ProveedorController implements Initializable {
         proveedor one = table.getSelectionModel().getSelectedItem();
         txtNombre.setText(one.getNombre());
         txtCorreo.setText(one.getCorreo());
+        txtTelefono.setText(one.getTelefono());
         txtId.setText(String.valueOf(one.getId()));
         
         btnModificar.setDisable(false);
@@ -143,6 +149,7 @@ public class ProveedorController implements Initializable {
         
         txtNombre.setDisable(false);
         txtCorreo.setDisable(false);
+        txtTelefono.setDisable(false);
         
         btnGuardar.setDisable(false);
         btnCancelar.setDisable(false);
@@ -158,6 +165,7 @@ public class ProveedorController implements Initializable {
         
        txtNombre.setDisable(false);
        txtCorreo.setDisable(false);
+       txtTelefono.setDisable(false);
         
        btnEliminar.setDisable(true);
        btnNuevo.setDisable(true);
@@ -210,6 +218,7 @@ public class ProveedorController implements Initializable {
         
         txtCorreo.clear();
         txtNombre.clear();
+        txtTelefono.clear();
         
         mostrardatos();
         
@@ -218,8 +227,15 @@ public class ProveedorController implements Initializable {
     @FXML
     private void Guardar(ActionEvent event) {
         
+        String telefono = txtTelefono.getText();
+        if (!telefono.matches("\\d+")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "El número de teléfono solo puede contener números.");
+            return;
+        }
+        
         one.setNombre(txtNombre.getText());
         one.setCorreo(txtCorreo.getText());
+        one.setTelefono(txtTelefono.getText());
         
         if(modificar){
             
@@ -266,6 +282,7 @@ public class ProveedorController implements Initializable {
         
         txtNombre.clear();
         txtCorreo.clear();
+        txtTelefono.clear();
         
         modificar = false;
         
@@ -289,6 +306,8 @@ public class ProveedorController implements Initializable {
         
         txtNombre.clear();
         txtCorreo.clear();
+        txtTelefono.clear();
+        
         txtBusqueda.clear();
         
         modificar = false;
@@ -300,6 +319,8 @@ public class ProveedorController implements Initializable {
         
         txtNombre.clear();
         txtCorreo.clear();
+        txtTelefono.clear();
+        
         txtBusqueda.clear();
         
     }
@@ -310,6 +331,7 @@ public class ProveedorController implements Initializable {
     ColumID.setCellValueFactory(new PropertyValueFactory<>("id"));
     ColumNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     ColumCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+    ColumTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
     table.setItems(lista);   
         
     }
