@@ -86,13 +86,14 @@
       </HBox>
       <Pane layoutX="90.0" layoutY="148.0" prefHeight="376.0" prefWidth="680.0">
          <children>
-            <TextArea layoutX="31.0" layoutY="30.0" prefHeight="158.0" prefWidth="200.0" />
+            <TextArea fx:id="servicioTXT" layoutX="31.0" layoutY="30.0" prefHeight="158.0" prefWidth="200.0" />
             <Text layoutX="31.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servicio realizado:">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="273.0" layoutY="30.0" />
+            <TextField fx:id="nomCliente" layoutX="273.0" layoutY="30.0" />
+            <Text layoutX="273.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del cliente:" />
          </children></Pane>
       <TextField fx:id="idPedido" layoutX="128.0" layoutY="148.0" visible="false" />
       <Text fill="#ad1316" layoutX="330.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registre los datos del pedido">
