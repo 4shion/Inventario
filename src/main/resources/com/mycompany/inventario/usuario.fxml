@@ -144,7 +144,7 @@
             <Button id="limpiarBTN" fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
-      <Button fx:id="perfilAdmin" layoutX="664.0" layoutY="506.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Perfil de Administrador" textFill="#ad1316">
+      <Button fx:id="perfilAdmin" layoutX="664.0" layoutY="506.0" mnemonicParsing="false" onAction="#swicthToAdmi" style="-fx-background-color: white;" text="Perfil de Administrador" textFill="#ad1316">
          <font>
             <Font name="Corbel Italic" size="12.0" />
          </font>

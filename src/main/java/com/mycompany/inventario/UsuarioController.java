@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -48,18 +49,6 @@ public class UsuarioController implements Initializable {
     @FXML
     private TextField txtCorreo;
     @FXML
-    private RadioButton radioMateriales;
-    @FXML
-    private RadioButton radioCliente;
-    @FXML
-    private RadioButton radioPedidos;
-    @FXML
-    private RadioButton radioFactura;
-    @FXML
-    private RadioButton radioProveedores;
-    @FXML
-    private RadioButton radioUsuarios;
-    @FXML
     private TableColumn<?, ?> columId;
     @FXML
     private TableColumn<?, ?> columNombre;
@@ -67,6 +56,20 @@ public class UsuarioController implements Initializable {
     private TableColumn<?, ?> columCorreo;
     @FXML
     private TextField txtBusqueda;
+    @FXML
+    private CheckBox checkMateriales;
+    @FXML
+    private CheckBox checkCliente;
+    @FXML
+    private CheckBox checkPedido;
+    @FXML
+    private CheckBox checkFacturacion;
+    @FXML
+    private CheckBox checkProveedor;
+    @FXML
+    private CheckBox checkUsuarios;
+    @FXML
+    private Button perfilAdmin;
     /**
      * Initializes the controller class.
      */
@@ -179,6 +182,10 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void Busqueda(ActionEvent event) {
+    }
+
+    @FXML
+    private void swicthToAdmi(ActionEvent event) {
     }
 
 }
