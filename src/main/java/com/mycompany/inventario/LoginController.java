@@ -36,12 +36,6 @@ public class LoginController implements Initializable {
     
     alertas alert = new alertas();
     
-    private MainController mainController;
-    
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
-    
     /**
      * Initializes the controller class.
      */
@@ -58,7 +52,7 @@ public class LoginController implements Initializable {
         if(login.verificar()){
                 
             alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión iniciada correctamente");
-            mainController.iniciar();
+            
             Stage stage = (Stage) btnIngresar.getScene().getWindow();
             // Cerrar la ventana
             stage.close();
