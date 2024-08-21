@@ -124,7 +124,7 @@
       </Pane>
       <Pane layoutX="422.0" layoutY="108.0" prefHeight="398.0" prefWidth="386.0">
          <children>
-            <TableView fx:id="table" layoutX="6.0" layoutY="57.0" prefHeight="335.0" prefWidth="375.0">
+            <TableView fx:id="table" layoutX="6.0" layoutY="57.0" onMouseClicked="#Click" prefHeight="335.0" prefWidth="375.0">
               <columns>
                   <TableColumn id="IDUsuario" fx:id="columId" prefWidth="43.20001220703125" text="ID" />
                   <TableColumn id="nombreUsuario" fx:id="columNombre" prefWidth="148.80007934570312" text="Nombre" />

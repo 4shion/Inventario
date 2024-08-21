@@ -4,9 +4,13 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.cliente;
 import com.mycompany.inventario.campos.usuario;
+import com.mycompany.inventario.clases.alertas;
+import com.mycompany.inventario.clases.encriptacion;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +19,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 /**
  * FXML Controller class
  *
@@ -74,17 +82,38 @@ public class UsuarioController implements Initializable {
     @FXML
     private Button perfilAdmin;
     
+    boolean modificar = false;
+    
     ObservableList<usuario> listaFiltrada;
     ObservableList<usuario> listaUsuario;
     
     usuario one = new usuario();
+    alertas alert = new alertas();
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        txtNombre.setDisable(true);
+        txtCorreo.setDisable(true);
+        txtCodigo.setDisable(true);
+        
+        checkCliente.setDisable(true);
+        checkFacturacion.setDisable(true);
+        checkMateriales.setDisable(true);
+        checkPedido.setDisable(true);
+        checkProveedor.setDisable(true);
+        checkUsuarios.setDisable(true);
+        
+        btnGuardar.setDisable(true);
+        btnCancelar.setDisable(true);
+        btnEliminar.setDisable(true);
+        btnModificar.setDisable(true);
+        perfilAdmin.setDisable(true);
+        
+        mostrardatos();
     }    
     
     @FXML
@@ -167,26 +196,244 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void Nuevo(ActionEvent event) {
+        
+        txtNombre.setDisable(false);
+        txtCorreo.setDisable(false);
+        txtCodigo.setDisable(false);
+        
+        checkCliente.setDisable(false);
+        checkFacturacion.setDisable(false);
+        checkMateriales.setDisable(false);
+        checkPedido.setDisable(false);
+        checkProveedor.setDisable(false);
+        checkUsuarios.setDisable(false);
+        
+        btnGuardar.setDisable(false);
+        btnCancelar.setDisable(false);
+        
+        btnNuevo.setDisable(true);
+        btnEliminar.setDisable(true);
+        btnModificar.setDisable(true);
+        
     }
 
     @FXML
     private void Modificar(ActionEvent event) {
+        
+       txtNombre.setDisable(false);
+       txtCorreo.setDisable(false);
+       txtCodigo.setDisable(false);
+       
+       checkCliente.setDisable(false);
+       checkFacturacion.setDisable(false);
+       checkMateriales.setDisable(false);
+       checkPedido.setDisable(false);
+       checkProveedor.setDisable(false);
+       checkUsuarios.setDisable(false);
+        
+       btnEliminar.setDisable(true);
+       btnNuevo.setDisable(true);
+       btnModificar.setDisable(true);
+       btnLimpiar.setDisable(true);
+       
+       btnGuardar.setDisable(false);
+       btnCancelar.setDisable(false);
+       
+       modificar = true;
+        
     }
 
     @FXML
     private void Eliminar(ActionEvent event) {
+        
+        btnGuardar.setDisable(true);
+        btnCancelar.setDisable(true);
+        btnEliminar.setDisable(true);
+        btnModificar.setDisable(true);
+        
+        btnNuevo.setDisable(false);
+        
+        Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta1.setTitle("Aviso");
+        alerta1.setHeaderText(null);
+        alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        Optional<ButtonType> opcion = alerta1.showAndWait();
+        
+        if(opcion.get() == ButtonType.OK){
+            
+            one.setId(Integer.parseInt(txtID.getText()));
+
+            if(one.eliminar()){
+
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
+
+                }
+                else{
+
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
+
+                }
+        } 
+        else{
+            
+            Cancelar(event);
+            
+        }
+        
+        txtCorreo.clear();
+        txtNombre.clear();
+        txtCodigo.clear();
+        
+        checkCliente.setSelected(false);
+        checkFacturacion.setSelected(false);
+        checkMateriales.setSelected(false);
+        checkPedido.setSelected(false);
+        checkProveedor.setSelected(false);
+        checkUsuarios.setSelected(false);
+        
+        mostrardatos();
+        
     }
 
     @FXML
     private void Guardar(ActionEvent event) {
+        
+        one.setNombre(txtNombre.getText());
+        one.setCodigo(txtCodigo.getText());
+        one.setCorreo(txtCorreo.getText());
+        
+        one.setPcliente(checkCliente.isSelected());
+        one.setPfactura(checkFacturacion.isSelected());
+        one.setPmateriales(checkMateriales.isSelected());
+        one.setPpedido(checkPedido.isSelected());
+        one.setPproveedor(checkProveedor.isSelected());
+        one.setPusuarios(checkUsuarios.isSelected());
+        
+        
+        if(modificar){
+            
+            one.setId(Integer.parseInt(txtID.getText()));
+
+            
+            if(one.modificar()){
+                
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                
+            }
+            else{
+                
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido modificado correctamente");
+
+                
+            }
+            
+        }
+        else{
+        
+            if(one.insertar()){
+
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+
+            }
+            else{
+
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
+
+            }
+            
+        }
+        
+        txtNombre.setDisable(true);
+        txtCorreo.setDisable(true);
+        txtCodigo.setDisable(true);
+        
+        checkCliente.setDisable(true);
+        checkFacturacion.setDisable(true);
+        checkMateriales.setDisable(true);
+        checkPedido.setDisable(true);
+        checkProveedor.setDisable(true);
+        checkUsuarios.setDisable(true);
+        
+        btnGuardar.setDisable(true);
+        btnCancelar.setDisable(true);
+        btnEliminar.setDisable(true);
+        btnModificar.setDisable(true);
+        
+        btnNuevo.setDisable(false);
+        btnLimpiar.setDisable(false);
+
+        checkCliente.setSelected(false);
+        checkFacturacion.setSelected(false);
+        checkMateriales.setSelected(false);
+        checkPedido.setSelected(false);
+        checkProveedor.setSelected(false);
+        checkUsuarios.setSelected(false);
+        
+        txtNombre.clear();
+        txtCorreo.clear();
+        txtCodigo.clear();
+        
+        modificar = false;
+        
+        mostrardatos();
+        
     }
 
     @FXML
     private void Cancelar(ActionEvent event) {
+        
+        btnGuardar.setDisable(true);
+        btnCancelar.setDisable(true);
+        btnModificar.setDisable(true);
+        btnEliminar.setDisable(true);
+        
+        btnNuevo.setDisable(false);        
+        btnLimpiar.setDisable(false);        
+        
+        txtNombre.setDisable(true);
+        txtCorreo.setDisable(true);
+        txtCodigo.setDisable(true);
+        
+        checkCliente.setDisable(true);
+        checkFacturacion.setDisable(true);
+        checkMateriales.setDisable(true);
+        checkPedido.setDisable(true);
+        checkProveedor.setDisable(true);
+        checkUsuarios.setDisable(true);
+        
+        txtNombre.clear();
+        txtCorreo.clear();
+        txtCodigo.clear();
+        
+        checkCliente.setSelected(false);
+        checkFacturacion.setSelected(false);
+        checkMateriales.setSelected(false);
+        checkPedido.setSelected(false);
+        checkProveedor.setSelected(false);
+        checkUsuarios.setSelected(false);
+        
+        txtBusqueda.clear();
+        
+        modificar = false;
+        
     }
 
     @FXML
     private void Limpiar(ActionEvent event) {
+        
+        txtNombre.clear();
+        txtCorreo.clear();
+        txtCodigo.clear();
+        
+        checkCliente.setSelected(false);
+        checkFacturacion.setSelected(false);
+        checkMateriales.setSelected(false);
+        checkPedido.setSelected(false);
+        checkProveedor.setSelected(false);
+        checkUsuarios.setSelected(false);
+        
+        txtBusqueda.clear();
+        
     }
 
     @FXML
@@ -226,6 +473,44 @@ public class UsuarioController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+    
+    public void mostrardatos(){
+        
+    listaUsuario = FXCollections.observableArrayList(one.consulta());
+    columId.setCellValueFactory(new PropertyValueFactory<>("id"));
+    columNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+    columCorreo.setCellValueFactory(new PropertyValueFactory<>("Correo"));
+    table.setItems(listaUsuario);    
+        
+    }
+
+    @FXML
+    private void Click(MouseEvent event) {
+        
+        usuario one = table.getSelectionModel().getSelectedItem();
+        txtNombre.setText(one.getNombre());
+        txtCorreo.setText(one.getCorreo());
+        txtID.setText(String.valueOf(one.getId()));
+        
+        checkCliente.setSelected(one.isPcliente());
+        checkFacturacion.setSelected(one.isPfactura());
+        checkMateriales.setSelected(one.isPmateriales());
+        checkPedido.setSelected(one.isPpedido());
+        checkProveedor.setSelected(one.isPproveedor());
+        checkUsuarios.setSelected(one.isPusuarios());
+        System.out.println(one.isPcliente());
+        
+        btnModificar.setDisable(false);
+        btnEliminar.setDisable(false);
+        btnCancelar.setDisable(false);
+        
+        txtNombre.setDisable(true);
+        txtCorreo.setDisable(true);
+        txtCodigo.setDisable(true);
+        
+        btnNuevo.setDisable(true);
         
     }
 
