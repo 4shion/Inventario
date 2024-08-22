@@ -25,12 +25,7 @@ public class App extends Application {
             
             //840, 615 Main
             //660, 480 Login
-<<<<<<< HEAD
-            scene = new Scene(loadFXML("main"));
-=======
-            //1530, 780 Full size
-            scene = new Scene(loadFXML("proveedor"), 840, 615);
->>>>>>> main
+            scene = new Scene(loadFXML("main"), 1530, 780);
             stage.setScene(scene);
             stage.setTitle("Menú Principal");
             stage.setMaximized(true);

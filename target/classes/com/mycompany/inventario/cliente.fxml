@@ -24,15 +24,10 @@
             <TableView fx:id="table" focusTraversable="false" layoutX="83.0" layoutY="56.0" onMouseClicked="#click" prefHeight="414.0" prefWidth="703.0">
               <columns>
                   <TableColumn fx:id="ColumID" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
-<<<<<<< HEAD
+
                 <TableColumn fx:id="ColumNombre" prefWidth="224.800048828125" text="Nombre" />
                 <TableColumn fx:id="ColumCorreo" prefWidth="254.39990234375" text="Correo" />
                   <TableColumn fx:id="ColumTelefono" prefWidth="147.20001220703125" text="Teléfono" />
-=======
-                <TableColumn fx:id="ColumNombre" prefWidth="129.60006713867188" text="Nombre" />
-                <TableColumn fx:id="ColumCorreo" prefWidth="179.2000732421875" text="Correo" />
-                  <TableColumn fx:id="ColumTelefono" prefWidth="104.5999755859375" text="Teléfono" />
->>>>>>> main
               </columns>
             </TableView>
             <Button id="getReportes" layoutX="675.0" layoutY="487.0" mnemonicParsing="false" onAction="#Reportes" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
@@ -58,16 +53,11 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-<<<<<<< HEAD
             <TextField fx:id="txtTelefono" layoutX="21.0" layoutY="256.0" prefHeight="25.0" prefWidth="200.0" />
-=======
-            <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="217.0" prefHeight="25.0" prefWidth="149.0" />
->>>>>>> main
          </children>
       </Pane>
       <Pane layoutX="79.0" layoutY="676.0" prefHeight="50.0" prefWidth="1191.0" style="-fx-background-color: white;">
          <children>
-<<<<<<< HEAD
             <Button fx:id="btnNuevo" focusTraversable="false" layoutX="32.0" layoutY="13.0" mnemonicParsing="false" onAction="#Nuevo" prefWidth="90.0" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -92,14 +82,6 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-=======
-            <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
-            <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
-            <Button fx:id="btnEliminar" layoutX="165.0" layoutY="8.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
-            <Button fx:id="btnGuardar" defaultButton="true" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="716.0" layoutY="8.0" mnemonicParsing="false" onAction="#Cancelar" prefWidth="75.0" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
-            <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="308.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
->>>>>>> main
          </children>
       </Pane>
       <HBox id="menuBar" layoutX="40.0" layoutY="37.0" prefHeight="58.0" prefWidth="816.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -119,9 +101,6 @@
             <ButtonBar prefHeight="58.0" prefWidth="903.0">
                <buttons>
                   <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor>
                      <effect>
                         <Blend />
                      </effect>
@@ -175,5 +154,12 @@
             <Insets />
          </opaqueInsets>
       </HBox>
+      <Pane layoutX="1330.0" layoutY="160.0" prefHeight="428.0" prefWidth="200.0">
+         <children>
+            <Button layoutX="42.0" layoutY="62.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-radius: 100;" text="Perfil de Administrador" />
+            <Button layoutX="42.0" layoutY="178.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-radius: 100;" text="Gestor de contraseñas" />
+            <Button layoutX="42.0" layoutY="291.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-radius: 100;" text="Cerrar sesion" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
