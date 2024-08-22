@@ -24,7 +24,10 @@
             <TableView fx:id="table" focusTraversable="false" layoutX="83.0" layoutY="56.0" onMouseClicked="#click" prefHeight="414.0" prefWidth="703.0">
               <columns>
                   <TableColumn fx:id="ColumID" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
                 <TableColumn fx:id="ColumNombre" prefWidth="224.800048828125" text="Nombre" />
                 <TableColumn fx:id="ColumCorreo" prefWidth="254.39990234375" text="Correo" />
                   <TableColumn fx:id="ColumTelefono" prefWidth="147.20001220703125" text="Teléfono" />

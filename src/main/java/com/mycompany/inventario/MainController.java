@@ -4,7 +4,10 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
+import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -20,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -33,6 +37,14 @@ public class MainController extends conexion implements Initializable {
 
     @FXML
     private Button btnSesion;
+    
+    private boolean sesionIniciada = false;
+    
+    private boolean Admi = false;
+    
+    alertas alert = new alertas();
+    Login login = new Login();
+    permisos p = new permisos();
 
     /**
      * Initializes the controller class.
@@ -92,7 +104,7 @@ public class MainController extends conexion implements Initializable {
     private void switchToPedido(ActionEvent event) {
         
         try {
-            App.setRoot("pedido");
+                App.setRoot("pedido");
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,13 +116,18 @@ public class MainController extends conexion implements Initializable {
         
         if (btnSesion.getText().equals("Registrarse")) {
             
-            abrirformularios("loginAdmi.fxml", "");
+            abrirformularios("loginAdmi.fxml", "Registro de Administrador");
             
         } else if (btnSesion.getText().equals("Iniciar Sesión")) {
             
-            abrirformularios("login.fxml", "");
+            abrirformularios("login.fxml", "Iniciar Sesión");
+            
+        } else if (btnSesion.getText().equals("Cerrar Sesión")) {
+            
+            cerrarSesion();
             
         }
+        
     }
     
     private void verificarUsuario() {
@@ -149,13 +166,15 @@ public class MainController extends conexion implements Initializable {
             Parent root = loader.load();
             
             if (fxml.equals("loginAdmi.fxml")) {
+                
                 LoginAdmiController controller = loader.getController();
-                controller.setMainController(this); // Pasar la referencia del MainController
-            }
-            
-            if (fxml.equals("login.fxml")) {
-                LoginAdmiController controller = loader.getController();
-                controller.setMainController(this); // Pasar la referencia del MainController
+                controller.setMainController(this);
+                
+            } else if (fxml.equals("login.fxml")) {
+                
+                LoginController controller = loader.getController();
+                controller.setMainController(this);
+                
             }
             
             Stage stage = new Stage();
@@ -188,9 +207,17 @@ public class MainController extends conexion implements Initializable {
         
     }
     
-    public void iniciar(){
+    public void iniciarSesion() {
         
-        btnSesion.setText("Cerrar sesión");
+        sesionIniciada = true;
+        btnSesion.setText("Cerrar Sesión");
+        login.setUsuario("");
         
+    }
+
+    public void cerrarSesion() {
+        sesionIniciada = false;
+        btnSesion.setText("Iniciar Sesión");
+        alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
     }
 }

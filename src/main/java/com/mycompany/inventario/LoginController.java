@@ -38,16 +38,18 @@ public class LoginController implements Initializable {
     
     private MainController mainController;
     
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
-    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
     }    
+    
+    public void setMainController(MainController mainController) {
+        
+        this.mainController = mainController;
+        
+    }
 
     @FXML
     private void Ingresar(ActionEvent event) {
@@ -58,7 +60,8 @@ public class LoginController implements Initializable {
         if(login.verificar()){
                 
             alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión iniciada correctamente");
-            mainController.iniciar();
+            mainController.iniciarSesion(); 
+            
             Stage stage = (Stage) btnIngresar.getScene().getWindow();
             // Cerrar la ventana
             stage.close();

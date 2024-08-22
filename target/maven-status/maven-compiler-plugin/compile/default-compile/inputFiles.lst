@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Acer\Desktop\Helena Arzamendia\Proyecto final CTN\Inventario este si\Inventario\src\main\java\com\mycompany\inventario\campos\usuario.java
 C:\Users\Acer\Desktop\Helena Arzamendia\Proyecto final CTN\Inventario este si\Inventario\src\main\java\com\mycompany\inventario\clases\encriptacion.java
 C:\Users\Acer\Desktop\Helena Arzamendia\Proyecto final CTN\Inventario este si\Inventario\src\main\java\com\mycompany\inventario\clases\conexion.java
@@ -19,3 +20,27 @@ C:\Users\Acer\Desktop\Helena Arzamendia\Proyecto final CTN\Inventario este si\In
 C:\Users\Acer\Desktop\Helena Arzamendia\Proyecto final CTN\Inventario este si\Inventario\src\main\java\com\mycompany\inventario\clases\sentencias.java
 C:\Users\Acer\Desktop\Helena Arzamendia\Proyecto final CTN\Inventario este si\Inventario\src\main\java\com\mycompany\inventario\UsuarioController.java
 C:\Users\Acer\Desktop\Helena Arzamendia\Proyecto final CTN\Inventario este si\Inventario\src\main\java\com\mycompany\inventario\LoginAdmiController.java
+=======
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\MainController.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\MateriaController.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\campos\Administrador.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\clases\conexion.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\ClienteController.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\clases\alertas.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\campos\Login.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\App.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\LoginController.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\campos\cliente.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\module-info.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\campos\usuario.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\campos\proveedor.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\clases\reportes.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\LoginAdmiController.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\UsuarioController.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\campos\materia.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\clases\encriptacion.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\clases\permisos.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\PedidoController.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\clases\sentencias.java
+C:\Users\User\Documents\NetBeansProjects\Inventario\Inventario\src\main\java\com\mycompany\inventario\ProveedorController.java
+>>>>>>> main
