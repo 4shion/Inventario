@@ -4,8 +4,10 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
+import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -41,6 +43,8 @@ public class MainController extends conexion implements Initializable {
     private boolean Admi = false;
     
     alertas alert = new alertas();
+    Login login = new Login();
+    permisos p = new permisos();
 
     /**
      * Initializes the controller class.
@@ -100,7 +104,12 @@ public class MainController extends conexion implements Initializable {
     private void switchToPedido(ActionEvent event) {
         
         try {
-            App.setRoot("pedido");
+            if(p.Pedidos(login.getUsuario())){
+                App.setRoot("pedido");
+            }
+            else{
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No tienes acceso a esta ventana");
+            }
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -207,6 +216,7 @@ public class MainController extends conexion implements Initializable {
         
         sesionIniciada = true;
         btnSesion.setText("Cerrar Sesión");
+        login.setUsuario("");
         
     }
 
