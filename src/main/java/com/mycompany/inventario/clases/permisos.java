@@ -24,7 +24,6 @@ public class permisos extends conexion{
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setString(1, usuarioNombre);
-            pstmt.setString(2, tipoPermiso);
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -44,11 +43,11 @@ public class permisos extends conexion{
     }
 
     public boolean Pedidos(String usuarioNombre) {
-        return tienePermiso(usuarioNombre, "pedidos");
+        return tienePermiso(usuarioNombre, "pedido");
     }
 
     public boolean Clientes(String usuarioNombre) {
-        return tienePermiso(usuarioNombre, "clientes");
+        return tienePermiso(usuarioNombre, "cliente");
     }
 
     public boolean Facturacion(String usuarioNombre) {

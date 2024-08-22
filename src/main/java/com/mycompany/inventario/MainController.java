@@ -104,12 +104,7 @@ public class MainController extends conexion implements Initializable {
     private void switchToPedido(ActionEvent event) {
         
         try {
-            if(p.Pedidos(login.getUsuario())){
                 App.setRoot("pedido");
-            }
-            else{
-                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No tienes acceso a esta ventana");
-            }
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
