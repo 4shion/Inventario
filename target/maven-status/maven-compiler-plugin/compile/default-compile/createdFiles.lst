@@ -7,6 +7,7 @@ com\mycompany\inventario\PedidoController.class
 module-info.class
 com\mycompany\inventario\clases\encriptacion.class
 com\mycompany\inventario\campos\proveedor.class
+com\mycompany\inventario\CantidadMatController.class
 com\mycompany\inventario\MateriaController.class
 com\mycompany\inventario\ProveedorController.class
 com\mycompany\inventario\UsuarioController.class
