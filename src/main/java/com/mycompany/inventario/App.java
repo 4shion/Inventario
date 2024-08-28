@@ -29,13 +29,15 @@ public class App extends Application {
             scene = new Scene(loadFXML("main"), 1200, 700);
             stage.setScene(scene);
             stage.setTitle("Menú Principal");
-            stage.setMaximized(true);
+            stage.setResizable(false);
 
             // Cargar la imagen del icono
             Image icon = new Image(getClass().getResourceAsStream("logo_e_corner.png"));
             stage.getIcons().add(icon);
 
-            // Crear el Pane de configuración
+            Pane root = (Pane) scene.getRoot();
+            
+////           Crear el Pane de configuración
 //            Pane configuracion = new Pane();
 //            configuracion.setPrefSize(236, 439);
 //            configuracion.setStyle("-fx-background-color: #808080;");
@@ -45,10 +47,9 @@ public class App extends Application {
 //            Button botonConfig = new Button("Mostrar Configuración");
 //            botonConfig.setOnAction(e -> mostrarPane(configuracion));
 //
-//            StackPane root = (StackPane) scene.getRoot(); 
 //            root.getChildren().addAll(configuracion, botonConfig);
-//
-//            stage.show();
+
+            stage.show();
 
         } else {
 
@@ -57,14 +58,14 @@ public class App extends Application {
         }
     }
 
-    //prueba 
-    private void mostrarPane(Pane configuracion) {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(configuracion);
-        transition.setToX(0); 
-        transition.setDuration(Duration.millis(500)); 
-        transition.play();
-    }
+//    //prueba 
+//    private void mostrarPane(Pane configuracion) {
+//        TranslateTransition transition = new TranslateTransition();
+//        transition.setNode(configuracion);
+//        transition.setToX(0); 
+//        transition.setDuration(Duration.millis(500)); 
+//        transition.play();
+//    }
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
