@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +27,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -62,6 +65,10 @@ public class ProveedorController implements Initializable {
     private Button btnCancelar;
     @FXML
     private Button btnLimpiar;
+    @FXML
+    private Pane configuracion;
+    @FXML
+    private Button configButton;
     
     proveedor one = new proveedor();
     
@@ -422,6 +429,14 @@ public class ProveedorController implements Initializable {
         String titulo= "Informe de Proveedores";
         r.generarReporte(ubicacion, titulo);
         
+    }
+    
+    private void mostrarPane() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(configuracion);
+        transition.setToX(0); 
+        transition.setDuration(Duration.millis(500)); 
+        transition.play();
     }
     
 }

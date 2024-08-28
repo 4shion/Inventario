@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
@@ -16,46 +15,46 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.ProveedorController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.ProveedorController">
    <children>
-      <Pane layoutX="311.0" layoutY="104.0" prefHeight="382.0" prefWidth="512.0" style="-fx-background-color: white;">
+      <Pane layoutX="377.0" layoutY="107.0" prefHeight="466.0" prefWidth="674.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="62.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="388.0" promptText="🔍 Busqueda" />
-            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="274.0" prefWidth="489.0">
+            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="143.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="388.0" promptText="🔍 Busqueda" />
+            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="358.0" prefWidth="652.0">
                <columns>
-                  <TableColumn fx:id="ColumID" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="ColumNombre" prefWidth="104.0" text="Nombre" />
-                  <TableColumn fx:id="ColumCorreo" prefWidth="206.4000244140625" text="Correo" />
-                  <TableColumn fx:id="ColumTelefono" prefWidth="101.7999267578125" text="Teléfono" />
+                  <TableColumn fx:id="ColumID" prefWidth="60.0" text="ID" />
+                  <TableColumn fx:id="ColumNombre" prefWidth="194.4000244140625" text="Nombre" />
+                  <TableColumn fx:id="ColumCorreo" prefWidth="260.0" text="Correo" />
+                  <TableColumn fx:id="ColumTelefono" prefWidth="137.5999755859375" text="Teléfono" />
                </columns>
             </TableView>
-            <Button id="getReportes" layoutX="392.0" layoutY="343.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
+            <Button id="getReportes" layoutX="549.0" layoutY="427.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="103.0" layoutY="150.0" prefHeight="274.0" prefWidth="186.0" style="-fx-background-color: white;">
+      <Pane layoutX="113.0" layoutY="154.0" prefHeight="358.0" prefWidth="246.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="txtNombre" layoutX="19.0" layoutY="53.0" />
-            <TextField fx:id="txtCorreo" layoutX="19.0" layoutY="122.0" />
-            <TextField fx:id="txtId" disable="true" editable="false" layoutX="19.0" layoutY="28.0" visible="false" />
-            <Text layoutX="19.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+            <TextField fx:id="txtNombre" layoutX="19.0" layoutY="79.0" prefHeight="25.0" prefWidth="200.0" />
+            <TextField fx:id="txtCorreo" layoutX="20.0" layoutY="154.0" prefWidth="200.0" />
+            <TextField fx:id="txtId" disable="true" editable="false" layoutX="19.0" layoutY="48.0" visible="false" />
+            <Text layoutX="19.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
                <font>
-                  <Font name="Corbel" size="12.0" />
+                  <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <Text layoutX="19.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
+            <Text layoutX="19.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
                <font>
-                  <Font name="Corbel" size="12.0" />
+                  <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <Text layoutX="19.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de teléfono:">
+            <Text layoutX="19.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de teléfono:">
                <font>
-                  <Font name="Corbel" size="12.0" />
+                  <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="197.0" />
+            <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="230.0" prefWidth="200.0" />
          </children>
       </Pane>
-      <Pane layoutX="40.0" layoutY="513.0" prefHeight="42.0" prefWidth="770.0" style="-fx-background-color: white;">
+      <Pane layoutX="166.0" layoutY="586.0" prefHeight="42.0" prefWidth="770.0" style="-fx-background-color: white;">
          <children>
             <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
             <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
@@ -65,7 +64,7 @@
             <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
-      <HBox id="menuBar" layoutX="60.0" layoutY="57.0" prefHeight="58.0" prefWidth="816.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox id="menuBar" layoutX="10.0" layoutY="10.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button id="mainLogoButton" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #ad1316;">
                <graphic>
@@ -79,48 +78,55 @@
                   <Insets top="8.0" />
                </HBox.margin>
             </Button>
-            <ButtonBar prefHeight="58.0" prefWidth="506.0">
+            <ButtonBar prefHeight="58.0" prefWidth="700.0">
                <buttons>
                   <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor>
                      <effect>
                         <Blend />
                      </effect>
-                  </Button>
-                  <Button id="menuCliente" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Cliente" textFill="WHITE" />
-                  <Button id="menuPedido" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Pedido" textFill="WHITE" />
-                  <Button id="menuProveedor" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="103.0" style="-fx-background-color: white;" text="Proveedor" textFill="#ad1316">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="menuUsuarios" minWidth="74.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="53.0" prefWidth="106.0" style="-fx-background-color: #ad1316; -fx-border-radius: 0;" text="Usuarios" textFill="WHITE" />
-                  <Button id="menuHistorial" mnemonicParsing="false" onAction="#switchToHistorial" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Historial" textFill="WHITE" />
+                  <Button id="menuCliente" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Cliente" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuPedido" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Pedido" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuProveedor" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="65.0" prefWidth="109.0" style="-fx-background-color: white;" text="Proveedor" textFill="#ad1316">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuUsuarios" minWidth="74.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="53.0" prefWidth="106.0" style="-fx-background-color: #ad1316; -fx-border-radius: 0;" text="Usuarios" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuHistorial" mnemonicParsing="false" onAction="#switchToHistorial" prefHeight="54.0" style="-fx-background-color: #ad1316;" text="Historial" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </buttons>
-            </ButtonBar>
-            <Button id="logoutButton" mnemonicParsing="false" prefHeight="54.0" prefWidth="48.0" style="-fx-background-color: #ad1316;">
                <opaqueInsets>
-                  <Insets />
+                  <Insets left="100.0" />
                </opaqueInsets>
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets left="100.0" />
                </HBox.margin>
-               <graphic>
-                  <ImageView id="logoutIMG" fitHeight="39.0" fitWidth="53.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@logout_logo.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button id="helpButton" mnemonicParsing="false" style="-fx-background-color: #ad1316;">
+            </ButtonBar>
+            <Button id="helpButton" fx:id="configButton" mnemonicParsing="false" style="-fx-background-color: #ad1316;">
                <HBox.margin>
-                  <Insets top="13.0" />
+                  <Insets left="180.0" right="10.0" top="13.0" />
                </HBox.margin>
                <graphic>
-                  <ImageView id="helpIMG" fitHeight="27.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="helpIMG" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ayuda_logo.png" />
                      </image>
@@ -132,5 +138,6 @@
             <Insets />
          </opaqueInsets>
       </HBox>
+      <Pane fx:id="configuracion" layoutX="964.0" layoutY="58.0" prefHeight="439.0" prefWidth="236.0" />
    </children>
 </AnchorPane>
