@@ -14,11 +14,13 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -29,6 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -91,6 +95,10 @@ public class MateriaController extends App implements Initializable{
     private TextField txtCamMín;
     
     alertas alert = new alertas();
+    @FXML
+    private Pane configuracion;
+    
+    private boolean isConfigVisible = false;
 
     /**
      * Initializes the controller class.
@@ -516,6 +524,29 @@ public class MateriaController extends App implements Initializable{
         String ubicacion= "/reportes/materia.jasper";
         String titulo= "Informe de Materiales";
         r.generarReporte(ubicacion, titulo);
+        
+    }
+
+    @FXML
+    private void Config(ActionEvent event) {
+        
+        Scene currentScene = App.getScene();
+    TranslateTransition transition = new TranslateTransition(Duration.millis(300), configuracion);
+
+    if (configuracion.isVisible()) {
+        // Ocultar el Pane de configuración
+        transition.setFromX(configuracion.getTranslateX());
+        transition.setToX(currentScene.getWidth());
+        transition.setOnFinished(e -> configuracion.setVisible(false));
+    } else {
+        // Mostrar el Pane de configuración
+        configuracion.setTranslateX(currentScene.getWidth()); // Comienza fuera de la pantalla a la derecha
+        configuracion.setVisible(true);
+        transition.setFromX(currentScene.getWidth());
+        transition.setToX(currentScene.getWidth() - configuracion.getWidth()); // Termina en el borde derecho de la pantalla
+    }
+
+    transition.play();
         
     }
     

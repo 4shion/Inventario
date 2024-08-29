@@ -127,7 +127,7 @@
                   <Insets left="100.0" />
                </HBox.margin>
             </ButtonBar>
-            <Button id="helpButton" mnemonicParsing="false" style="-fx-background-color: #ad1316;">
+            <Button id="helpButton" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
                <HBox.margin>
                   <Insets left="180.0" right="10.0" top="13.0" />
                </HBox.margin>
@@ -144,5 +144,6 @@
             <Insets />
          </opaqueInsets>
       </HBox>
+      <Pane fx:id="configuracion" visible="false" layoutX="986.0" layoutY="58.0" prefHeight="350.0" prefWidth="225.0" style="-fx-background-color: red;" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

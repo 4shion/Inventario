@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Pane;
 
 /**
  * JavaFX App
@@ -35,6 +36,11 @@ public class App extends Application {
             // Establecer el icono de la ventana
             stage.getIcons().add(icon);
             
+            Pane configuracion = new Pane();
+            configuracion.setPrefSize(200, 200);
+            configuracion.setStyle("-fx-background-color: lightblue;");
+            configuracion.setTranslateX(1425);
+            
             stage.show();
             
         }
@@ -45,6 +51,10 @@ public class App extends Application {
         }
     }
 
+    public static Scene getScene() {
+        return scene;
+    }
+    
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
