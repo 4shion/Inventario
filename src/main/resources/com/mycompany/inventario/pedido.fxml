@@ -19,7 +19,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.PedidoController">
    <children>
-      <Pane layoutX="97.0" layoutY="118.0" prefHeight="550.0" prefWidth="900.0">
+      <Pane layoutX="212.0" layoutY="103.0" prefHeight="550.0" prefWidth="900.0">
          <children>
             <TextArea fx:id="servicioTXT" layoutX="36.0" layoutY="83.0" prefHeight="158.0" prefWidth="200.0" />
             <Text layoutX="36.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servicio realizado:">
