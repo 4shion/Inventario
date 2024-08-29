@@ -431,12 +431,4 @@ public class ProveedorController implements Initializable {
         
     }
     
-//    private void mostrarPane() {
-//        TranslateTransition transition = new TranslateTransition();
-//        transition.setNode(configuracion);
-//        transition.setToX(0); 
-//        transition.setDuration(Duration.millis(500)); 
-//        transition.play();
-//    }
-    
 }
