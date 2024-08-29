@@ -17,16 +17,16 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.ClienteController">
    <children>
-      <Pane layoutX="358.0" layoutY="87.0" prefHeight="526.0" prefWidth="683.0" style="-fx-background-color: white;">
+      <Pane layoutX="358.0" layoutY="87.0" prefHeight="526.0" prefWidth="748.0" style="-fx-background-color: white;">
          <children>
             <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="152.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="438.0" promptText="🔍 Busqueda" />
-            <TableView fx:id="table" focusTraversable="false" layoutX="83.0" layoutY="56.0" onMouseClicked="#click" prefHeight="429.0" prefWidth="576.0">
+            <TableView fx:id="table" focusTraversable="false" layoutX="83.0" layoutY="56.0" onMouseClicked="#click" prefHeight="429.0" prefWidth="662.0">
               <columns>
                   <TableColumn fx:id="ColumID" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
 
                 <TableColumn fx:id="ColumNombre" prefWidth="224.800048828125" text="Nombre" />
-                <TableColumn fx:id="ColumCorreo" prefWidth="254.39990234375" text="Correo" />
-                  <TableColumn fx:id="ColumTelefono" prefWidth="147.20001220703125" text="Teléfono" />
+                <TableColumn fx:id="ColumCorreo" prefWidth="220.800048828125" text="Correo" />
+                  <TableColumn fx:id="ColumTelefono" prefWidth="136.800048828125" text="Teléfono" />
               </columns>
             </TableView>
             <Button id="getReportes" layoutX="543.0" layoutY="494.0" mnemonicParsing="false" onAction="#Reportes" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE">
