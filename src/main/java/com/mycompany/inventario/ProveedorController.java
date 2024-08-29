@@ -67,8 +67,6 @@ public class ProveedorController implements Initializable {
     private Button btnLimpiar;
     @FXML
     private Pane configuracion;
-    @FXML
-    private Button configButton;
     
     proveedor one = new proveedor();
     
@@ -428,6 +426,31 @@ public class ProveedorController implements Initializable {
         String ubicacion= "/reportes/proveedor.jasper";
         String titulo= "Informe de Proveedores";
         r.generarReporte(ubicacion, titulo);
+        
+    }
+
+    @FXML
+    private void Config(ActionEvent event) {
+        
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(300), configuracion);
+        slideIn.setFromX(800); 
+        slideIn.setToX(0);
+
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(300), configuracion);
+        slideOut.setFromX(0);
+        slideOut.setToX(800);
+
+        if (configuracion.isVisible()) {
+            
+            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+            slideOut.play();
+            
+        } else {
+            
+            configuracion.setVisible(true);
+            slideIn.play();
+            
+        }
         
     }
     

@@ -121,7 +121,7 @@
                   <Insets left="100.0" />
                </HBox.margin>
             </ButtonBar>
-            <Button id="helpButton" fx:id="configButton" mnemonicParsing="false" style="-fx-background-color: #ad1316;">
+            <Button id="helpButton" fx:id="" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
                <HBox.margin>
                   <Insets left="180.0" right="10.0" top="13.0" />
                </HBox.margin>

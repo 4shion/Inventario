@@ -18,6 +18,7 @@ public class App extends Application {
 
     private static Scene scene;
     alertas alert = new alertas();
+    private static Parent root;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,7 +28,8 @@ public class App extends Application {
             //840, 615 Main
             //660, 480 Login
 
-            scene = new Scene(loadFXML("main"), 1200, 700);
+            root = (Pane) loadFXML("main");
+            scene = new Scene(root, 1200, 700);
             stage.setScene(scene);
             stage.setTitle("Menú Principal");
             stage.setResizable(false);
@@ -38,9 +40,10 @@ public class App extends Application {
             stage.getIcons().add(icon);
 
             Pane configuracion = new Pane();
-            configuracion.setPrefSize(200, 200);
+            configuracion.setPrefSize(300, 300);
             configuracion.setStyle("-fx-background-color: lightblue;");
-            configuracion.setTranslateX(1425);
+            configuracion.setTranslateX(1200);
+            ((Pane) root).getChildren().add(configuracion);
             
             stage.show();   
             
