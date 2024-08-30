@@ -21,3 +21,4 @@ com\mycompany\inventario\campos\cliente.class
 com\mycompany\inventario\LoginAdmiController.class
 com\mycompany\inventario\LoginController.class
 com\mycompany\inventario\campos\Login.class
+com\mycompany\inventario\campos\pedido.class

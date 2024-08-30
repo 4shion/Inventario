@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -79,6 +81,8 @@ public class ClienteController implements Initializable {
     private TextField txtTelefono;
     @FXML
     private TableColumn<cliente, String> ColumTelefono;
+    @FXML
+    private Button configuracion;
 
     /**
      * Initializes the controller class.
@@ -434,6 +438,31 @@ public class ClienteController implements Initializable {
         String ubicacion= "/reportes/cliente.jasper";
         String titulo= "Informe de Clientes";
         r.generarReporte(ubicacion, titulo);
+        
+    }
+
+    @FXML
+    private void Config(ActionEvent event) {
+        
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(300), configuracion);
+        slideIn.setFromX(800); 
+        slideIn.setToX(0);
+
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(300), configuracion);
+        slideOut.setFromX(0);
+        slideOut.setToX(800);
+
+        if (configuracion.isVisible()) {
+            
+            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+            slideOut.play();
+            
+        } else {
+            
+            configuracion.setVisible(true);
+            slideIn.play();
+            
+        }
         
     }
     

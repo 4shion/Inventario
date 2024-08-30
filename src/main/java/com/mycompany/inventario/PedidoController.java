@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -48,6 +50,12 @@ public class PedidoController implements Initializable {
     private Button generarFactura;
     @FXML
     private TextField idPedido;
+    @FXML
+    private Button configuracion;
+    @FXML
+    private TextField cantidadBTN;
+    @FXML
+    private Button agregarBTN;
 
     /**
      * Initializes the controller class.
@@ -157,6 +165,31 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Limpiar(ActionEvent event) {
+    }
+
+    @FXML
+    private void Config(ActionEvent event) {
+        
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(300), configuracion);
+        slideIn.setFromX(800); 
+        slideIn.setToX(0);
+
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(300), configuracion);
+        slideOut.setFromX(0);
+        slideOut.setToX(800);
+
+        if (configuracion.isVisible()) {
+            
+            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+            slideOut.play();
+            
+        } else {
+            
+            configuracion.setVisible(true);
+            slideIn.play();
+            
+        }
+        
     }
 
 }

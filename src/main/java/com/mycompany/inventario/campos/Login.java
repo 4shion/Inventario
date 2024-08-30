@@ -21,6 +21,8 @@ public class Login extends conexion {
     
     private String usuario;
     private String contra;
+    
+    private static String usuarioActual = null;
 
     public Login(String usuario, String contra) {
         this.usuario = usuario;
@@ -46,6 +48,14 @@ public class Login extends conexion {
         this.contra = contra;
     }
     
+    public static String getUsuarioActual() {
+        return usuarioActual;
+    }
+    
+    public static void cerrarSesion() {
+        usuarioActual = null;
+    }
+    
     public boolean verificar(){
         
         String sql = "SELECT codigo FROM usuario WHERE nombre = ?";
@@ -61,7 +71,8 @@ public class Login extends conexion {
                 String ContraEncriptada = rs.getString("codigo");
 
                 if (encriptacion.verify(this.contra, ContraEncriptada)) {
-                    
+
+                    usuarioActual = this.usuario;
                     return true;
                     
                 }

@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -98,8 +99,6 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private Pane configuracion;
     
-    private boolean isConfigVisible = false;
-
     /**
      * Initializes the controller class.
      */
@@ -530,23 +529,25 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private void Config(ActionEvent event) {
         
-        Scene currentScene = App.getScene();
-    TranslateTransition transition = new TranslateTransition(Duration.millis(300), configuracion);
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(300), configuracion);
+        slideIn.setFromX(800); 
+        slideIn.setToX(0);
 
-    if (configuracion.isVisible()) {
-        // Ocultar el Pane de configuración
-        transition.setFromX(configuracion.getTranslateX());
-        transition.setToX(currentScene.getWidth());
-        transition.setOnFinished(e -> configuracion.setVisible(false));
-    } else {
-        // Mostrar el Pane de configuración
-        configuracion.setTranslateX(currentScene.getWidth()); // Comienza fuera de la pantalla a la derecha
-        configuracion.setVisible(true);
-        transition.setFromX(currentScene.getWidth());
-        transition.setToX(currentScene.getWidth() - configuracion.getWidth()); // Termina en el borde derecho de la pantalla
-    }
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(300), configuracion);
+        slideOut.setFromX(0);
+        slideOut.setToX(800);
 
-    transition.play();
+        if (configuracion.isVisible()) {
+            
+            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+            slideOut.play();
+            
+        } else {
+            
+            configuracion.setVisible(true);
+            slideIn.play();
+            
+        }
         
     }
     

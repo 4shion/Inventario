@@ -67,8 +67,6 @@ public class ProveedorController implements Initializable {
     private Button btnLimpiar;
     @FXML
     private Pane configuracion;
-    @FXML
-    private Button configButton;
     
     proveedor one = new proveedor();
     
@@ -430,13 +428,30 @@ public class ProveedorController implements Initializable {
         r.generarReporte(ubicacion, titulo);
         
     }
-    
-    private void mostrarPane() {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(configuracion);
-        transition.setToX(0); 
-        transition.setDuration(Duration.millis(500)); 
-        transition.play();
+
+    @FXML
+    private void Config(ActionEvent event) {
+        
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(300), configuracion);
+        slideIn.setFromX(800); 
+        slideIn.setToX(0);
+
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(300), configuracion);
+        slideOut.setFromX(0);
+        slideOut.setToX(800);
+
+        if (configuracion.isVisible()) {
+            
+            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+            slideOut.play();
+            
+        } else {
+            
+            configuracion.setVisible(true);
+            slideIn.play();
+            
+        }
+        
     }
     
 }

@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 /**
  * FXML Controller class
  *
@@ -79,7 +81,10 @@ public class UsuarioController implements Initializable {
     private CheckBox checkProveedor;
     @FXML
     private CheckBox checkUsuarios;
+<<<<<<< HEAD
     private Button perfilAdmin;
+=======
+>>>>>>> main
     
     boolean modificar = false;
     
@@ -89,7 +94,11 @@ public class UsuarioController implements Initializable {
     usuario one = new usuario();
     alertas alert = new alertas();
     @FXML
+<<<<<<< HEAD
     private Button configButton;
+=======
+    private Button configuracion;
+>>>>>>> main
     
     /**
      * Initializes the controller class.
@@ -510,6 +519,31 @@ public class UsuarioController implements Initializable {
         txtCodigo.setDisable(true);
         
         btnNuevo.setDisable(true);
+        
+    }
+
+    @FXML
+    private void Config(ActionEvent event) {
+        
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(300), configuracion);
+        slideIn.setFromX(800); 
+        slideIn.setToX(0);
+
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(300), configuracion);
+        slideOut.setFromX(0);
+        slideOut.setToX(800);
+
+        if (configuracion.isVisible()) {
+            
+            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+            slideOut.play();
+            
+        } else {
+            
+            configuracion.setVisible(true);
+            slideIn.play();
+            
+        }
         
     }
 
