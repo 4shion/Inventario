@@ -79,7 +79,6 @@ public class UsuarioController implements Initializable {
     private CheckBox checkProveedor;
     @FXML
     private CheckBox checkUsuarios;
-    @FXML
     private Button perfilAdmin;
     
     boolean modificar = false;
@@ -89,6 +88,8 @@ public class UsuarioController implements Initializable {
     
     usuario one = new usuario();
     alertas alert = new alertas();
+    @FXML
+    private Button configButton;
     
     /**
      * Initializes the controller class.
@@ -111,7 +112,6 @@ public class UsuarioController implements Initializable {
         btnCancelar.setDisable(true);
         btnEliminar.setDisable(true);
         btnModificar.setDisable(true);
-        perfilAdmin.setDisable(true);
         
         mostrardatos();
     }    
@@ -465,7 +465,6 @@ public class UsuarioController implements Initializable {
         
     }
 
-    @FXML
     private void swicthToAdmi(ActionEvent event) {
         
         try {
