@@ -17,51 +17,41 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.ProveedorController">
    <children>
-      <Pane layoutX="377.0" layoutY="107.0" prefHeight="479.0" prefWidth="674.0" style="-fx-background-color: white;">
+      <Pane layoutX="449.0" layoutY="87.0" prefHeight="505.0" prefWidth="674.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="143.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="388.0" promptText="🔍 Busqueda" />
-            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="60.0" onMouseClicked="#click" prefHeight="372.0" prefWidth="652.0">
+            <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="107.0" layoutY="2.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="388.0" promptText="🔍 Busqueda" />
+            <TableView fx:id="table" focusTraversable="false" layoutX="14.0" layoutY="36.0" onMouseClicked="#click" prefHeight="430.0" prefWidth="575.0">
                <columns>
                   <TableColumn fx:id="ColumID" prefWidth="60.0" text="ID" />
-                  <TableColumn fx:id="ColumNombre" prefWidth="194.4000244140625" text="Nombre" />
-                  <TableColumn fx:id="ColumCorreo" prefWidth="260.0" text="Correo" />
-                  <TableColumn fx:id="ColumTelefono" prefWidth="137.5999755859375" text="Teléfono" />
+                  <TableColumn fx:id="ColumNombre" prefWidth="161.60003662109375" text="Nombre" />
+                  <TableColumn fx:id="ColumCorreo" prefWidth="227.199951171875" text="Correo" />
+                  <TableColumn fx:id="ColumTelefono" prefWidth="124.60003662109375" text="Teléfono" />
                </columns>
             </TableView>
-            <Button id="getReportes" layoutX="555.0" layoutY="453.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
+            <Button id="getReportes" layoutX="478.0" layoutY="479.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="113.0" layoutY="154.0" prefHeight="358.0" prefWidth="246.0" style="-fx-background-color: white;">
+      <Pane layoutX="125.0" layoutY="155.0" prefHeight="323.0" prefWidth="204.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="txtNombre" layoutX="19.0" layoutY="79.0" prefHeight="25.0" prefWidth="200.0" />
-            <TextField fx:id="txtCorreo" layoutX="20.0" layoutY="154.0" prefWidth="200.0" />
+            <TextField fx:id="txtNombre" layoutX="19.0" layoutY="79.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="txtCorreo" layoutX="20.0" layoutY="186.0" prefWidth="150.0" />
             <TextField fx:id="txtId" disable="true" editable="false" layoutX="19.0" layoutY="48.0" visible="false" />
             <Text layoutX="19.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <Text layoutX="19.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
+            <Text layoutX="19.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico:">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <Text layoutX="19.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de teléfono:">
+            <Text layoutX="19.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de teléfono:">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="230.0" prefWidth="200.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="113.0" layoutY="598.0" prefHeight="42.0" prefWidth="933.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="150.0">
-         <children>
-            <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
-            <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
-            <Button fx:id="btnEliminar" layoutX="165.0" layoutY="8.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
-            <Button fx:id="btnGuardar" defaultButton="true" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="858.0" layoutY="8.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
-            <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
+            <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="284.0" prefWidth="150.0" />
          </children>
       </Pane>
       <HBox id="menuBar" layoutX="10.0" layoutY="10.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -138,6 +128,15 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane fx:id="configuracion" layoutX="964.0" layoutY="58.0" prefHeight="439.0" prefWidth="236.0" />
+      <Pane layoutX="109.0" layoutY="606.0" prefHeight="42.0" prefWidth="933.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="150.0">
+         <children>
+            <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
+            <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
+            <Button fx:id="btnEliminar" layoutX="165.0" layoutY="8.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
+            <Button fx:id="btnGuardar" defaultButton="true" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
+            <Button fx:id="btnCancelar" layoutX="851.0" layoutY="8.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
+            <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
