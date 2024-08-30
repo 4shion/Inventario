@@ -142,7 +142,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane layoutX="103.0" layoutY="606.0" prefHeight="42.0" prefWidth="933.0" style="-fx-background-color: white;">
+      <Pane layoutX="103.0" layoutY="606.0" prefHeight="42.0" prefWidth="933.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="150.0">
          <children>
             <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
             <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
