@@ -18,15 +18,15 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.MateriaController">
    <children>
-      <Pane layoutX="357.0" layoutY="102.0" prefHeight="486.0" prefWidth="666.0" style="-fx-background-color: white;">
+      <Pane layoutX="368.0" layoutY="102.0" prefHeight="486.0" prefWidth="666.0" style="-fx-background-color: white;">
          <children>
             <TextField fx:id="txtBusqueda" focusTraversable="false" layoutX="102.0" layoutY="14.0" onAction="#Busqueda" prefHeight="25.0" prefWidth="470.0" promptText="🔍 Busqueda" />
             <TableView fx:id="table" focusTraversable="false" layoutX="11.0" layoutY="67.0" onMouseClicked="#Click" prefHeight="376.0" prefWidth="652.0">
                <columns>
                   <TableColumn fx:id="colId" prefWidth="56.79998779296875" text="ID" />
                   <TableColumn fx:id="colNombre" prefWidth="187.20001220703125" text="Nombre" />
-                  <TableColumn fx:id="colPrecio" prefWidth="84.0" text="Precio" />
-                  <TableColumn fx:id="colCantidad" prefWidth="78.4000244140625" text="Cantidad" />
+                  <TableColumn fx:id="colPrecio" prefWidth="96.0" text="Precio" />
+                  <TableColumn fx:id="colCantidad" prefWidth="67.20001220703125" text="Cantidad" />
                   <TableColumn fx:id="colProveedor" prefWidth="141.59991455078125" text="Proveedor" />
                   <TableColumn fx:id="colCantMin" prefWidth="105.60009765625" text="Cantidad_Min" />
                </columns>
@@ -34,7 +34,7 @@
             <Button id="getReportes" layoutX="555.0" layoutY="460.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="96.0" layoutY="588.0" prefHeight="46.0" prefWidth="931.0" style="-fx-background-color: white;">
+      <Pane layoutX="96.0" layoutY="588.0" prefHeight="46.0" prefWidth="931.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="118.39999999999986" AnchorPane.rightAnchor="150.0">
          <children>
             <Button fx:id="btnNuevo" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#Nuevo" prefHeight="25.0" prefWidth="55.0" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
             <Button fx:id="btnModificar" layoutX="78.0" layoutY="10.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
@@ -44,7 +44,7 @@
             <Button fx:id="btnLimpiar" layoutX="297.0" layoutY="11.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="76.0" layoutY="165.0" prefHeight="339.0" prefWidth="244.0" style="-fx-background-color: white;">
+      <Pane layoutX="84.0" layoutY="166.0" prefHeight="339.0" prefWidth="250.0" style="-fx-background-color: white;">
          <children>
             <TextField fx:id="txtNombre" layoutX="48.0" layoutY="55.0" />
             <TextField fx:id="txtPrecio" layoutX="48.0" layoutY="112.0" />
@@ -144,6 +144,6 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane fx:id="configuracion" visible="false" layoutX="986.0" layoutY="58.0" prefHeight="350.0" prefWidth="225.0" style="-fx-background-color: red;" AnchorPane.rightAnchor="0.0" />
+      <Pane fx:id="configuracion" layoutX="986.0" layoutY="58.0" prefHeight="350.0" prefWidth="225.0" style="-fx-background-color: red;" visible="false" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>
