@@ -111,6 +111,7 @@ public class MainController extends conexion implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(p.Pedidos(login.getUsuarioActual()));
         
     }
 
@@ -214,7 +215,6 @@ public class MainController extends conexion implements Initializable {
         
         sesionIniciada = true;
         btnSesion.setText("Cerrar Sesión");
-        login.setUsuario("");
         
     }
 
@@ -222,5 +222,6 @@ public class MainController extends conexion implements Initializable {
         sesionIniciada = false;
         btnSesion.setText("Iniciar Sesión");
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
+        login.setUsuario(null);
     }
 }

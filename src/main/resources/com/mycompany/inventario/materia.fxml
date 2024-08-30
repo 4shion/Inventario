@@ -144,6 +144,6 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane fx:id="configuracion" visible="false" layoutX="986.0" layoutY="58.0" prefHeight="350.0" prefWidth="225.0" style="-fx-background-color: red;" AnchorPane.rightAnchor="0.0" />
+      <Pane fx:id="configuracion" layoutX="986.0" layoutY="58.0" prefHeight="350.0" prefWidth="225.0" style="-fx-background-color: red;" visible="false" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>
