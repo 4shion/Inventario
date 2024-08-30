@@ -52,6 +52,10 @@ public class PedidoController implements Initializable {
     private TextField idPedido;
     @FXML
     private Button configuracion;
+    @FXML
+    private TextField cantidadBTN;
+    @FXML
+    private Button agregarBTN;
 
     /**
      * Initializes the controller class.

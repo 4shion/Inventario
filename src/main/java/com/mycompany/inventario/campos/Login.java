@@ -52,6 +52,10 @@ public class Login extends conexion {
         return usuarioActual;
     }
     
+    public static void cerrarSesion() {
+        usuarioActual = null;
+    }
+    
     public boolean verificar(){
         
         String sql = "SELECT codigo FROM usuario WHERE nombre = ?";

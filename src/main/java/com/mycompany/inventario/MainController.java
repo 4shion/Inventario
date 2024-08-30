@@ -136,28 +136,39 @@ public class MainController extends conexion implements Initializable {
     
     private void verificarUsuario() {
         
-        String sql = "SELECT COUNT(*) FROM usuario";
-        
-        try (Connection con = getCon();
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()){
+       String usuarioActual = Login.getUsuarioActual();
+       
+        if (usuarioActual != null) {
+            
+            btnSesion.setText("Cerrar Sesión");
+            sesionIniciada = true;
+            
+        } else {
+            
+            String sql = "SELECT COUNT(*) FROM usuario";
+            
+            try (Connection con = getCon();
+                 PreparedStatement pstmt = con.prepareStatement(sql);
+                 ResultSet rs = pstmt.executeQuery()) {
 
-            if (rs.next()) {
-                
-                int userCount = rs.getInt(1);
-                
-                if (userCount > 0) {
+                if (rs.next()) {
                     
-                    btnSesion.setText("Iniciar Sesión");
-                    
-                } else {
-                    
-                    btnSesion.setText("Registrarse");
+                    int userCount = rs.getInt(1);
+
+                    if (userCount > 0) {
+                        
+                        btnSesion.setText("Iniciar Sesión");
+                        
+                    } else {
+                        
+                        btnSesion.setText("Registrarse");
+                        
+                    }
                     
                 }
+            } catch (SQLException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -222,6 +233,6 @@ public class MainController extends conexion implements Initializable {
         sesionIniciada = false;
         btnSesion.setText("Iniciar Sesión");
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
-        login.setUsuario(null);
+        login.cerrarSesion();
     }
 }

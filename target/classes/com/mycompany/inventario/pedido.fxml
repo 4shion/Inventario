@@ -21,13 +21,13 @@
    <children>
       <Pane layoutX="203.0" layoutY="103.0" prefHeight="478.0" prefWidth="900.0">
          <children>
-            <TextArea fx:id="servicioTXT" layoutX="36.0" layoutY="83.0" prefHeight="158.0" prefWidth="200.0" />
+            <TextArea fx:id="TxtServicio" layoutX="36.0" layoutY="83.0" prefHeight="158.0" prefWidth="200.0" />
             <Text layoutX="36.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servicio realizado:">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="nomCliente" layoutX="36.0" layoutY="284.0" prefHeight="25.0" prefWidth="200.0" />
+            <TextField fx:id="txtNomCliente" layoutX="36.0" layoutY="284.0" prefHeight="25.0" prefWidth="200.0" />
             <Text layoutX="36.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del cliente:">
                <font>
                   <Font name="Corbel" size="14.0" />
@@ -40,7 +40,7 @@
               </columns>
             </TableView>
             <ComboBox layoutX="283.0" layoutY="14.0" prefHeight="25.0" prefWidth="344.0" promptText="Materiales" />
-            <Text fill="#ad1316" layoutX="36.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total costo materiales:">
+            <Text fx:id="txtCosto" fill="#ad1316" layoutX="36.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total costo materiales:">
                <font>
                   <Font name="Corbel" size="16.0" />
                </font>

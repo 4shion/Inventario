@@ -51,21 +51,7 @@
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-<<<<<<< HEAD
-            <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="230.0" prefWidth="200.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="113.0" layoutY="598.0" prefHeight="42.0" prefWidth="933.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="150.0">
-         <children>
-            <Button fx:id="btnNuevo" focusTraversable="false" layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onAction="#Nuevo" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
-            <Button fx:id="btnModificar" layoutX="85.0" layoutY="8.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
-            <Button fx:id="btnEliminar" layoutX="165.0" layoutY="8.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
-            <Button fx:id="btnGuardar" defaultButton="true" layoutX="235.0" layoutY="8.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="858.0" layoutY="8.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
-            <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
-=======
             <TextField fx:id="txtTelefono" layoutX="19.0" layoutY="284.0" prefWidth="150.0" />
->>>>>>> diseño
          </children>
       </Pane>
       <HBox id="menuBar" layoutX="10.0" layoutY="10.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
