@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -67,6 +69,8 @@ public class ProveedorController implements Initializable {
     private Button btnLimpiar;
     @FXML
     private Pane configuracion;
+    @FXML
+    private ImageView engranaje;
     
     proveedor one = new proveedor();
     
@@ -420,38 +424,40 @@ public class ProveedorController implements Initializable {
     }
 
     @FXML
-    private void Reporte(ActionEvent event) {
-        
-        reportes r=new reportes();
-        String ubicacion= "/reportes/proveedor.jasper";
-        String titulo= "Informe de Proveedores";
-        r.generarReporte(ubicacion, titulo);
-        
-    }
-
-    @FXML
     private void Config(ActionEvent event) {
-        
-        TranslateTransition slideIn = new TranslateTransition(Duration.millis(300), configuracion);
+
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), configuracion);
         slideIn.setFromX(800); 
         slideIn.setToX(0);
 
-        TranslateTransition slideOut = new TranslateTransition(Duration.millis(300), configuracion);
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), configuracion);
         slideOut.setFromX(0);
         slideOut.setToX(800);
+        
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(350), engranaje);
 
         if (configuracion.isVisible()) {
-            
+
             slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
             slideOut.play();
-            
+
+            rotateTransition.setByAngle(60); 
+            rotateTransition.setCycleCount(1); 
+            rotateTransition.setAutoReverse(false); 
+
+            rotateTransition.playFromStart();
+
         } else {
-            
+
             configuracion.setVisible(true);
             slideIn.play();
-            
-        }
-        
+            rotateTransition.setByAngle(-60); 
+            rotateTransition.setCycleCount(1); 
+            rotateTransition.setAutoReverse(false); 
+
+            rotateTransition.playFromStart();
+
+        } 
     }
     
 }

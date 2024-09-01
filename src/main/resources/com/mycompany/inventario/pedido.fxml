@@ -17,9 +17,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.PedidoController">
+<AnchorPane id="AnchorPane" maxWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.PedidoController">
    <children>
-      <Pane layoutX="203.0" layoutY="103.0" prefHeight="478.0" prefWidth="900.0">
+      <Pane layoutX="203.0" layoutY="121.0" prefHeight="478.0" prefWidth="900.0">
          <children>
             <TextArea fx:id="TxtServicio" layoutX="36.0" layoutY="83.0" prefHeight="158.0" prefWidth="200.0" />
             <Text layoutX="36.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servicio realizado:">
@@ -56,9 +56,16 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
+            <Pane layoutX="14.0" layoutY="433.0" prefHeight="46.0" prefWidth="223.0" style="-fx-background-color: white;">
+               <children>
+                  <Button fx:id="btnEliminar" layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
+                  <Button fx:id="btnGuardar" layoutX="83.0" layoutY="10.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
+                  <Button fx:id="btnLimpiar" layoutX="154.0" layoutY="11.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
+               </children>
+            </Pane>
          </children></Pane>
       <TextField fx:id="idPedido" layoutX="128.0" layoutY="148.0" visible="false" />
-      <HBox id="menuBar" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;">
+      <HBox id="menuBar" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Button id="mainLogoButton" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #ad1316;">
                <graphic>
@@ -115,12 +122,12 @@
                   <Insets left="100.0" />
                </HBox.margin>
             </ButtonBar>
-            <Button id="helpButton" fx:id="configuracion" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
+            <Button id="helpButton" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
                <HBox.margin>
                   <Insets left="180.0" right="10.0" top="13.0" />
                </HBox.margin>
                <graphic>
-                  <ImageView id="helpIMG" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="helpIMG" fx:id="engranaje" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ayuda_logo.png" />
                      </image>
@@ -132,14 +139,23 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane layoutX="213.0" layoutY="581.0" prefHeight="46.0" prefWidth="773.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="210.0">
+      <Pane fx:id="configuracion" layoutX="981.0" layoutY="58.0" prefHeight="304.0" prefWidth="226.0" style="-fx-background-color: rgba(89, 89, 89, 0.5); -fx-opacity: 99%;" visible="false" AnchorPane.topAnchor="58.0">
          <children>
-            <Button fx:id="btnNuevo" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#Nuevo" prefHeight="25.0" prefWidth="55.0" style="-fx-background-color: #ad1316;" text="Nuevo" textFill="WHITE" />
-            <Button fx:id="btnModificar" layoutX="78.0" layoutY="10.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE" />
-            <Button fx:id="btnEliminar" layoutX="156.0" layoutY="10.0" mnemonicParsing="false" onAction="#Eliminar" style="-fx-background-color: #ad1316;" text="Eliminar" textFill="WHITE" />
-            <Button fx:id="btnGuardar" layoutX="226.0" layoutY="10.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="711.0" layoutY="10.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE" />
-            <Button fx:id="btnLimpiar" layoutX="297.0" layoutY="11.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
+            <Button layoutX="11.0" layoutY="208.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Manual de Usuario" textFill="WHITE">
+               <font>
+                  <Font name="Corbel Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="11.0" layoutY="112.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Gestor de Contraseñas" textFill="WHITE">
+               <font>
+                  <Font name="Corbel Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
+               <font>
+                  <Font name="Corbel Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>

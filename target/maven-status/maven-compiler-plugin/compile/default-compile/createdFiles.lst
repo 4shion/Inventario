@@ -2,12 +2,12 @@ com\mycompany\inventario\campos\usuario.class
 com\mycompany\inventario\clases\conexion.class
 com\mycompany\inventario\ClienteController.class
 com\mycompany\inventario\App.class
+com\mycompany\inventario\HistorialController.class
 com\mycompany\inventario\clases\reportes.class
 com\mycompany\inventario\PedidoController.class
 module-info.class
 com\mycompany\inventario\clases\encriptacion.class
 com\mycompany\inventario\campos\proveedor.class
-com\mycompany\inventario\CantidadMatController.class
 com\mycompany\inventario\MateriaController.class
 com\mycompany\inventario\ProveedorController.class
 com\mycompany\inventario\UsuarioController.class

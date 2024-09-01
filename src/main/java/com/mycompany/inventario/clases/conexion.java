@@ -6,7 +6,9 @@ package com.mycompany.inventario.clases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -86,5 +88,31 @@ public class conexion {
     public void setContra(String contra) {
         this.contra = contra;
     }
+    
+    public ResultSet executeQuery(String query) {
+        ResultSet rs = null;
+        try {
+            Statement stmt = getCon().createStatement();
+            rs = stmt.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error ejecutando consulta: " + ex);
+        }
+        return rs;
+    }
+    
+    public int executeUpdate(String query) {
+        int result = 0;
+        try {
+            Statement stmt = getCon().createStatement();
+            result = stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error ejecutando actualización: " + ex);
+        }
+        return result;
+    }
+    
+    
     
 }
