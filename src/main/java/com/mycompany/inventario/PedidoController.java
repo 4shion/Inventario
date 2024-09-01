@@ -259,15 +259,6 @@ public class PedidoController implements Initializable {
         return precio;
     }
 
-    @FXML
-    private void switchToProveedor(ActionEvent event) {
-        try {
-            App.setRoot("proveedor");
-        } catch (IOException ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     private double calcularSubtotal() {
         double subtotal = 0.0;
         for (pedido p : table.getItems()) {
@@ -330,5 +321,16 @@ public class PedidoController implements Initializable {
         }
 
         return stockActual;
+    }
+
+    @FXML
+    private void swicthToProveedor(ActionEvent event) {
+        
+        try {
+            App.setRoot("proveedor");
+        } catch (IOException ex) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
