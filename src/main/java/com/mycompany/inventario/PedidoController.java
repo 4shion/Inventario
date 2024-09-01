@@ -4,19 +4,27 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.materia;
+import com.mycompany.inventario.campos.pedido;
+import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
@@ -26,14 +34,6 @@ import javafx.util.Duration;
  */
 public class PedidoController implements Initializable {
 
-    @FXML
-    private TextArea servicioTXT;
-    @FXML
-    private TextField nomCliente;
-    @FXML
-    private TableColumn<?, ?> material;
-    @FXML
-    private TableColumn<?, ?> cantidad;
     @FXML
     private Button btnNuevo;
     @FXML
@@ -47,22 +47,43 @@ public class PedidoController implements Initializable {
     @FXML
     private Button btnLimpiar;
     @FXML
-    private Button generarFactura;
-    @FXML
     private TextField idPedido;
     @FXML
     private Button configuracion;
     @FXML
-    private TextField cantidadBTN;
+    private TextArea TxtServicio;
     @FXML
-    private Button agregarBTN;
+    private TextField txtNomCliente;
+    @FXML
+    private TableView<pedido> table;
+    @FXML
+    private TableColumn<pedido, String> ColumMaterial;
+    @FXML
+    private TableColumn<pedido, Integer> ColumCantidad;
+    @FXML
+    private TableColumn<pedido, Integer> ColumStock;
+    @FXML
+    private ComboBox<String> CbmMateriales;
+    @FXML
+    private Text txtCosto;
+    @FXML
+    private Button BtnFactura;
+    @FXML
+    private TextField TxtCant;
+    @FXML
+    private Button BtnAgregar;
+    
+    pedido p = new pedido();
+    materia m = new materia();
+    
+    ObservableList<materia> listaMateriales;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        cargarMaterial();
     }    
     
     @FXML
@@ -189,6 +210,47 @@ public class PedidoController implements Initializable {
             slideIn.play();
             
         }
+        
+    }
+
+    @FXML
+    private void Factura(ActionEvent event) {
+        
+        reportes r=new reportes();
+        String ubicacion= "/reportes/factura.jasper";
+        String titulo= "Factura";
+        r.generarReporte(ubicacion, titulo);
+        
+    }
+
+    @FXML
+    private void Agregar(ActionEvent event) {
+    }
+    
+    private void cargarMaterial() {
+        
+        listaMateriales = FXCollections.observableArrayList(m.consulta());
+        for (materia object : listaMateriales) {
+            
+            CbmMateriales.getItems().add(object.getNombre());
+        
+        }
+
+    }
+    
+    private int buscarMaterial() {
+        
+        for (materia object : listaMateriales) {
+            
+            if (object.getNombre().contains(CbmMateriales.getSelectionModel().getSelectedItem())) {
+                
+                return object.getId();                
+                
+            }
+            
+        }  
+        
+        return 0;
         
     }
 

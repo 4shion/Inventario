@@ -344,17 +344,9 @@ public class ClienteController implements Initializable {
     private void switchToUsuarios(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/usuario.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) table.getScene().getWindow();
-            stage.setScene(new Scene(root, 840, 615));
-            
-        } 
-        catch (IOException e){
-            
-            e.printStackTrace();
-            
+            App.setRoot("usuario");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

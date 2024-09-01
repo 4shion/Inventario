@@ -32,26 +32,26 @@
                <font>
                   <Font name="Corbel" size="14.0" />
                </font></Text>
-            <TableView layoutX="282.0" layoutY="65.0" prefHeight="365.0" prefWidth="504.0">
+            <TableView fx:id="table" layoutX="282.0" layoutY="65.0" prefHeight="365.0" prefWidth="504.0">
               <columns>
-                <TableColumn fx:id="material" prefWidth="258.4000244140625" text="Material" />
-                <TableColumn fx:id="cantidad" prefWidth="127.99993896484375" text="Cantidad" />
-                  <TableColumn prefWidth="116.0001220703125" text="Stock Restante" />
+                <TableColumn fx:id="ColumMaterial" prefWidth="258.4000244140625" text="Material" />
+                <TableColumn fx:id="ColumCantidad" prefWidth="127.99993896484375" text="Cantidad" />
+                  <TableColumn fx:id="ColumStock" prefWidth="116.0001220703125" text="Stock Restante" />
               </columns>
             </TableView>
-            <ComboBox layoutX="283.0" layoutY="14.0" prefHeight="25.0" prefWidth="344.0" promptText="Materiales" />
+            <ComboBox fx:id="CbmMateriales" layoutX="283.0" layoutY="14.0" prefHeight="25.0" prefWidth="344.0" promptText="Materiales" />
             <Text fx:id="txtCosto" fill="#ad1316" layoutX="36.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total costo materiales:">
                <font>
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <Button fx:id="generarFactura" layoutX="681.0" layoutY="443.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Generar Factura" textFill="WHITE">
+            <Button fx:id="BtnFactura" layoutX="681.0" layoutY="443.0" mnemonicParsing="false" onAction="#Factura" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Generar Factura" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="cantidadBTN" layoutX="638.0" layoutY="14.0" prefHeight="25.0" prefWidth="86.0" />
-            <Button fx:id="agregarBTN" layoutX="735.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="42.0" style="-fx-background-color: grey;" text="+" textFill="WHITE">
+            <TextField fx:id="TxtCant" layoutX="638.0" layoutY="14.0" prefHeight="25.0" prefWidth="86.0" />
+            <Button fx:id="BtnAgregar" layoutX="735.0" layoutY="14.0" mnemonicParsing="false" onAction="#Agregar" prefHeight="25.0" prefWidth="42.0" style="-fx-background-color: grey;" text="+" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
