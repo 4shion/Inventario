@@ -523,6 +523,7 @@ public class MateriaController extends App implements Initializable{
         
     }
 
+    @FXML
     private void Reporte(ActionEvent event) {
         reportes r = new reportes();
         String ubicacion = "/reportes/materia.jasper";
