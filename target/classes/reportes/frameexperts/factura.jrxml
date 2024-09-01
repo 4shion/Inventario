@@ -56,11 +56,16 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
+	<parameter name="telfCliente" class="java.lang.String"/>
+	<parameter name="correoCliente" class="java.lang.String"/>
+	<parameter name="nombreCliente" class="java.lang.String"/>
+	<parameter name="subtotal" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<title>
-		<band height="196" splitType="Stretch">
+		<band height="169" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="90" width="84" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -69,11 +74,7 @@
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Bill to:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="115" width="120" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
-				<text><![CDATA[ABC Company]]></text>
+				<text><![CDATA[Cliente:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
@@ -82,66 +83,30 @@
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="0" y="130" width="120" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca"/>
-				<text><![CDATA[Company Address]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="145" width="120" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209"/>
-				<text><![CDATA[Company state1]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="160" width="120" height="15" uuid="665f25c2-8663-4951-b699-1ab863bdeb76"/>
-				<text><![CDATA[Company state 2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="145" width="120" height="15" uuid="b62092ec-9053-4f27-b387-9b25d2909a68"/>
-				<text><![CDATA[Ship state1]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="115" width="120" height="15" uuid="edbd74ac-0cbd-44c9-8a8e-ccf745191172"/>
-				<text><![CDATA[Ship name]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="90" width="84" height="25" uuid="139ebe8d-25b0-411e-986c-270015400874">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Ship to:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="160" width="120" height="15" uuid="dd52166a-1135-4931-adef-51e7972118bc"/>
-				<text><![CDATA[Ship state 2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="130" width="120" height="15" uuid="2d2f365d-7b12-4a8f-990d-ff528a2660bc"/>
-				<text><![CDATA[Ship Address]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="415" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<reportElement x="380" y="10" width="85" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Date:]]></text>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<image hAlign="Center">
-				<reportElement x="0" y="0" width="65" height="60" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
-				<imageExpression><![CDATA["invoice_logo.png"]]></imageExpression>
+				<reportElement x="0" y="0" width="80" height="70" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
+				<imageExpression><![CDATA["C:/Users/Acer/Desktop/Helena Arzamendia/Proyecto final CTN/Inventario este si/Inventario/src/main/resources/com/mycompany/inventario/logo_e_corner.png"]]></imageExpression>
 			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="465" y="30" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["INV0001"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="415" y="30" width="50" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<reportElement x="380" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Invoice #]]></text>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Nro. de Factura:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="0" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
@@ -151,47 +116,112 @@
 				<textElement>
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Your company name]]></text>
+				<text><![CDATA[Frame Experts]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
-				<text><![CDATA[Phone number, web address, ecc.]]></text>
+				<text><![CDATA[+353 1 497 1129]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
-				<text><![CDATA[Street address]]></text>
+				<text><![CDATA[18A Ranelagh]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="95" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
-				<text><![CDATA[City, street, ZIP code]]></text>
+				<text><![CDATA[Dublin, D06 T0C8, Ireland]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="145" width="100" height="15" uuid="422d4b67-de79-4c76-9f8a-09ee9aa57b88"/>
+				<textFieldExpression><![CDATA[$P{correoCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="130" width="100" height="15" uuid="b72f7474-7ab4-4874-90bc-aac92a7ec25d"/>
+				<textFieldExpression><![CDATA[$P{telfCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="115" width="100" height="15" uuid="5a6aa5bc-3ffd-46af-af4c-2802e3eecf23"/>
+				<textFieldExpression><![CDATA[$P{nombreCliente}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="20"/>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="0" width="280" height="20" uuid="c6b51245-be32-456e-b848-807e543ce131"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Servicio Realizado]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="f5f173fe-86d4-49e2-b2f8-62481e3a2881"/>
+			</line>
+			<line>
+				<reportElement x="280" y="0" width="1" height="20" uuid="573816c1-287f-4c85-89e4-19698073b918"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" uuid="2ab0b518-98df-4ff1-8633-ec8afe5876cb"/>
+			</line>
+			<line>
+				<reportElement x="420" y="0" width="1" height="20" uuid="4945f2c2-53eb-423e-8ab3-af9d23be2368"/>
+			</line>
+			<line>
+				<reportElement x="555" y="0" width="1" height="20" uuid="c0fb7f6f-7ad9-42de-814c-c625a1a9d705"/>
+			</line>
+			<staticText>
+				<reportElement x="280" y="1" width="140" height="19" uuid="b9ce6344-de75-4238-a338-55e27b5e9175"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="1" width="135" height="19" uuid="c7ae859a-95ce-40cf-8c28-a32e892147db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="8daf6436-f48c-4a55-846f-cd737f4e59b2"/>
+			</line>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="20"/>
+		<band height="53">
+			<textField>
+				<reportElement x="0" y="0" width="280" height="35" uuid="0c2b9cd1-e6dc-4889-9c6d-b267c6b5fcd8"/>
+				<textFieldExpression><![CDATA[$P{servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="140" height="35" uuid="d8ed9da1-872f-48d9-bc28-62e71db81fd9"/>
+				<textFieldExpression><![CDATA[$P{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="0" width="134" height="35" uuid="7f9954fe-ed38-4406-ae30-d7e1b7205480"/>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="177">
+		<band height="178">
 			<staticText>
-				<reportElement positionType="Float" x="-1" y="30" width="261" height="101" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36"/>
+				<reportElement positionType="Float" x="0" y="120" width="556" height="19" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36"/>
 				<box>
 					<topPen lineWidth="1.1" lineStyle="Dashed"/>
 					<leftPen lineWidth="1.1" lineStyle="Dashed"/>
 					<bottomPen lineWidth="1.1" lineStyle="Dashed"/>
 					<rightPen lineWidth="1.1" lineStyle="Dashed"/>
 				</box>
-				<text><![CDATA[Your notes here]]></text>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="0" y="147" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[THANKYOU FOR YOUR BUSINESS]]></text>
+				<text><![CDATA[GRACIAS POR SU COMPRA]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="460" y="121" width="89" height="18" uuid="763da769-b4b3-4734-b671-2584f8c37f60"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
 		</band>
 	</lastPageFooter>
 </jasperReport>

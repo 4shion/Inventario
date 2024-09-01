@@ -40,7 +40,7 @@
               </columns>
             </TableView>
             <ComboBox fx:id="CbmMateriales" layoutX="283.0" layoutY="14.0" prefHeight="25.0" prefWidth="344.0" promptText="Materiales" />
-            <Text fx:id="txtCosto" fill="#ad1316" layoutX="36.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total costo materiales:">
+            <Text fx:id="txtCosto" fill="#ad1316" layoutX="36.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal:">
                <font>
                   <Font name="Corbel" size="16.0" />
                </font>

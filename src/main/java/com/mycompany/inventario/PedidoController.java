@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.materia;
@@ -10,6 +6,7 @@ import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,11 +33,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-/**
- * FXML Controller class
- *
- * @author User
- */
 public class PedidoController implements Initializable {
 
     @FXML
@@ -71,63 +63,41 @@ public class PedidoController implements Initializable {
     private Button btnLimpiar;
     @FXML
     private TextField idPedido;
-
     @FXML
     private Pane configuracion;
-    
-    pedido p = new pedido();
-    materia m = new materia();
-    
-    ObservableList<materia> listaMateriales;
-    
     @FXML
     private ImageView engranaje;
-
     @FXML
     private TextField txtNomCliente;
 
     private TextField correoCliente;
-
     private TextField telfCliente;
-    
     private conexion conexionDB = new conexion();
+    private ObservableList<materia> listaMateriales;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        cargarMaterial();    
-        
-    }    
+        // Configurar columnas
+        ColumMaterial.setCellValueFactory(cellData -> cellData.getValue().nombreMProperty());
+        ColumCantidad.setCellValueFactory(cellData -> cellData.getValue().CantProperty().asString());
+        ColumStock.setCellValueFactory(cellData -> cellData.getValue().stockRestanteProperty().asString());
 
-    @FXML
-    private void Factura(ActionEvent event) {
-        
-        reportes report = new reportes();
-
-        Map<String, Object> parametros = new HashMap<>();
-        // parametros.put("nombreCliente", txtNomCliente.getText());
-
-        report.generarReporte("/reportes/factura.jasper", "Factura", parametros);
-        
-    }
-
-    @FXML
-    private void Agregar(ActionEvent event) {
+        cargarMaterial();
     }
 
     @FXML
     private void Eliminar(ActionEvent event) {
+        // Implementar lógica para eliminar
     }
 
     @FXML
     private void Guardar(ActionEvent event) {
+        // Implementar lógica para guardar
     }
 
     @FXML
     private void Limpiar(ActionEvent event) {
+        // Implementar lógica para limpiar
     }
 
     @FXML
@@ -186,7 +156,6 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Config(ActionEvent event) {
-        
         TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), configuracion);
         slideIn.setFromX(800);
         slideIn.setToX(0);
@@ -200,7 +169,6 @@ public class PedidoController implements Initializable {
         if (configuracion.isVisible()) {
             slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
             slideOut.play();
-
             rotateTransition.setByAngle(60);
         } else {
             configuracion.setVisible(true);
@@ -211,36 +179,24 @@ public class PedidoController implements Initializable {
         rotateTransition.setCycleCount(1);
         rotateTransition.setAutoReverse(false);
         rotateTransition.playFromStart();
-        
     }
-    
-    private void cargarMaterial() {
-        
-        listaMateriales = FXCollections.observableArrayList(m.consulta());
-        for (materia object : listaMateriales) {
-            
-            CbmMateriales.getItems().add(object.getNombre());
-        
-        }
 
-    }
-    
-    private int buscarMaterial() {
-        
+    private void cargarMaterial() {
+        listaMateriales = FXCollections.observableArrayList(new materia().consulta());
         for (materia object : listaMateriales) {
-            
-            if (object.getNombre().contains(CbmMateriales.getSelectionModel().getSelectedItem())) {
-                
-                return object.getId();                
-                
-            }
-            
-        }  
-        
-        return 0;
-        
+            CbmMateriales.getItems().add(object.getNombre());
+        }
     }
-    
+
+    private int buscarMaterial() {
+        for (materia object : listaMateriales) {
+            if (object.getNombre().equals(CbmMateriales.getSelectionModel().getSelectedItem())) {
+                return object.getId();
+            }
+        }
+        return 0;
+    }
+
     private void buscarDatosCliente() {
         String nombreCliente = txtNomCliente.getText();
         String query = "SELECT correo, telefono FROM clientes WHERE nombre = ?";
@@ -250,10 +206,8 @@ public class PedidoController implements Initializable {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String correo = rs.getString("correo");
-                String telefono = rs.getString("telefono");
-                correoCliente.setText(correo);
-                telfCliente.setText(telefono);
+                correoCliente.setText(rs.getString("correo"));
+                telfCliente.setText(rs.getString("telefono"));
             } else {
                 correoCliente.setText("");
                 telfCliente.setText("");
@@ -264,7 +218,49 @@ public class PedidoController implements Initializable {
     }
 
     @FXML
-    private void swicthToProveedor(ActionEvent event) {
+    private void Factura(ActionEvent event) {
+        reportes report = new reportes();
+        buscarDatosCliente();
+
+        double subtotal = calcularSubtotal();
+        double total = calcularTotal();
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombreCliente", txtNomCliente.getText());
+        parametros.put("correoCliente", correoCliente.getText());
+        parametros.put("telfCliente", telfCliente.getText());
+        parametros.put("servicio", TxtServicio.getText());
+        parametros.put("subtotal", subtotal);
+        parametros.put("total", total);
+
+        try {
+            report.generarReporte("/reportes/factura.jasper", "Factura", parametros);
+        } catch (Exception e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
+        }
+    }
+
+    private double obtenerPrecioMaterial(String nombreMaterial) {
+        double precio = 0.0;
+        String query = "SELECT precio FROM materiaPrima WHERE nombre = ?";
+
+        try (Connection con = conexionDB.getCon();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, nombreMaterial);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                precio = rs.getDouble("precio");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener precio del material", e);
+        }
+
+        return precio;
+    }
+
+    @FXML
+    private void switchToProveedor(ActionEvent event) {
         try {
             App.setRoot("proveedor");
         } catch (IOException ex) {
@@ -272,4 +268,67 @@ public class PedidoController implements Initializable {
         }
     }
 
+    private double calcularSubtotal() {
+        double subtotal = 0.0;
+        for (pedido p : table.getItems()) {
+            subtotal += p.getPrecio() * p.getCant();
+        }
+        txtCosto.setText(String.format("Subtotal: %.2f", subtotal));
+        return subtotal;
+    }
+
+    private double calcularTotal() {
+        double subtotal = calcularSubtotal();
+        return subtotal + (subtotal * 0.23); // 23% IVA
+    }
+
+    @FXML
+    private void Agregar(ActionEvent event) {
+        try {
+            String nombreMaterial = CbmMateriales.getSelectionModel().getSelectedItem();
+            if (nombreMaterial == null || TxtCant.getText().isEmpty()) {
+                throw new IllegalArgumentException("Debe seleccionar un material y una cantidad.");
+            }
+
+            int cantidad = Integer.parseInt(TxtCant.getText());
+            double precio = obtenerPrecioMaterial(nombreMaterial);
+            int stockActual = obtenerStockActual(nombreMaterial);
+            int stockRestante = stockActual - cantidad;
+
+            if (stockRestante < 0) {
+                throw new IllegalArgumentException("La cantidad solicitada excede el stock disponible.");
+            }
+
+            pedido nuevoPedido = new pedido(0, "", 0, 0, 0, cantidad, "", nombreMaterial, 0, precio);
+            nuevoPedido.setStockRestante(stockRestante);
+
+            table.getItems().add(nuevoPedido);
+            calcularSubtotal();
+        } catch (NumberFormatException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error en la entrada de cantidad", e);
+        } catch (IllegalArgumentException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.WARNING, e.getMessage(), e);
+        } catch (Exception e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al agregar el pedido", e);
+        }
+    }
+
+    private int obtenerStockActual(String nombreMaterial) {
+        int stockActual = 0;
+        String query = "SELECT stock FROM materiaPrima WHERE nombre_material = ?";
+
+        try (Connection con = conexionDB.getCon();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, nombreMaterial);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                stockActual = rs.getInt("stock");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener stock del material", e);
+        }
+
+        return stockActual;
+    }
 }
