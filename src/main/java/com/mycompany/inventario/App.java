@@ -24,10 +24,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         conexion conec = new conexion();
         if(conec.getCon() != null){
-            
-            //840, 615 Main
-            //660, 480 Login
-
+           
             root = (Pane) loadFXML("main");
             scene = new Scene(root, 1200, 700);
             stage.setScene(scene);
@@ -41,7 +38,6 @@ public class App extends Application {
 
             Pane configuracion = new Pane();
             configuracion.setPrefSize(300, 300);
-            configuracion.setStyle("-fx-background-color: lightblue;");
             configuracion.setTranslateX(1200);
             ((Pane) root).getChildren().add(configuracion);
             
