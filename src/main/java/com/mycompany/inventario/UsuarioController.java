@@ -4,10 +4,8 @@
  */
 package com.mycompany.inventario;
 
-import com.mycompany.inventario.campos.cliente;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
-import com.mycompany.inventario.clases.encriptacion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -25,7 +23,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;

@@ -24,12 +24,11 @@
             <TableView fx:id="table" focusTraversable="false" layoutX="11.0" layoutY="55.0" onMouseClicked="#Click" prefHeight="430.0" prefWidth="650.0">
                <columns>
                   <TableColumn fx:id="colId" prefWidth="56.79998779296875" text="ID" />
-                  <TableColumn fx:id="colNombre" prefWidth="168.80001831054688" text="Nombre" />
-                  <TableColumn fx:id="colPrecio" prefWidth="104.0" text="Precio" />
-                  <TableColumn fx:id="colCantidad" prefWidth="60.0" text="Cantidad" />
-                  <TableColumn fx:id="colProveedor" prefWidth="80.00006103515625" text="Proveedor" />
-                  <TableColumn fx:id="colCantMin" prefWidth="88.0" text="Cantidad_Min" />
-                  <TableColumn fx:id="ColumUni" prefWidth="90.0" text="Unidad Medida" />
+                  <TableColumn fx:id="colNombre" prefWidth="187.20001220703125" text="Nombre" />
+                  <TableColumn fx:id="colPrecio" prefWidth="96.0" text="Precio" />
+                  <TableColumn fx:id="colCantidad" prefWidth="67.20001220703125" text="Cantidad" />
+                  <TableColumn fx:id="colProveedor" prefWidth="141.59991455078125" text="Proveedor" />
+                  <TableColumn fx:id="colCantMin" prefWidth="97.5999755859375" text="Cantidad_Min" />
                </columns>
             </TableView>
             <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
@@ -45,7 +44,7 @@
             <Button fx:id="btnLimpiar" layoutX="297.0" layoutY="11.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="89.0" layoutY="180.0" prefHeight="382.0" prefWidth="250.0" style="-fx-background-color: white;">
+      <Pane layoutX="89.0" layoutY="180.0" prefHeight="339.0" prefWidth="250.0" style="-fx-background-color: white;">
          <children>
             <TextField fx:id="txtNombre" layoutX="48.0" layoutY="55.0" />
             <TextField fx:id="txtPrecio" layoutX="48.0" layoutY="112.0" />
@@ -69,8 +68,6 @@
                <font>
                   <Font name="Corbel" size="14.0" />
                </font></Text>
-            <Text layoutX="48.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidad de Medida:" />
-            <TextField fx:id="TxtUniMed" layoutX="48.0" layoutY="334.0" />
          </children>
       </Pane>
       <HBox id="menuBar" layoutX="10.0" layoutY="10.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

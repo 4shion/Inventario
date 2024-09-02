@@ -86,17 +86,14 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Eliminar(ActionEvent event) {
-        // Implementar lógica para eliminar
     }
 
     @FXML
     private void Guardar(ActionEvent event) {
-        // Implementar lógica para guardar
     }
 
     @FXML
     private void Limpiar(ActionEvent event) {
-        // Implementar lógica para limpiar
     }
 
     @FXML
@@ -231,6 +228,7 @@ public class PedidoController implements Initializable {
         parametros.put("servicio", TxtServicio.getText());
         parametros.put("subtotal", subtotal);
         parametros.put("total", total);
+        //parametros.put("numFactura", factNumero);
 
         try {
             report.generarReporte("/reportes/factura.jasper", "Factura", parametros);
