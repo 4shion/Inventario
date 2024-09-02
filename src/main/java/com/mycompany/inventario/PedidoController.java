@@ -30,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -80,6 +81,10 @@ public class PedidoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        ColumMaterial.setCellValueFactory(new PropertyValueFactory<>("nombreM"));
+        ColumCantidad.setCellValueFactory(new PropertyValueFactory<>("Cant"));
+        ColumStock.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         
         cargarMaterial();
     }
@@ -275,6 +280,7 @@ public class PedidoController implements Initializable {
         try {
             
             String nombreMaterial = CbmMateriales.getSelectionModel().getSelectedItem();
+            System.out.println("Nombre del material: " + nombreMaterial);
             
             //Verificación que ningun campo sea nulo
             if (nombreMaterial == null || TxtCant.getText().isEmpty()) {
@@ -282,13 +288,21 @@ public class PedidoController implements Initializable {
                 return;
             }
 
-            int cantidad = Integer.parseInt(TxtCant.getText());
+            double cantidad = Double.parseDouble(TxtCant.getText());
+            System.out.println("Cantidad: " + cantidad);
+
             double precio = obtenerPrecioMaterial(nombreMaterial);
-            int stockActual = obtenerStockActual(nombreMaterial);
-            int stockRestante = stockActual - cantidad;
+            System.out.println("Precio: " + precio);
+
+            double stockActual = obtenerStockActual(nombreMaterial);
+            System.out.println("Stock actual: " + stockActual);
+
+            double stockRestante = stockActual - cantidad;
+            System.out.println("Stock restante: " + stockRestante);
 
             if (stockRestante < 0) {
-                throw new IllegalArgumentException("La cantidad solicitada excede el stock disponible.");
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad solicitada excede la cantidad del stock");
+                return;
             }
 
             // Añade un nuevo pedido a la tabla
@@ -296,6 +310,10 @@ public class PedidoController implements Initializable {
             nuevoPedido.setStockRestante(stockRestante);
 
             table.getItems().add(nuevoPedido);
+            
+            TxtCant.clear();
+            CbmMateriales.getSelectionModel().clearSelection();
+            
             calcularSubtotal();
         } catch (NumberFormatException e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error en la entrada de cantidad", e);
@@ -306,9 +324,9 @@ public class PedidoController implements Initializable {
         }
     }
 
-    private int obtenerStockActual(String nombreMaterial) {
-        int stockActual = 0;
-        String query = "SELECT stock FROM materiaPrima WHERE nombre = ?";
+    private double obtenerStockActual(String nombreMaterial) {
+        double stockActual = 0.0;
+        String query = "SELECT cantidad FROM materiaPrima WHERE nombre = ?";
 
         try (Connection con = conexionDB.getCon();
              PreparedStatement pstmt = con.prepareStatement(query)) {
@@ -316,7 +334,7 @@ public class PedidoController implements Initializable {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                stockActual = rs.getInt("stock");
+                stockActual = rs.getInt("cantidad");
             }
         } catch (SQLException e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener stock del material", e);
