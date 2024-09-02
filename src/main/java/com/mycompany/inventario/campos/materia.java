@@ -24,15 +24,16 @@ public class materia extends conexion implements sentencias {
     private int id;
     private String nombre;
     private double precio;
-    private int cantidad;
-    private int cantidad_min;
+    private double cantidad;
+    private double cantidad_min;
     private int idProveedor;
     private String nombreproveedor;
+    private String unidadMedida;
 
     public materia() {
     }
 
-    public materia(int id, String nombre, double precio, int cantidad, int cantidad_min, String nombreproveedor, int idProveedor) {
+    public materia(int id, String nombre, double precio, double cantidad, double cantidad_min, String nombreproveedor, int idProveedor, String unidadMedida) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -40,6 +41,7 @@ public class materia extends conexion implements sentencias {
         this.cantidad_min = cantidad_min;
         this.nombreproveedor = nombreproveedor;
         this.idProveedor = idProveedor;
+        this.unidadMedida = unidadMedida;
     }
 
     public int getId() {
@@ -66,19 +68,19 @@ public class materia extends conexion implements sentencias {
         this.precio = precio;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
-    public int getCantidad_min() {
+    public double getCantidad_min() {
         return cantidad_min;
     }
 
-    public void setCantidad_min(int cantidadMin) {
+    public void setCantidad_min(double cantidadMin) {
         this.cantidad_min = cantidadMin;
     }
 
@@ -97,19 +99,28 @@ public class materia extends conexion implements sentencias {
     public void setNombreproveedor(String nombreproveedor) {
         this.nombreproveedor = nombreproveedor;
     }
+
+    public String getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(String unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
     
     @Override
     public boolean insertar() {
-        String sql="insert into materiaPrima(idMaterial,nombre,precio,cantidad,Proveedor_idProveedor,cantidad_min) values(?,?,?,?,?,?)";
+        String sql="insert into materiaPrima(idMaterial,nombre,precio,cantidad,cantidad_min,Proveedor_idProveedor,UnidadMedida) values(?,?,?,?,?,?,?)";
                 try( 
                     Connection con=getCon();
                     PreparedStatement stm=con.prepareStatement(sql)){
                     stm.setInt(1,this.id);
                     stm.setString(2,this.nombre);
                     stm.setDouble(3,this.precio);
-                    stm.setInt(4,this.cantidad);
-                    stm.setInt(5,this.idProveedor);
-                    stm.setInt(6,this.cantidad_min);
+                    stm.setDouble(4,this.cantidad);
+                    stm.setDouble(5,this.cantidad_min);
+                    stm.setInt(6,this.idProveedor);
+                    stm.setString(7,this.unidadMedida);
                     stm.executeUpdate();
                     return true;
                 } catch (SQLException ex) {
@@ -137,11 +148,12 @@ public class materia extends conexion implements sentencias {
                 int cod=rs.getInt("idMaterial");
                 String nom=rs.getString("nombre");
                 double pre=rs.getDouble("precio");
-                int cant=rs.getInt("cantidad");
+                double cant=rs.getInt("cantidad");
+                double can_min=rs.getInt("cantidad_min");
                 int Idpro=rs.getInt("Proveedor_idProveedor");
-                int can_min=rs.getInt("cantidad_min");
                 String nomPro=rs.getString("nombrep");
-                materia m=new materia(cod,nom,pre,cant,can_min,nomPro,Idpro);
+                String uni=rs.getString("UnidadMedida");
+                materia m=new materia(cod,nom,pre,cant,can_min,nomPro,Idpro,uni);
                 materia.add(m);                     
             }
             } catch (SQLException ex) {
@@ -156,17 +168,18 @@ public class materia extends conexion implements sentencias {
     @Override
     public boolean modificar() {
         
-        String sql="UPDATE materiaprima SET nombre=?,precio=?,cantidad=?,Proveedor_idProveedor=?,cantidad_min=? WHERE idMaterial=?"; 
+        String sql="UPDATE materiaprima SET nombre=?,precio=?,cantidad=?,cantidad_min=?,Proveedor_idProveedor=?,UnidadMedida=? WHERE idMaterial=?"; 
         
         try( 
                Connection con=getCon();
                PreparedStatement stm=con.prepareStatement(sql)){
                stm.setString(1,this.nombre);
                stm.setDouble(2,this.precio);
-               stm.setInt(3,this.cantidad);
-               stm.setInt(4,this.idProveedor);
-               stm.setInt(5,this.cantidad_min);
-               stm.setInt(6,this.id);
+               stm.setDouble(3,this.cantidad);
+               stm.setDouble(4,this.cantidad_min);
+               stm.setInt(5,this.idProveedor);
+               stm.setString(6,this.unidadMedida);
+               stm.setInt(7,this.id);
                stm.executeUpdate();
                return true;
                

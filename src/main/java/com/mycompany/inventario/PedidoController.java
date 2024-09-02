@@ -2,6 +2,7 @@ package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.pedido;
+import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -74,14 +76,11 @@ public class PedidoController implements Initializable {
     private TextField telfCliente;
     private conexion conexionDB = new conexion();
     private ObservableList<materia> listaMateriales;
+    alertas alert = new alertas();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Configurar columnas
-        ColumMaterial.setCellValueFactory(cellData -> cellData.getValue().nombreMProperty());
-        ColumCantidad.setCellValueFactory(cellData -> cellData.getValue().CantProperty().asString());
-        ColumStock.setCellValueFactory(cellData -> cellData.getValue().stockRestanteProperty().asString());
-
+        
         cargarMaterial();
     }
 
@@ -276,9 +275,13 @@ public class PedidoController implements Initializable {
     @FXML
     private void Agregar(ActionEvent event) {
         try {
+            
             String nombreMaterial = CbmMateriales.getSelectionModel().getSelectedItem();
+            
+            //Verificación que ningun campo sea nulo
             if (nombreMaterial == null || TxtCant.getText().isEmpty()) {
-                throw new IllegalArgumentException("Debe seleccionar un material y una cantidad.");
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe seleccionar un material y una cantidad");
+                return;
             }
 
             int cantidad = Integer.parseInt(TxtCant.getText());
@@ -290,6 +293,7 @@ public class PedidoController implements Initializable {
                 throw new IllegalArgumentException("La cantidad solicitada excede el stock disponible.");
             }
 
+            // Añade un nuevo pedido a la tabla
             pedido nuevoPedido = new pedido(0, "", 0, 0, 0, cantidad, "", nombreMaterial, 0, precio);
             nuevoPedido.setStockRestante(stockRestante);
 
@@ -306,7 +310,7 @@ public class PedidoController implements Initializable {
 
     private int obtenerStockActual(String nombreMaterial) {
         int stockActual = 0;
-        String query = "SELECT stock FROM materiaPrima WHERE nombre_material = ?";
+        String query = "SELECT stock FROM materiaPrima WHERE nombre = ?";
 
         try (Connection con = conexionDB.getCon();
              PreparedStatement pstmt = con.prepareStatement(query)) {
