@@ -105,6 +105,8 @@ public class MateriaController extends App implements Initializable{
     
     @FXML
     private ImageView engranaje;
+    @FXML
+    private TextField TxtUniMed;
     
     /**
      * Initializes the controller class.
@@ -117,6 +119,7 @@ public class MateriaController extends App implements Initializable{
         txtCantidad.setDisable(true);
         cboSelProov.setDisable(true);
         txtCamMín.setDisable(true);
+        TxtUniMed.setDisable(true);
         
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
@@ -164,6 +167,7 @@ public class MateriaController extends App implements Initializable{
         txtPrecio.setDisable(false);
         txtCantidad.setDisable(false);
         txtCamMín.setDisable(false);
+        TxtUniMed.setDisable(false);
         
         cboSelProov.setDisable(false);
         
@@ -186,6 +190,7 @@ public class MateriaController extends App implements Initializable{
         txtPrecio.setDisable(false);
         txtCantidad.setDisable(false);
         txtCamMín.setDisable(false);
+        TxtUniMed.setDisable(false);
         
         cboSelProov.setDisable(false);
         
@@ -247,6 +252,7 @@ public class MateriaController extends App implements Initializable{
         txtCantidad.clear();
         cboSelProov.getItems().clear();
         txtCamMín.clear();
+        TxtUniMed.clear();
         
         mostrarDatos();
         
@@ -261,9 +267,10 @@ public class MateriaController extends App implements Initializable{
             m.setPrecio(Double.parseDouble(txtPrecio.getText()));
             int pro = buscarProveedor();
             m.setIdProveedor(pro);
-            int c = Integer.parseInt(txtCantidad.getText());
-            int cm = Integer.parseInt(txtCamMín.getText());
-
+            double c = Double.parseDouble(txtCantidad.getText());
+            double cm = Double.parseDouble(txtCamMín.getText());
+            m.setUnidadMedida(TxtUniMed.getText());
+            
             if(c <= cm){
 
                 Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
@@ -343,6 +350,7 @@ public class MateriaController extends App implements Initializable{
         txtPrecio.clear();
         txtCantidad.clear();
         txtCamMín.clear();
+        TxtUniMed.clear();
         
         cboSelProov.getItems().clear();
           
@@ -352,6 +360,7 @@ public class MateriaController extends App implements Initializable{
         txtCantidad.setDisable(true);
         cboSelProov.setDisable(true);
         txtCamMín.setDisable(true);
+        TxtUniMed.setDisable(true);
         
         //deshabilitar btn
         btnGuardar.setDisable(true);
@@ -414,6 +423,7 @@ public class MateriaController extends App implements Initializable{
         txtCantidad.clear();
         txtCamMín.clear();
         txtBusqueda.clear();
+        TxtUniMed.clear();
         
         cboSelProov.getItems().clear();
         
@@ -425,11 +435,11 @@ public class MateriaController extends App implements Initializable{
         materia m = table.getSelectionModel().getSelectedItem();
         txtId.setText(String.valueOf(m.getId()));
         txtNombre.setText(m.getNombre());
+        TxtUniMed.setText(m.getUnidadMedida());
         txtPrecio.setText(String.valueOf(m.getPrecio()));
         txtCantidad.setText(String.valueOf(m.getCantidad()));
-        cboSelProov.setValue(m.getNombreproveedor());
-        
         txtCamMín.setText(String.valueOf(m.getCantidad_min()));
+        cboSelProov.setValue(m.getNombreproveedor());
         
         btnModificar.setDisable(false);
         btnEliminar.setDisable(false);
