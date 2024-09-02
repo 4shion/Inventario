@@ -25,22 +25,22 @@ public class pedido extends conexion implements sentencias {
     private final IntegerProperty totalPedido;
     private final IntegerProperty idCliente;
     private final IntegerProperty idMateria;
-    private final IntegerProperty Cant;
+    private final DoubleProperty Cant;
     private final StringProperty nombreC;
     private final StringProperty nombreM;
-    private final IntegerProperty CantTotal;
+    private final DoubleProperty StockRestante;
     private final DoubleProperty precio;
 
-    public pedido(int idPedido, String servicio, int totalPedido, int idCliente, int idMateria, int Cant, String nombreC, String nombreM, int CantTotal, double precio) {
+    public pedido(int idPedido, String servicio, int totalPedido, int idCliente, int idMateria, double Cant, String nombreC, String nombreM, double StockRestante, double precio) {
         this.idPedido = new SimpleIntegerProperty(idPedido);
         this.servicio = new SimpleStringProperty(servicio);
         this.totalPedido = new SimpleIntegerProperty(totalPedido);
         this.idCliente = new SimpleIntegerProperty(idCliente);
         this.idMateria = new SimpleIntegerProperty(idMateria);
-        this.Cant = new SimpleIntegerProperty(Cant);
+        this.Cant = new SimpleDoubleProperty(Cant);
         this.nombreC = new SimpleStringProperty(nombreC);
         this.nombreM = new SimpleStringProperty(nombreM);
-        this.CantTotal = new SimpleIntegerProperty(CantTotal);
+        this.StockRestante = new SimpleDoubleProperty(StockRestante);
         this.precio = new SimpleDoubleProperty(precio);
     }
 
@@ -104,15 +104,15 @@ public class pedido extends conexion implements sentencias {
         return idMateria;
     }
 
-    public int getCant() {
+    public double getCant() {
         return Cant.get();
     }
 
-    public void setCant(int Cant) {
+    public void setCant(double Cant) {
         this.Cant.set(Cant);
     }
 
-    public IntegerProperty CantProperty() {
+    public DoubleProperty CantProperty() {
         return Cant;
     }
 
@@ -140,16 +140,16 @@ public class pedido extends conexion implements sentencias {
         return nombreM;
     }
 
-    public int getCantTotal() {
-        return CantTotal.get();
+    public double getCantTotal() {
+        return StockRestante.get();
     }
 
-    public void setCantTotal(int CantTotal) {
-        this.CantTotal.set(CantTotal);
+    public void setCantTotal(double StockRestante) {
+        this.StockRestante.set(StockRestante);
     }
 
-    public IntegerProperty CantTotalProperty() {
-        return CantTotal;
+    public DoubleProperty StockRestanteProperty() {
+        return StockRestante;
     }
 
     public double getPrecio() {
@@ -189,7 +189,7 @@ public class pedido extends conexion implements sentencias {
                 int to = rs.getInt("totalpedido");
                 int idp = rs.getInt("Cliente_idCliente");
                 int idm = rs.getInt("materiaPrima_idMaterial");
-                int cant = rs.getInt("cantidad");
+                double cant = rs.getDouble("cantidad");
                 String nomC = rs.getString("nombreC");
                 String nomM = rs.getString("nombreM");
                 int cantTo = rs.getInt("cantTotal");
@@ -214,17 +214,17 @@ public class pedido extends conexion implements sentencias {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private final IntegerProperty stockRestante = new SimpleIntegerProperty();
+    private final DoubleProperty stockRestante = new SimpleDoubleProperty();
 
-    public int getStockRestante() {
+    public double getStockRestante() {
         return stockRestante.get();
     }
 
-    public void setStockRestante(int stockRestante) {
+    public void setStockRestante(double stockRestante) {
         this.stockRestante.set(stockRestante);
     }
 
-    public IntegerProperty stockRestanteProperty() {
+    public DoubleProperty stockRestanteProperty() {
         return stockRestante;
     }
 }
