@@ -24,11 +24,12 @@
             <TableView fx:id="table" focusTraversable="false" layoutX="11.0" layoutY="55.0" onMouseClicked="#Click" prefHeight="430.0" prefWidth="650.0">
                <columns>
                   <TableColumn fx:id="colId" prefWidth="56.79998779296875" text="ID" />
-                  <TableColumn fx:id="colNombre" prefWidth="187.20001220703125" text="Nombre" />
-                  <TableColumn fx:id="colPrecio" prefWidth="96.0" text="Precio" />
-                  <TableColumn fx:id="colCantidad" prefWidth="67.20001220703125" text="Cantidad" />
-                  <TableColumn fx:id="colProveedor" prefWidth="141.59991455078125" text="Proveedor" />
-                  <TableColumn fx:id="colCantMin" prefWidth="97.5999755859375" text="Cantidad_Min" />
+                  <TableColumn fx:id="colNombre" prefWidth="168.80001831054688" text="Nombre" />
+                  <TableColumn fx:id="colPrecio" prefWidth="104.0" text="Precio" />
+                  <TableColumn fx:id="colCantidad" prefWidth="60.0" text="Cantidad" />
+                  <TableColumn fx:id="colProveedor" prefWidth="80.00006103515625" text="Proveedor" />
+                  <TableColumn fx:id="colCantMin" prefWidth="88.0" text="Cantidad_Min" />
+                  <TableColumn fx:id="ColumUni" prefWidth="90.0" text="Unidad Medida" />
                </columns>
             </TableView>
             <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />

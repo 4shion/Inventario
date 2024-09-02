@@ -16,7 +16,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -24,7 +23,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -107,6 +105,8 @@ public class MateriaController extends App implements Initializable{
     private ImageView engranaje;
     @FXML
     private TextField TxtUniMed;
+    @FXML
+    private TableColumn<materia, String> ColumUni;
     
     /**
      * Initializes the controller class.
@@ -383,6 +383,7 @@ public class MateriaController extends App implements Initializable{
        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
        colProveedor.setCellValueFactory(new PropertyValueFactory<>("nombreproveedor"));
        colCantMin.setCellValueFactory(new PropertyValueFactory<>("cantidad_min"));
+       ColumUni.setCellValueFactory(new PropertyValueFactory<>("unidadMedida"));
        table.setItems(listaMateria);
        
    }

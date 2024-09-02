@@ -29,7 +29,7 @@
                   <TableColumn fx:id="colCantidad" prefWidth="60.0" text="Cantidad" />
                   <TableColumn fx:id="colProveedor" prefWidth="80.00006103515625" text="Proveedor" />
                   <TableColumn fx:id="colCantMin" prefWidth="88.0" text="Cantidad_Min" />
-                  <TableColumn prefWidth="90.0" text="Unidad Medida" />
+                  <TableColumn fx:id="ColumUni" prefWidth="90.0" text="Unidad Medida" />
                </columns>
             </TableView>
             <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#Reporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />

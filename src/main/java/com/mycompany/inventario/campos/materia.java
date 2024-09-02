@@ -148,8 +148,8 @@ public class materia extends conexion implements sentencias {
                 int cod=rs.getInt("idMaterial");
                 String nom=rs.getString("nombre");
                 double pre=rs.getDouble("precio");
-                double cant=rs.getInt("cantidad");
-                double can_min=rs.getInt("cantidad_min");
+                double cant=rs.getDouble("cantidad");
+                double can_min=rs.getDouble("cantidad_min");
                 int Idpro=rs.getInt("Proveedor_idProveedor");
                 String nomPro=rs.getString("nombrep");
                 String uni=rs.getString("UnidadMedida");
