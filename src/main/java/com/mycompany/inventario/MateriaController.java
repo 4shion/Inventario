@@ -103,7 +103,9 @@ public class MateriaController extends App implements Initializable{
     
     @FXML
     private ImageView engranaje;
+    @FXML
     private TextField TxtUniMed;
+    @FXML
     private TableColumn<materia, String> ColumUni;
     
     MainController main = new MainController();
