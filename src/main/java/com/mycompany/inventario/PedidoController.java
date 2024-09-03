@@ -84,11 +84,7 @@ public class PedidoController implements Initializable {
     MainController m = new MainController();
     navegacion nav = new navegacion();
     alertas alert = new alertas();
-<<<<<<< HEAD
     pedido p = new pedido();
-=======
-    MainController m = new MainController();
->>>>>>> diseño
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -99,7 +95,6 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Eliminar(ActionEvent event) {
-<<<<<<< HEAD
         
         pedido materialseleccionado = table.getSelectionModel().getSelectedItem();
 
@@ -129,8 +124,6 @@ public class PedidoController implements Initializable {
         
         CbmMateriales.setDisable(false);
 
-=======
->>>>>>> diseño
     }
 
     @FXML
@@ -139,7 +132,6 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Limpiar(ActionEvent event) {
-<<<<<<< HEAD
         
         TxtServicio.clear();
         txtNomCliente.clear();
@@ -236,8 +228,7 @@ public class PedidoController implements Initializable {
             // Maneja cualquier otro tipo de excepción que pueda ocurrir
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al agregar el pedido", e);
         }
-=======
->>>>>>> diseño
+
     }
 
     @FXML
@@ -361,53 +352,6 @@ public class PedidoController implements Initializable {
         return 0;
     }
 
-<<<<<<< HEAD
-=======
-    private void buscarDatosCliente() {
-        String nombreCliente = txtNomCliente.getText();
-        String query = "SELECT correo, telefono FROM clientes WHERE nombre = ?";
-
-        try (PreparedStatement stmt = conexionDB.getCon().prepareStatement(query)) {
-            stmt.setString(1, nombreCliente);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                correoCliente.setText(rs.getString("correo"));
-                telfCliente.setText(rs.getString("telefono"));
-            } else {
-                correoCliente.setText("");
-                telfCliente.setText("");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void Factura(ActionEvent event) {
-        reportes report = new reportes();
-        buscarDatosCliente();
-
-        double subtotal = calcularSubtotal();
-        double total = calcularTotal();
-
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("nombreCliente", txtNomCliente.getText());
-        parametros.put("correoCliente", correoCliente.getText());
-        parametros.put("telfCliente", telfCliente.getText());
-        parametros.put("servicio", TxtServicio.getText());
-        parametros.put("subtotal", subtotal);
-        parametros.put("total", total);
-        //parametros.put("numFactura", factNumero);
-
-        try {
-            report.generarReporte("/reportes/factura.jasper", "Factura", parametros);
-        } catch (Exception e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
-        }
-    }
-
->>>>>>> diseño
     private double obtenerPrecioMaterial(String nombreMaterial) {
         double precio = 0.0;
         String query = "SELECT precio FROM materiaPrima WHERE nombre = ?";
@@ -489,7 +433,6 @@ public class PedidoController implements Initializable {
             new SimpleStringProperty(cellData.getValue().getStockRestanteConUnidad()));
         
     }
-<<<<<<< HEAD
     
     @FXML
     private void Click(MouseEvent event) {
@@ -545,12 +488,9 @@ public class PedidoController implements Initializable {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
         }
     }
-=======
 
     @FXML
     private void bajarPDF(ActionEvent event) {
     }
-
->>>>>>> diseño
     
 }
