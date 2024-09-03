@@ -103,10 +103,10 @@ public class MateriaController extends App implements Initializable{
     
     @FXML
     private ImageView engranaje;
-    @FXML
     private TextField TxtUniMed;
-    @FXML
     private TableColumn<materia, String> ColumUni;
+    
+    MainController main = new MainController();
     
     /**
      * Initializes the controller class.
@@ -533,6 +533,19 @@ public class MateriaController extends App implements Initializable{
         }
         
     }
+    
+    @FXML
+    private void abrirGestorContra() {
+    
+        main.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        main.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+    
+    }
 
     @FXML
     private void Reporte(ActionEvent event) {
@@ -580,6 +593,10 @@ public class MateriaController extends App implements Initializable{
             rotateTransition.playFromStart();
 
         } 
+    }
+
+    @FXML
+    private void bajarPDF(ActionEvent event) {
     }
     
 

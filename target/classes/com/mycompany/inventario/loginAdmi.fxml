@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="481.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.LoginAdmiController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.LoginAdmiController">
    <children>
       <HBox id="menuBar" layoutX="60.0" layoutY="57.0" prefHeight="58.0" prefWidth="100.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -33,7 +33,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane layoutX="97.0" layoutY="90.0" prefHeight="358.0" prefWidth="466.0">
+      <Pane layoutX="194.0" layoutY="127.0" prefHeight="358.0" prefWidth="466.0">
          <children>
             <TextField fx:id="codAdmin" layoutX="254.0" layoutY="70.0" />
             <TextField fx:id="nombreAdmin" layoutX="254.0" layoutY="114.0" />

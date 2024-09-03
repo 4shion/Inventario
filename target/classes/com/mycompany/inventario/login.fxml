@@ -16,7 +16,7 @@
 <AnchorPane id="AnchorPane" prefHeight="555.0" prefWidth="847.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.LoginController">
    <children>
       <HBox layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="847.0" />
-      <Rectangle id="menu_bar" arcHeight="5.0" arcWidth="5.0" fill="#c2a957" height="51.0" layoutX="10.0" layoutY="-19.2" stroke="#c2a957" strokeType="INSIDE" strokeWidth="0.0" width="862.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle id="menu_bar" arcHeight="5.0" arcWidth="5.0" fill="#ad1316" height="51.0" layoutX="10.0" layoutY="-19.2" stroke="#ad1316" strokeType="INSIDE" strokeWidth="0.0" width="862.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox alignment="CENTER" layoutX="7.0" prefHeight="572.0" prefWidth="855.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView id="btn_exit" fitHeight="16.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
@@ -60,7 +60,7 @@
                   <Insets />
                </VBox.margin>
             </PasswordField>
-            <Button id="btn_ingresar" fx:id="btnIngresar" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#Ingresar" text="Ingresar">
+            <Button id="btn_ingresar" fx:id="btnIngresar" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#Ingresar" style="-fx-background-color: #ad1316;" text="Ingresar" textFill="WHITE">
                <font>
                   <Font name="Corbel Bold" size="13.0" />
                </font>
