@@ -4,8 +4,11 @@
  */
 package com.mycompany.inventario;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -27,6 +30,7 @@ public class HistorialController implements Initializable {
     private ImageView engranaje;
     @FXML
     private Pane configuracion;
+    MainController m = new MainController();
     
     /**
      * Initializes the controller class.
@@ -38,30 +42,91 @@ public class HistorialController implements Initializable {
     
     @FXML
     private void switchToMain(ActionEvent event) {
-    }
-
-    @FXML
-    private void switchToMateriales(ActionEvent event) {
-    }
-
-    @FXML
-    private void switchToCliente(ActionEvent event) {
-    }
-
-    @FXML
-    private void switchToPedido(ActionEvent event) {
+        
+        try {
+            App.setRoot("main");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
     private void swicthToProveedor(ActionEvent event) {
+        
+        try {
+            App.setRoot("proveedor");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
     private void switchToUsuarios(ActionEvent event) {
+        
+        try {
+            App.setRoot("usuario");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
     private void switchToHistorial(ActionEvent event) {
+        
+        try {
+            App.setRoot("historial");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void switchToMateriales(ActionEvent event) {
+        
+        try {
+            App.setRoot("materia");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void switchToCliente(ActionEvent event) {
+        
+         try {
+            App.setRoot("cliente");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+
+    @FXML
+    private void switchToPedido(ActionEvent event) {
+        
+        try {
+            App.setRoot("pedido");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    @FXML
+    private void abrirGestorContra() {
+    
+        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+    
     }
 
     @FXML
@@ -99,6 +164,10 @@ public class HistorialController implements Initializable {
             rotateTransition.playFromStart();
 
         } 
+    }
+
+    @FXML
+    private void bajarPDF(ActionEvent event) {
     }
 
 }

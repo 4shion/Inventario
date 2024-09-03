@@ -93,6 +93,7 @@ public class UsuarioController implements Initializable {
     alertas alert = new alertas();
     @FXML
     private Pane configuracion;
+    MainController m = new MainController();
 
     /**
      * Initializes the controller class.
@@ -195,6 +196,19 @@ public class UsuarioController implements Initializable {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    @FXML
+    private void abrirGestorContra() {
+    
+        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+    
     }
 
     @FXML
@@ -552,6 +566,10 @@ public class UsuarioController implements Initializable {
             rotateTransition.playFromStart();
 
         } 
+    }
+
+    @FXML
+    private void bajarPDF(ActionEvent event) {
     }
 
 

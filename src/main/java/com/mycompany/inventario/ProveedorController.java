@@ -6,7 +6,6 @@ package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.proveedor;
 import com.mycompany.inventario.clases.alertas;
-import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -84,6 +83,7 @@ public class ProveedorController implements Initializable {
     private TableColumn<proveedor, String> ColumTelefono;
     @FXML
     private TextField txtTelefono;
+    MainController m = new MainController();
 
     /**
      * Initializes the controller class.
@@ -422,6 +422,18 @@ public class ProveedorController implements Initializable {
         }
         
     }
+    @FXML
+    private void abrirGestorContra() {
+    
+        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+    
+    }
 
     @FXML
     private void Config(ActionEvent event) {
@@ -458,6 +470,10 @@ public class ProveedorController implements Initializable {
             rotateTransition.playFromStart();
 
         } 
+    }
+
+    @FXML
+    private void bajarPDF(ActionEvent event) {
     }
     
 }

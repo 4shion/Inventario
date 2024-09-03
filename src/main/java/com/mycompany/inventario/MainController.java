@@ -48,6 +48,7 @@ public class MainController extends conexion implements Initializable {
     alertas alert = new alertas();
     Login login = new Login();
     permisos p = new permisos();
+   
 
     /**
      * Initializes the controller class.
@@ -56,6 +57,10 @@ public class MainController extends conexion implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         verificarUsuario();
+        
+    }
+    
+    public MainController() {
         
     }
     

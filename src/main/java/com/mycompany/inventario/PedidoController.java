@@ -78,6 +78,7 @@ public class PedidoController implements Initializable {
     private conexion conexionDB = new conexion();
     private ObservableList<materia> listaMateriales;
     alertas alert = new alertas();
+    MainController m = new MainController();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,6 +119,19 @@ public class PedidoController implements Initializable {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @FXML
+    private void abrirGestorContra() {
+    
+        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+    
+    }
 
     @FXML
     private void switchToHistorial(ActionEvent event) {
@@ -145,7 +159,7 @@ public class PedidoController implements Initializable {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+  
     @FXML
     private void switchToPedido(ActionEvent event) {
         try {
@@ -353,4 +367,10 @@ public class PedidoController implements Initializable {
         }
         
     }
+
+    @FXML
+    private void bajarPDF(ActionEvent event) {
+    }
+
+    
 }

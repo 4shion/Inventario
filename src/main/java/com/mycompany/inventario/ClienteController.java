@@ -6,7 +6,6 @@ package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.cliente;
 import com.mycompany.inventario.clases.alertas;
-import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -19,10 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -33,7 +29,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -88,6 +83,7 @@ public class ClienteController implements Initializable {
     private TableColumn<cliente, String> ColumTelefono;
     @FXML
     private Pane configuracion;
+    MainController m = new MainController();
 
     /**
      * Initializes the controller class.
@@ -323,7 +319,7 @@ public class ClienteController implements Initializable {
         
     }
     
-     @FXML
+    @FXML
     private void switchToMain(ActionEvent event) {
         
         try {
@@ -398,6 +394,17 @@ public class ClienteController implements Initializable {
         }
         
     }
+    
+    private void abrirGestorContra() {
+    
+        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    private void abrirPerfilAdmin() {
+    
+        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+    
+    }
 
     @FXML
     private void Busqueda(ActionEvent event) {
@@ -463,6 +470,10 @@ public class ClienteController implements Initializable {
             rotateTransition.playFromStart();
 
         } 
+    }
+
+    @FXML
+    private void bajarPDF(ActionEvent event) {
     }
     
 }
