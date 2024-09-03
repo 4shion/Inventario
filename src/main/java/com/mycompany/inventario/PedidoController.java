@@ -4,6 +4,7 @@ import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.pedido;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
+import com.mycompany.inventario.clases.navegacion;
 import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +34,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -77,21 +80,50 @@ public class PedidoController implements Initializable {
     private TextField telfCliente;
     private conexion conexionDB = new conexion();
     private ObservableList<materia> listaMateriales;
+    
+    MainController m = new MainController();
+    navegacion nav = new navegacion();
     alertas alert = new alertas();
+    pedido p = new pedido();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        ColumMaterial.setCellValueFactory(new PropertyValueFactory<>("nombreM"));
-        ColumCantidad.setCellValueFactory(new PropertyValueFactory<>("Cant"));
-        ColumStock.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        
+        btnEliminar.setDisable(true);
         cargarMaterial();
     }
 
     @FXML
     private void Eliminar(ActionEvent event) {
-        // Implementar lógica para eliminar
+        
+        pedido materialseleccionado = table.getSelectionModel().getSelectedItem();
+
+        if (materialseleccionado != null) {
+            
+            String nombreMaterial = materialseleccionado.getNombreM();
+
+            table.getItems().remove(materialseleccionado);
+            
+            CbmMateriales.getItems().add(nombreMaterial);
+
+            TxtCant.clear();
+            CbmMateriales.getSelectionModel().clearSelection();
+            btnEliminar.setDisable(true);
+
+            calcularSubtotal();
+            
+            if (table.getItems().isEmpty()) {
+                
+                txtCosto.setText("SubTotal:");
+                
+            }
+            
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Advertencia", "Seleccione un material para eliminar");
+        }
+        
+        CbmMateriales.setDisable(false);
+
     }
 
     @FXML
@@ -101,7 +133,102 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Limpiar(ActionEvent event) {
-        // Implementar lógica para limpiar
+        
+        TxtServicio.clear();
+        txtNomCliente.clear();
+        TxtCant.clear();
+        txtCosto.setText("SubTotal:");
+        CbmMateriales.getSelectionModel().clearSelection();
+        table.getItems().clear();
+        CbmMateriales.setDisable(false);
+        
+
+    }
+    
+    @FXML
+    private void Agregar(ActionEvent event) {
+    try {
+        // Obtiene el nombre del material seleccionado en el ComboBox
+        String nombreMaterial = CbmMateriales.getSelectionModel().getSelectedItem();
+
+        // Verifica si se ha seleccionado un material y se ha ingresado una cantidad
+        if (nombreMaterial == null || TxtCant.getText().isEmpty()) {
+            // Muestra un mensaje de error si alguno de los campos está vacío
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe seleccionar un material y una cantidad");
+            return;
+        }
+
+        // Intenta convertir la cantidad ingresada en un número
+        double cantidad = Double.parseDouble(TxtCant.getText());
+        // Obtiene el precio del material seleccionado
+        double precio = obtenerPrecioMaterial(nombreMaterial);
+        // Obtiene el stock actual del material
+        double stockActual = obtenerStockActual(nombreMaterial);
+        // Calcula el stock restante después de agregar la cantidad solicitada
+        double stockRestante = stockActual - cantidad;
+        // Obtiene la unidad de medida
+        String unidad = obtenerUnidadMedida(nombreMaterial);
+
+        // Verifica si el stock restante es negativo (cantidad solicitada excede el stock)
+        if (stockRestante < 0) {
+            // Muestra un mensaje de error si la cantidad solicitada excede el stock
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad solicitada excede la cantidad del stock");
+            return;
+        }
+
+        // Busca en la tabla si ya existe un pedido con el mismo material
+        pedido pedidoExistente = null;
+        for (pedido p : table.getItems()) {
+            if (p.getNombreM().equals(nombreMaterial)) {
+                // Si se encuentra un pedido existente, lo asigna a la variable
+                pedidoExistente = p;
+                break;
+            }
+        }
+
+        // Si ya existe un pedido con el mismo material, actualiza su cantidad y stock
+        if (pedidoExistente != null) {
+            // Actualiza la cantidad del pedido existente
+            pedidoExistente.setCant(cantidad);
+            // Actualiza el stock restante del pedido existente
+            pedidoExistente.setStockRestante(stockRestante);
+            // Actualiza el precio del pedido existente
+            pedidoExistente.setPrecio(precio);
+            // Actualiza la unidad del pedido exitente
+            pedidoExistente.setUnidad(unidad);
+            // Refresca la tabla para mostrar los cambios
+            table.refresh();
+            CbmMateriales.getSelectionModel().clearSelection();
+        } else {
+            // Si no existe un pedido con el mismo material, crea uno nuevo
+            pedido nuevoPedido = new pedido(0, "", 0, 0, 0, cantidad, "", nombreMaterial, stockRestante, precio, unidad);
+            // Añade el nuevo pedido a la tabla
+            table.getItems().add(nuevoPedido);
+            // Elimina el material seleccionado del ComboBox
+            CbmMateriales.getItems().remove(nombreMaterial);
+        }
+
+        // Limpia el ComboBox y el campo de cantidad después de agregar o modificar
+        TxtCant.clear();
+        CbmMateriales.setDisable(false);
+        CbmMateriales.getSelectionModel().clearSelection();
+
+        // Recarga el Combo Box
+        // Muestra los datos en la tabla
+        mostrarDatos();
+        // Calcula el subtotal de los pedidos
+        calcularSubtotal();
+        
+        } catch (NumberFormatException e) {
+            // Maneja el caso en que la cantidad ingresada no es un número válido
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error en la entrada de cantidad", e);
+        } catch (IllegalArgumentException e) {
+            // Maneja casos donde la entrada es inválida (si aplica)
+            Logger.getLogger(PedidoController.class.getName()).log(Level.WARNING, e.getMessage(), e);
+        } catch (Exception e) {
+            // Maneja cualquier otro tipo de excepción que pueda ocurrir
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al agregar el pedido", e);
+        }
     }
 
     @FXML
@@ -157,6 +284,17 @@ public class PedidoController implements Initializable {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @FXML
+    private void swicthToProveedor(ActionEvent event) {
+        
+        try {
+            App.setRoot("proveedor");
+        } catch (IOException ex) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     @FXML
     private void Config(ActionEvent event) {
@@ -201,49 +339,6 @@ public class PedidoController implements Initializable {
         return 0;
     }
 
-    private void buscarDatosCliente() {
-        String nombreCliente = txtNomCliente.getText();
-        String query = "SELECT correo, telefono FROM clientes WHERE nombre = ?";
-
-        try (PreparedStatement stmt = conexionDB.getCon().prepareStatement(query)) {
-            stmt.setString(1, nombreCliente);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                correoCliente.setText(rs.getString("correo"));
-                telfCliente.setText(rs.getString("telefono"));
-            } else {
-                correoCliente.setText("");
-                telfCliente.setText("");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void Factura(ActionEvent event) {
-        reportes report = new reportes();
-        buscarDatosCliente();
-
-        double subtotal = calcularSubtotal();
-        double total = calcularTotal();
-
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("nombreCliente", txtNomCliente.getText());
-        parametros.put("correoCliente", correoCliente.getText());
-        parametros.put("telfCliente", telfCliente.getText());
-        parametros.put("servicio", TxtServicio.getText());
-        parametros.put("subtotal", subtotal);
-        parametros.put("total", total);
-
-        try {
-            report.generarReporte("/reportes/factura.jasper", "Factura", parametros);
-        } catch (Exception e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
-        }
-    }
-
     private double obtenerPrecioMaterial(String nombreMaterial) {
         double precio = 0.0;
         String query = "SELECT precio FROM materiaPrima WHERE nombre = ?";
@@ -277,55 +372,6 @@ public class PedidoController implements Initializable {
         return subtotal + (subtotal * 0.23); // 23% IVA
     }
 
-    @FXML
-    private void Agregar(ActionEvent event) {
-        try {
-            
-            String nombreMaterial = CbmMateriales.getSelectionModel().getSelectedItem();
-            System.out.println("Nombre del material: " + nombreMaterial);
-            
-            //Verificación que ningun campo sea nulo
-            if (nombreMaterial == null || TxtCant.getText().isEmpty()) {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe seleccionar un material y una cantidad");
-                return;
-            }
-
-            double cantidad = Double.parseDouble(TxtCant.getText());
-            System.out.println("Cantidad: " + cantidad);
-
-            double precio = obtenerPrecioMaterial(nombreMaterial);
-            System.out.println("Precio: " + precio);
-
-            double stockActual = obtenerStockActual(nombreMaterial);
-            System.out.println("Stock actual: " + stockActual);
-
-            double stockRestante = stockActual - cantidad;
-            System.out.println("Stock restante: " + stockRestante);
-
-            if (stockRestante < 0) {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad solicitada excede la cantidad del stock");
-                return;
-            }
-
-            // Añade un nuevo pedido a la tabla
-            pedido nuevoPedido = new pedido(0, "", 0, 0, 0, cantidad, "", nombreMaterial, 0, precio);
-            nuevoPedido.setStockRestante(stockRestante);
-
-            table.getItems().add(nuevoPedido);
-            
-            TxtCant.clear();
-            CbmMateriales.getSelectionModel().clearSelection();
-            
-            calcularSubtotal();
-        } catch (NumberFormatException e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error en la entrada de cantidad", e);
-        } catch (IllegalArgumentException e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.WARNING, e.getMessage(), e);
-        } catch (Exception e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al agregar el pedido", e);
-        }
-    }
-
     private double obtenerStockActual(String nombreMaterial) {
         double stockActual = 0.0;
         String query = "SELECT cantidad FROM materiaPrima WHERE nombre = ?";
@@ -344,15 +390,90 @@ public class PedidoController implements Initializable {
 
         return stockActual;
     }
+    
+    private String obtenerUnidadMedida(String nombreMaterial) {
+        String unidad = "";
+        String query = "SELECT UnidadMedida FROM materiaPrima WHERE nombre = ?";
 
-    @FXML
-    private void swicthToProveedor(ActionEvent event) {
-        
-        try {
-            App.setRoot("proveedor");
-        } catch (IOException ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        try (Connection con = conexionDB.getCon();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, nombreMaterial);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                unidad = rs.getString("UnidadMedida");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener precio del material", e);
         }
+
+        return unidad;
+    }
+    
+    private void mostrarDatos(){
+        ColumMaterial.setCellValueFactory(new PropertyValueFactory<>("nombreM"));
+        // Utilizar las propiedades calculadas para las columnas
+        ColumCantidad.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getCantidadConUnidad()));
+
+        ColumStock.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getStockRestanteConUnidad()));
         
     }
+    
+    @FXML
+    private void Click(MouseEvent event) {
+        
+        pedido p = table.getSelectionModel().getSelectedItem();
+        TxtCant.setText(String.valueOf(p.getCant()));
+        CbmMateriales.setValue(p.getNombreM());
+        btnEliminar.setDisable(false);
+        btnGuardar.setDisable(true);
+        CbmMateriales.setDisable(true);
+        
+    }
+    
+    private void buscarDatosCliente() {
+        String nombreCliente = txtNomCliente.getText();
+        String query = "SELECT correo, telefono FROM Cliente WHERE nombre = ?";
+
+        try (PreparedStatement stmt = conexionDB.getCon().prepareStatement(query)) {
+            stmt.setString(1, nombreCliente);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                correoCliente.setText(rs.getString("correo"));
+                telfCliente.setText(rs.getString("telefono"));
+            } else {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
+    private void Factura(ActionEvent event) {
+        reportes report = new reportes();
+        buscarDatosCliente();
+
+        double subtotal = calcularSubtotal();
+        double total = calcularTotal();
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombreCliente", txtNomCliente.getText());
+        parametros.put("correoCliente", correoCliente.getText());
+        parametros.put("telfCliente", telfCliente.getText());
+        parametros.put("servicio", TxtServicio.getText());
+        parametros.put("subtotal", subtotal);
+        parametros.put("total", total);
+
+        try {
+            report.generarReporte("/reportes/factura.jasper", "Factura", parametros);
+        } catch (Exception e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
+        }
+    }
+    
 }

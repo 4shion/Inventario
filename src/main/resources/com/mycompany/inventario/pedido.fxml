@@ -32,7 +32,7 @@
                <font>
                   <Font name="Corbel" size="14.0" />
                </font></Text>
-            <TableView fx:id="table" layoutX="282.0" layoutY="65.0" prefHeight="365.0" prefWidth="504.0">
+            <TableView fx:id="table" layoutX="282.0" layoutY="65.0" onMouseClicked="#Click" prefHeight="365.0" prefWidth="504.0">
               <columns>
                 <TableColumn fx:id="ColumMaterial" prefWidth="258.4000244140625" text="Material" />
                 <TableColumn fx:id="ColumCantidad" prefWidth="127.99993896484375" text="Cantidad" />
@@ -50,7 +50,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="TxtCant" layoutX="638.0" layoutY="14.0" prefHeight="25.0" prefWidth="86.0" />
+            <TextField fx:id="TxtCant" focusTraversable="false" layoutX="638.0" layoutY="14.0" prefHeight="25.0" prefWidth="86.0" />
             <Button fx:id="BtnAgregar" layoutX="735.0" layoutY="14.0" mnemonicParsing="false" onAction="#Agregar" prefHeight="25.0" prefWidth="42.0" style="-fx-background-color: grey;" text="+" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />

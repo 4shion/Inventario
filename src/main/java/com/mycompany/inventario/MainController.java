@@ -48,7 +48,7 @@ public class MainController extends conexion implements Initializable {
     alertas alert = new alertas();
     Login login = new Login();
     permisos p = new permisos();
-
+    
     /**
      * Initializes the controller class.
      */
@@ -57,6 +57,9 @@ public class MainController extends conexion implements Initializable {
         
         verificarUsuario();
         
+    }
+    
+    public MainController(){
     }
     
     @FXML

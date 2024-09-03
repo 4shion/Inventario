@@ -1,4 +1,5 @@
 com\mycompany\inventario\campos\usuario.class
+com\mycompany\inventario\clases\navegacion$1.class
 com\mycompany\inventario\clases\conexion.class
 com\mycompany\inventario\ClienteController.class
 com\mycompany\inventario\App.class
@@ -21,4 +22,5 @@ com\mycompany\inventario\campos\cliente.class
 com\mycompany\inventario\LoginAdmiController.class
 com\mycompany\inventario\LoginController.class
 com\mycompany\inventario\campos\Login.class
+com\mycompany\inventario\clases\navegacion.class
 com\mycompany\inventario\campos\pedido.class
