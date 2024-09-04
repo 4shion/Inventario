@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: #ad1316;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.MainController">
    <children>
-      <Pane layoutX="4.0" layoutY="-37.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;">
+      <Pane layoutX="2.0" layoutY="-37.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;">
          <children>
             <Pane layoutX="-16.0" layoutY="14.0" prefHeight="736.0" prefWidth="350.0" style="-fx-background-color: white;">
                <children>
@@ -20,27 +20,27 @@
                   </ImageView>
                   <Pane layoutX="23.0" layoutY="213.0" prefHeight="349.0" prefWidth="303.0">
                      <children>
-                        <Button focusTraversable="false" layoutX="52.0" layoutY="30.0" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
+                        <Button fx:id="btnMateriales" focusTraversable="false" layoutX="52.0" layoutY="30.0" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Button focusTraversable="false" layoutX="52.0" layoutY="95.0" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Clientes" textFill="WHITE">
+                        <Button fx:id="btnClientes" focusTraversable="false" layoutX="52.0" layoutY="95.0" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Clientes" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Button focusTraversable="false" layoutX="52.0" layoutY="164.0" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Pedidos" textFill="WHITE">
+                        <Button fx:id="btnPedidos" focusTraversable="false" layoutX="52.0" layoutY="164.0" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Pedidos" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Button focusTraversable="false" layoutX="52.0" layoutY="233.0" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Proveedores" textFill="WHITE">
+                        <Button fx:id="btnProveedores" focusTraversable="false" layoutX="52.0" layoutY="233.0" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Proveedores" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <Button focusTraversable="false" layoutX="52.0" layoutY="299.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Usuarios" textFill="WHITE">
+                        <Button fx:id="btnUsuarios" focusTraversable="false" layoutX="52.0" layoutY="299.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Usuarios" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
