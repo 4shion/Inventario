@@ -25,6 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -46,6 +47,22 @@ public class MainController extends conexion implements Initializable {
     permisos p = new permisos();
 
     private Stage ventanaEmergente = null; // Quita el "final"
+    @FXML
+    private Button btnMateriales;
+    @FXML
+    private Button btnClientes;
+    @FXML
+    private Button btnPedidos;
+    @FXML
+    private Button btnProveedores;
+    @FXML
+    private Button btnUsuarios;
+    
+    private boolean pPro = false;
+    private boolean pUsu = false;
+    private boolean pMate = false;
+    private boolean pCli = false;
+    private boolean pPe = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,18 +71,104 @@ public class MainController extends conexion implements Initializable {
 
     public MainController() {
     }
+    
+    public Tooltip TextButton(String s){
+        
+        Tooltip t = new Tooltip(s);
+        return t;
+        
+    }
+    
+    public void verificacionPermisos(){
+        
+        String usuarioActual = login.getUsuarioActual();
+
+        // Verifica los permisos del usuario actual
+        pPro = p.Proveedores(usuarioActual);
+        pUsu = p.Usuarios(usuarioActual);
+        pMate = p.Materiales(usuarioActual);
+        pCli = p.Clientes(usuarioActual);
+        pPe = p.Pedidos(usuarioActual);
+        
+        if(pPro){
+            
+            btnProveedores.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            
+        }
+        else{
+            
+            btnProveedores.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            
+        }
+        
+        if(pUsu){
+            
+            btnUsuarios.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            
+        }
+        else{
+            
+            btnUsuarios.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            
+        }
+        
+        if(pMate){
+            
+            btnMateriales.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            
+        }
+        else{
+            
+            btnMateriales.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            
+        }
+        
+        if(pCli){
+            
+            btnClientes.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            
+        }
+        else{
+            
+            btnClientes.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            
+        }
+        
+        if(pPe){
+            
+            btnPedidos.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            
+        }
+        else{
+            
+            btnPedidos.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            
+        }
+        
+    }
+    
+    private void configurarTooltips() {
+        // Configurar Tooltips iniciales
+        btnMateriales.setTooltip(TextButton("Verifica si el usuario tiene permisos"));
+        btnClientes.setTooltip(TextButton("Verifica si el usuario tiene permisos"));
+        btnPedidos.setTooltip(TextButton("Verifica si el usuario tiene permisos"));
+        btnProveedores.setTooltip(TextButton("Verifica si el usuario tiene permisos"));
+        btnUsuarios.setTooltip(TextButton("Verifica si el usuario tiene permisos"));
+    }
 
     @FXML
     private void swicthToProveedor(ActionEvent event) {
-        try {
-            App.setRoot("proveedor");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+            try {
+                App.setRoot("proveedor");
+            } catch (IOException ex) {
+                Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     @FXML
     private void switchToUsuarios(ActionEvent event) {
+        
         try {
             App.setRoot("usuario");
         } catch (IOException ex) {
@@ -98,7 +201,6 @@ public class MainController extends conexion implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(p.Pedidos(login.getUsuarioActual()));
     }
 
     @FXML
@@ -118,6 +220,7 @@ public class MainController extends conexion implements Initializable {
         if (usuarioActual != null) {
             btnSesion.setText("Cerrar Sesión");
             sesionIniciada = true;
+            verificacionPermisos();
         } else {
             String sql = "SELECT COUNT(*) FROM usuario";
 
@@ -138,6 +241,12 @@ public class MainController extends conexion implements Initializable {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        if (usuarioActual == null){
+            
+            configurarTooltips();
+            
+        }
+         
     }
 
     public void abrirformularios(String fxml, String titulo) {
@@ -182,6 +291,7 @@ public class MainController extends conexion implements Initializable {
     public void iniciarSesion() {
         sesionIniciada = true;
         btnSesion.setText("Cerrar Sesión");
+        verificacionPermisos();
     }
 
     public void cerrarSesion() {
@@ -189,5 +299,6 @@ public class MainController extends conexion implements Initializable {
         btnSesion.setText("Iniciar Sesión");
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
         login.cerrarSesion();
+        configurarTooltips();
     }
 }
