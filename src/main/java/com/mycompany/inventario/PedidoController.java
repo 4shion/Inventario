@@ -91,6 +91,8 @@ public class PedidoController implements Initializable {
         
         btnEliminar.setDisable(true);
         cargarMaterial();
+        TxtServicio.setPrefWidth(200);
+        TxtServicio.setWrapText(true);
     }
 
     @FXML
@@ -516,7 +518,8 @@ public class PedidoController implements Initializable {
         parametros.put("total", total);
 
         try {
-            report.generarReporte("/reportes/factura.jasper", "Factura", parametros);
+            report.generarReporte("/reportes.frameexperts/factura.jrxml", "Factura", parametros);
+            System.out.println("Reporte generado con exito");
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
         }

@@ -37,197 +37,151 @@ public class MainController extends conexion implements Initializable {
 
     @FXML
     private Button btnSesion;
-    
+
     private boolean sesionIniciada = false;
-    
     private boolean Admi = false;
-        
+
     alertas alert = new alertas();
     Login login = new Login();
     permisos p = new permisos();
 
-    /**
-     * Initializes the controller class.
-     */
+    private Stage ventanaEmergente = null; // Quita el "final"
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         verificarUsuario();
-        
     }
-    
-    public MainController(){
 
+    public MainController() {
     }
-    
+
     @FXML
     private void swicthToProveedor(ActionEvent event) {
-        
         try {
             App.setRoot("proveedor");
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     @FXML
     private void switchToUsuarios(ActionEvent event) {
-        
         try {
             App.setRoot("usuario");
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
-    
+
     @FXML
     private void switchToMateriales(ActionEvent event) {
-        
         try {
             App.setRoot("materia");
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     @FXML
     private void switchToCliente(ActionEvent event) {
-        
         try {
             App.setRoot("cliente");
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     @FXML
     private void switchToPedido(ActionEvent event) {
-        
         try {
-                App.setRoot("pedido");
+            App.setRoot("pedido");
         } catch (IOException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(p.Pedidos(login.getUsuarioActual()));
-        
     }
 
     @FXML
     private void Sesion(ActionEvent event) {
-        
         if (btnSesion.getText().equals("Registrarse")) {
-            
             abrirformularios("loginAdmi.fxml", "Registro de Administrador");
-            
         } else if (btnSesion.getText().equals("Iniciar Sesión")) {
-            
             abrirformularios("login.fxml", "Iniciar Sesión");
-            
         } else if (btnSesion.getText().equals("Cerrar Sesión")) {
-            
             cerrarSesion();
-            
         }
-        
     }
-    
+
     private void verificarUsuario() {
-        
-       String usuarioActual = Login.getUsuarioActual();
-       
+        String usuarioActual = Login.getUsuarioActual();
+
         if (usuarioActual != null) {
-            
             btnSesion.setText("Cerrar Sesión");
             sesionIniciada = true;
-            
         } else {
-            
             String sql = "SELECT COUNT(*) FROM usuario";
-            
+
             try (Connection con = getCon();
                  PreparedStatement pstmt = con.prepareStatement(sql);
                  ResultSet rs = pstmt.executeQuery()) {
 
                 if (rs.next()) {
-                    
                     int userCount = rs.getInt(1);
 
                     if (userCount > 0) {
-                        
                         btnSesion.setText("Iniciar Sesión");
-                        
                     } else {
-                        
                         btnSesion.setText("Registrarse");
-                        
                     }
-                    
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
-    public void abrirformularios(String fxml, String titulo){
-        
+
+    public void abrirformularios(String fxml, String titulo) {
         try {
-            
+            // Cierra la ventana emergente actual si existe
+            if (ventanaEmergente != null) {
+                ventanaEmergente.close();
+                ventanaEmergente = null;
+            }
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            
             Parent root = loader.load();
-            
+
             if (fxml.equals("loginAdmi.fxml")) {
-                
                 LoginAdmiController controller = loader.getController();
                 controller.setMainController(this);
-                
             } else if (fxml.equals("login.fxml")) {
-                
                 LoginController controller = loader.getController();
                 controller.setMainController(this);
-                
             }
-            
-            Stage stage = new Stage();
-            stage.setTitle(titulo);
-            //Medidas 660, 480
-            stage.setScene(new Scene(root, 660, 480));
-            
-            //Medidas X 260 Y 60
-            stage.setX(350);
-            stage.setY(100);
-            
-            // Cargar la imagen del icono
+
+            ventanaEmergente = new Stage();
+            ventanaEmergente.setTitle(titulo);
+            ventanaEmergente.setScene(new Scene(root));
+            ventanaEmergente.setX(350);
+            ventanaEmergente.setY(100);
             Image icon = new Image(getClass().getResourceAsStream("logo_e_corner.png"));
-            // Establecer el icono de la ventana
-            stage.getIcons().add(icon);
-            
-            stage.show();
-            
+            ventanaEmergente.getIcons().add(icon);
+
+            ventanaEmergente.setOnCloseRequest(event -> ventanaEmergente = null);
+
+            ventanaEmergente.show();
         } catch (IOException ex) {
-            
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
-        
     }
-    
+
     public void actualizarBotonSesion() {
-        
         verificarUsuario();
-        
     }
-    
+
     public void iniciarSesion() {
-        
         sesionIniciada = true;
         btnSesion.setText("Cerrar Sesión");
-        
     }
 
     public void cerrarSesion() {
