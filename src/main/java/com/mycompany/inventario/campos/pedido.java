@@ -1,7 +1,6 @@
 package com.mycompany.inventario.campos;
 
 import com.mycompany.inventario.clases.conexion;
-import com.mycompany.inventario.clases.sentencias;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
