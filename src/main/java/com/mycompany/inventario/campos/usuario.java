@@ -178,7 +178,8 @@ public class usuario extends conexion implements sentencias {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
             return false;
             
-        }    }
+        }    
+    }
 
     @Override
     public ArrayList consulta() {

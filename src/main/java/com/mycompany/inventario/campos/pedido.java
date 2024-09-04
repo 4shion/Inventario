@@ -1,7 +1,6 @@
 package com.mycompany.inventario.campos;
 
 import com.mycompany.inventario.clases.conexion;
-import com.mycompany.inventario.clases.sentencias;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +9,14 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 
 public class pedido extends conexion{
     
     private int idPedido;
     private String servicio;
     private Date fechaActual = new Date(System.currentTimeMillis());
-    private int totalPedido;
+    private double totalPedido;
     private int idCliente;
     private int idMateria;
     private double Cant;
@@ -25,11 +25,14 @@ public class pedido extends conexion{
     private double StockRestante;
     private double precio;
     private String unidad;
-
+    private int[] listaMaterialesId;
+    private double[] listaCant;
+    private String[] listaMaterialesN;
+    
     public pedido(){
     }
     
-    public pedido(int idPedido, String servicio, int totalPedido, int idCliente, int idMateria, double Cant, String nombreC, String nombreM, double StockRestante, double precio, String unidad) {
+    public pedido(int idPedido, String servicio, double totalPedido, int idCliente, int idMateria, double Cant, String nombreC, String nombreM, double StockRestante, double precio, String unidad) {
         this.idPedido = idPedido;
         this.servicio = servicio;
         this.totalPedido = totalPedido;
@@ -67,11 +70,11 @@ public class pedido extends conexion{
         this.fechaActual = fechaActual;
     }
 
-    public int getTotalPedido() {
+    public double getTotalPedido() {
         return totalPedido;
     }
 
-    public void setTotalPedido(int totalPedido) {
+    public void setTotalPedido(double totalPedido) {
         this.totalPedido = totalPedido;
     }
 
@@ -139,6 +142,30 @@ public class pedido extends conexion{
         this.unidad = unidad;
     }
 
+    public int[] getListaMaterialesId() {
+        return listaMaterialesId;
+    }
+
+    public void setListaMaterialesId(int[] listaMaterialesId) {
+        this.listaMaterialesId = listaMaterialesId;
+    }
+
+    public double[] getListaCant() {
+        return listaCant;
+    }
+
+    public void setListaCant(double[] listaCant) {
+        this.listaCant = listaCant;
+    }
+
+    public String[] getListaMaterialesN() {
+        return listaMaterialesN;
+    }
+
+    public void setListaMaterialesN(String[] listaMaterialesN) {
+        this.listaMaterialesN = listaMaterialesN;
+    }
+
     public ArrayList<pedido> consulta() {
         ArrayList<pedido> pedidos = new ArrayList<>();
         String sql = "SELECT pedido.*, detallepedido.*, cliente.nombre AS nombreC, materiaPrima.nombre AS nombreM, detallepedido.cantidad, materiaPrima.precio, materiaPrima.UnidadMedida AS uni "
@@ -181,9 +208,125 @@ public class pedido extends conexion{
     // Método calculado para concatenar stock restante con la unidad
     public String getStockRestanteConUnidad() {
         return StockRestante + " " + unidad;
-    }
+    }            
     
     public boolean insertar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        setIdCliente(obtenerIdClientePorNombre(nombreC));
+        setListaMaterialesId(obtenerIdMaterial(listaMaterialesN));
+        String sqlPedido = "INSERT INTO Pedido (idPedido, servicio, fecha, totalPedido, Cliente_idCliente) VALUES (null, ?, ?, ?, ?)";
+        String sqlDetalle = "INSERT INTO detallePedido (Pedido_idPedido, materiaPrima_idMaterial, cantidad) VALUES (?, ?, ?)";
+        String sqlUpdateStock = "UPDATE materiaPrima SET cantidad = cantidad - ? WHERE idMaterial = ?";
+
+
+        // Conexión y transacciones
+        try (Connection con = getCon()) {
+            // Iniciar transacción
+            con.setAutoCommit(false);
+
+            // Insertar en la tabla Pedido
+            try (PreparedStatement stmPedido = con.prepareStatement(sqlPedido, Statement.RETURN_GENERATED_KEYS);
+                 PreparedStatement stmDetalle = con.prepareStatement(sqlDetalle);
+                 PreparedStatement stmUpdateStock = con.prepareStatement(sqlUpdateStock)) {
+
+                // Preparar y ejecutar la inserción en Pedido
+                stmPedido.setString(1, this.servicio);
+                stmPedido.setDate(2, this.fechaActual);
+                stmPedido.setDouble(3, this.totalPedido);
+                stmPedido.setInt(4, this.idCliente);
+                stmPedido.executeUpdate();
+
+                // Obtener el ID generado para el nuevo Pedido
+                ResultSet generatedKeys = stmPedido.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    
+                    int idPedidoGenerado = generatedKeys.getInt(1);
+
+                    // Insertar los detalles del pedido
+                    for (int i = 0; i < listaMaterialesId.length; i++) {
+                        stmDetalle.setInt(1, idPedidoGenerado);
+                        stmDetalle.setInt(2, listaMaterialesId[i]);
+                        stmDetalle.setDouble(3, listaCant[i]);
+                        stmDetalle.executeUpdate();
+
+                        // Actualizar el stock de cada material
+                        stmUpdateStock.setDouble(1, listaCant[i]);
+                        stmUpdateStock.setInt(2, listaMaterialesId[i]);
+                        stmUpdateStock.executeUpdate();
+                        
+                    }
+                    
+                } 
+                else {
+                    throw new SQLException("No se pudo obtener el ID del pedido insertado.");
+                }
+
+                    // Confirmar transacción
+                    con.commit();
+                    return true;
+            } catch (SQLException ex) {
+                    // En caso de error, deshacer transacción
+                con.rollback();
+                Logger.getLogger(pedido.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(pedido.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+            
+        }
     }
+    
+    public int obtenerIdClientePorNombre(String nombreCliente) {
+        String sql = "SELECT idCliente FROM cliente WHERE nombre = ?";
+        try (Connection con = getCon();
+             PreparedStatement stm = con.prepareStatement(sql)) {
+            stm.setString(1, nombreCliente);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("idCliente");
+            } else {
+                throw new SQLException("No se encontró un cliente con el nombre " + nombreCliente);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(pedido.class.getName()).log(Level.SEVERE, null, ex);
+            return -1; // O manejar el error de una forma adecuada para tu aplicación
+        }
+    }
+    
+    public int[] obtenerIdMaterial(String[] listaM){
+        
+        String sql = "Select idMaterial from materiaPrima where nombre = ?";
+        int[] listaMaterialesIds = new int[listaM.length]; // Inicializar el arreglo de IDs de materiales
+
+        
+        try(Connection con = getCon();
+            PreparedStatement stm = con.prepareStatement(sql)){
+            
+            for (int i = 0; i < listaM.length; i++) {
+                
+                        stm.setString(1, listaM[i]);
+                        ResultSet rs = stm.executeQuery();
+                        
+                        if (rs.next()){
+                            
+                            listaMaterialesIds[i] = rs.getInt("IdMaterial");
+                            
+                        }
+                        
+                    }
+
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(pedido.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        return listaMaterialesIds;
+        
+    }
+    
 }
