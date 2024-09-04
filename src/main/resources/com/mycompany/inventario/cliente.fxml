@@ -64,7 +64,7 @@
             <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
-      <HBox id="menuBar" layoutX="20.0" layoutY="20.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox id="menuBar" layoutX="20.0" layoutY="20.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button id="mainLogoButton" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #ad1316;">
                <graphic>
@@ -150,7 +150,7 @@
                   <Font name="Corbel Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
+            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#verificar" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
                <font>
                   <Font name="Corbel Bold" size="14.0" />
                </font>

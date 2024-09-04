@@ -14,6 +14,7 @@ com\mycompany\inventario\clases\alertas.class
 com\mycompany\inventario\campos\Login.class
 com\mycompany\inventario\campos\pedido.class
 com\mycompany\inventario\clases\conexion.class
+com\mycompany\inventario\MateriaController$1.class
 com\mycompany\inventario\HistorialController.class
 module-info.class
 com\mycompany\inventario\clases\encriptacion.class

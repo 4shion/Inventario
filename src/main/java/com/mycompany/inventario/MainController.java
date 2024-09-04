@@ -46,7 +46,7 @@ public class MainController extends conexion implements Initializable {
     Login login = new Login();
     permisos p = new permisos();
 
-    private Stage ventanaEmergente = null; // Quita el "final"
+    private Stage ventanaEmergente = null; 
     @FXML
     private Button btnMateriales;
     @FXML
@@ -284,6 +284,7 @@ public class MainController extends conexion implements Initializable {
         }
     }
 
+    
     public void actualizarBotonSesion() {
         verificarUsuario();
     }

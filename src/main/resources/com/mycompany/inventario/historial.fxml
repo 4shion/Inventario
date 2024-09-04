@@ -99,7 +99,7 @@
                   <Font name="Corbel Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirPerfilAdmin" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
+            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#verificar" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
                <font>
                   <Font name="Corbel Bold" size="14.0" />
                </font>

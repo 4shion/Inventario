@@ -1,5 +1,6 @@
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.factura;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.pedido;
 import com.mycompany.inventario.clases.alertas;
@@ -24,7 +25,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -33,10 +37,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class PedidoController implements Initializable {
@@ -75,7 +81,7 @@ public class PedidoController implements Initializable {
     private ImageView engranaje;
     @FXML
     private TextField txtNomCliente;
-
+    
     private conexion conexionDB = new conexion();
     private ObservableList<materia> listaMateriales;
     
@@ -83,6 +89,7 @@ public class PedidoController implements Initializable {
     navegacion nav = new navegacion();
     alertas alert = new alertas();
     pedido p = new pedido();
+    factura f = new factura();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -130,7 +137,8 @@ public class PedidoController implements Initializable {
     private void Guardar(ActionEvent event) {
         
         p.setServicio(TxtServicio.getText());
-        p.setNombreC(txtNomCliente.getText());        
+        p.setNombreC(txtNomCliente.getText());
+        
         
         int numFilas = table.getItems().size();
 
@@ -149,6 +157,7 @@ public class PedidoController implements Initializable {
         if(p.insertar()){
 
             alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+            
 
         }
          else{
@@ -339,6 +348,11 @@ public class PedidoController implements Initializable {
         }
         
     }
+  
+    @FXML
+    private void verificar() {
+        m.abrirformularios("pswdAdmin.fxml", "Verificar Identidad");
+    }
 
     @FXML
     private void Config(ActionEvent event) {
@@ -468,7 +482,7 @@ public class PedidoController implements Initializable {
     @FXML
     private void Click(MouseEvent event) {
         
-        pedido p = table.getSelectionModel().getSelectedItem();
+        p = table.getSelectionModel().getSelectedItem();
         TxtCant.setText(String.valueOf(p.getCant()));
         CbmMateriales.setValue(p.getNombreM());
         btnEliminar.setDisable(false);
@@ -504,9 +518,6 @@ public class PedidoController implements Initializable {
         return datosCliente;
     }
 
-    
-    
-    
     @FXML
     private void Factura(ActionEvent event) {
         
@@ -522,24 +533,21 @@ public class PedidoController implements Initializable {
     }
         reportes report = new reportes();
         buscarDatosCliente();
-
         double subtotal = calcularSubtotal();
         double total = calcularTotal();
-
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("nombreCliente", txtNomCliente.getText());
-        parametros.put("correoCliente", p.getCorreo());
-        parametros.put("telfCliente", p.getTelf());
-        parametros.put("servicio", TxtServicio.getText());
-        parametros.put("subtotal", subtotal);
-        parametros.put("total", total);
+        int numFactura = f.getNumFactura();
+        System.out.println(numFactura);
 
         try {
-            report.generarReporte("/reportes.frameexperts/factura.jasper", "Factura", parametros);
-            System.out.println("Reporte generado con exito");
+            f.insertar();
+            reportes r=new reportes();
+            String ubicacion = "/reportes.frameexperts/factura.jasper";
+            String titulo = "Factura N~" + String.valueOf(numFactura);
+            r.generarFactura(ubicacion, titulo, numFactura);
+            System.out.println("Reporte exitoso");
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
-            System.out.println("bobasa no le sale factura");
+            System.out.println("no funca xd");
         }
     }
 

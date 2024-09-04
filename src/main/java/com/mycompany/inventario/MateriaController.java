@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -129,7 +130,26 @@ public class MateriaController extends App implements Initializable{
         btnModificar.setDisable(true);
         
         mostrarDatos();
-    }    
+        
+        table.setRowFactory(tv -> new TableRow<materia>() {
+            @Override
+            protected void updateItem(materia item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setStyle("");
+                } else {
+                    if (item.getCantidad() < item.getCantidad_min()) {
+                        setStyle("-fx-background-color: #ff6969;");
+                    } else if (item.getCantidad() == item.getCantidad_min()){
+                        setStyle("-fx-background-color: #ffd569");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+    });
+}    
 
     @FXML
     private void Busqueda(ActionEvent event) {
@@ -557,7 +577,6 @@ public class MateriaController extends App implements Initializable{
 
         Map<String, Object> parametros = new HashMap<>();
 
-        r.generarReporte(ubicacion, titulo, parametros);
     }
     
     @FXML

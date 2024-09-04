@@ -21,7 +21,7 @@
    <children>
       <Pane layoutX="203.0" layoutY="121.0" prefHeight="478.0" prefWidth="900.0">
          <children>
-            <TextArea fx:id="TxtServicio" layoutX="36.0" layoutY="83.0" prefHeight="158.0" prefWidth="200.0" />
+            <TextArea fx:id="TxtServicio" layoutX="36.0" layoutY="84.0" prefHeight="158.0" prefWidth="200.0" />
             <Text layoutX="36.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Servicio realizado:">
                <font>
                   <Font name="Corbel" size="14.0" />
@@ -151,7 +151,7 @@
                   <Font name="Corbel Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirPerfilAdmin" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
+            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#verificar" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
                <font>
                   <Font name="Corbel Bold" size="14.0" />
                </font>
