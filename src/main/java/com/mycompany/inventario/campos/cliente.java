@@ -102,7 +102,7 @@ public class cliente extends conexion implements sentencias{
     public ArrayList consulta() {
         
         ArrayList<cliente> clientes = new ArrayList<>();
-        String sql = "select * from cliente";
+        String sql = "select c.idCliente, c.nombre, c.correo, c.telefono from cliente c where nombre != 'Sin nombre'";
         
         try(
 

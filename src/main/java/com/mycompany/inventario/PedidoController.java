@@ -130,6 +130,35 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Guardar(ActionEvent event) {
+        
+        p.setServicio(TxtServicio.getText());
+        p.setNombreC(txtNomCliente.getText());        
+        
+        int numFilas = table.getItems().size();
+
+        String[] listaMaterialesN = new String[numFilas];
+        double[] listaCant = new double[numFilas];
+
+        for (int i = 0; i < numFilas; i++) {
+            pedido materiales = table.getItems().get(i);
+            listaMaterialesN[i] = materiales.getNombreM();
+            listaCant[i] = materiales.getCant();
+        }
+
+        p.setListaMaterialesN(listaMaterialesN);
+        p.setListaCant(listaCant);
+        
+        if(p.insertar()){
+
+            alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+
+        }
+         else{
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
+        
+        }
+
     }
 
     @FXML
@@ -142,7 +171,7 @@ public class PedidoController implements Initializable {
         CbmMateriales.getSelectionModel().clearSelection();
         table.getItems().clear();
         CbmMateriales.setDisable(false);
-        
+        btnGuardar.setDisable(false);
 
     }
     
@@ -212,7 +241,9 @@ public class PedidoController implements Initializable {
         // Limpia el ComboBox y el campo de cantidad después de agregar o modificar
         TxtCant.clear();
         CbmMateriales.setDisable(false);
+        btnGuardar.setDisable(false);
         CbmMateriales.getSelectionModel().clearSelection();
+        CbmMateriales.setValue(null);
 
         // Recarga el Combo Box
         // Muestra los datos en la tabla
@@ -467,6 +498,8 @@ public class PedidoController implements Initializable {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
     
     @FXML
     private void Factura(ActionEvent event) {
