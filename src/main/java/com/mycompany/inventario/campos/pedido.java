@@ -28,6 +28,9 @@ public class pedido extends conexion{
     private int[] listaMaterialesId;
     private double[] listaCant;
     private String[] listaMaterialesN;
+    private String correo;
+    private int telf;
+    private int numFactura;
     
     public pedido(){
     }
@@ -164,6 +167,30 @@ public class pedido extends conexion{
 
     public void setListaMaterialesN(String[] listaMaterialesN) {
         this.listaMaterialesN = listaMaterialesN;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public int getTelf() {
+        return telf;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setTelf(int telf) {
+        this.telf = telf;
+    }
+
+    public int getNumFactura() {
+        return numFactura;
+    }
+
+    public void setNumFactura(int numFactura) {
+        this.numFactura = numFactura;
     }
 
     public ArrayList<pedido> consulta() {

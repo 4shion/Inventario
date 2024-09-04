@@ -76,8 +76,6 @@ public class PedidoController implements Initializable {
     @FXML
     private TextField txtNomCliente;
 
-    private TextField correoCliente;
-    private TextField telfCliente;
     private conexion conexionDB = new conexion();
     private ObservableList<materia> listaMateriales;
     
@@ -479,30 +477,49 @@ public class PedidoController implements Initializable {
         
     }
     
-    private void buscarDatosCliente() {
-        String nombreCliente = txtNomCliente.getText();
-        String query = "SELECT correo, telefono FROM Cliente WHERE nombre = ?";
+    private Map<String, String> buscarDatosCliente() {
+    String nombreCliente = txtNomCliente.getText();
+    String correo = "";
+    int telf = 0;
+    
+    
+    String consulta = "SELECT correo, telefono FROM Cliente WHERE nombre = ?";
+    Map<String, String> datosCliente = new HashMap<>();
 
-        try (PreparedStatement stmt = conexionDB.getCon().prepareStatement(query)) {
-            stmt.setString(1, nombreCliente);
-            ResultSet rs = stmt.executeQuery();
+    try (PreparedStatement stmt = conexionDB.getCon().prepareStatement(consulta)) {
+        stmt.setString(1, nombreCliente);
+        ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                correoCliente.setText(rs.getString("correo"));
-                telfCliente.setText(rs.getString("telefono"));
-            } else {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
-                return;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        if (rs.next()) {
+            correo = rs.getString("correo");
+            telf = rs.getInt("telefono");
+        } else {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
         }
+        p.setCorreo(correo);
+        p.setTelf(telf);
+    } catch (SQLException ex) {
+        Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
     }
+        return datosCliente;
+    }
+
     
     
     
     @FXML
     private void Factura(ActionEvent event) {
+        
+    if (txtNomCliente.getText().isEmpty() || TxtServicio.getText().isEmpty()) {
+        alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos para generar la factura");
+        return;
+    }
+    
+    Map<String, String> datosCliente = buscarDatosCliente();
+    
+    if (datosCliente.isEmpty()) {
+        return;
+    }
         reportes report = new reportes();
         buscarDatosCliente();
 
@@ -511,17 +528,18 @@ public class PedidoController implements Initializable {
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("nombreCliente", txtNomCliente.getText());
-        parametros.put("correoCliente", correoCliente.getText());
-        parametros.put("telfCliente", telfCliente.getText());
+        parametros.put("correoCliente", p.getCorreo());
+        parametros.put("telfCliente", p.getTelf());
         parametros.put("servicio", TxtServicio.getText());
         parametros.put("subtotal", subtotal);
         parametros.put("total", total);
 
         try {
-            report.generarReporte("/reportes.frameexperts/factura.jrxml", "Factura", parametros);
+            report.generarReporte("/reportes.frameexperts/factura.jasper", "Factura", parametros);
             System.out.println("Reporte generado con exito");
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
+            System.out.println("bobasa no le sale factura");
         }
     }
 
