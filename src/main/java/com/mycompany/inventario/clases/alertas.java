@@ -5,6 +5,8 @@
 package com.mycompany.inventario.clases;
 
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  *
@@ -13,6 +15,7 @@ import javafx.scene.control.Alert;
 public class alertas {
     
     public alertas(){
+
     }
     
     public static void ShowAlert(Alert.AlertType Alerta, String titulo, String contenido) {
@@ -21,6 +24,8 @@ public class alertas {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(contenido);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         alert.show();
         
     }

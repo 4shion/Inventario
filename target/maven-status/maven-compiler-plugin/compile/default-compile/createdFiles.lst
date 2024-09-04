@@ -1,6 +1,7 @@
 com\mycompany\inventario\campos\usuario.class
 com\mycompany\inventario\clases\navegacion$1.class
 com\mycompany\inventario\ClienteController.class
+com\mycompany\inventario\campos\factura.class
 com\mycompany\inventario\App.class
 com\mycompany\inventario\PswdAdminController.class
 com\mycompany\inventario\clases\reportes.class
