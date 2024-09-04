@@ -4,10 +4,12 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.proveedor;
 import com.mycompany.inventario.clases.reportes;
 import com.mycompany.inventario.clases.alertas;
+import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -30,6 +32,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -83,6 +86,8 @@ public class MateriaController extends App implements Initializable{
     
     materia m = new materia();
     proveedor p = new proveedor();
+    Login login = new Login();
+    permisos per = new permisos();
     
     ObservableList<materia> listaMateria;
     ObservableList<proveedor> listaProveedor;
@@ -116,20 +121,34 @@ public class MateriaController extends App implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        txtNombre.setDisable(true);
-        txtPrecio.setDisable(true);
-        txtCantidad.setDisable(true);
-        cboSelProov.setDisable(true);
-        txtCamMín.setDisable(true);
-        TxtUniMed.setDisable(true);
-        
-        btnGuardar.setDisable(true);
-        btnCancelar.setDisable(true);
-        btnEliminar.setDisable(true);
-        btnModificar.setDisable(true);
-        
-        mostrarDatos();
+        if(per.Materiales(login.getUsuarioActual())){
+            txtNombre.setDisable(true);
+            txtPrecio.setDisable(true);
+            txtCantidad.setDisable(true);
+            cboSelProov.setDisable(true);
+            txtCamMín.setDisable(true);
+            TxtUniMed.setDisable(true);
+
+            btnGuardar.setDisable(true);
+            btnCancelar.setDisable(true);
+            btnEliminar.setDisable(true);
+            btnModificar.setDisable(true);
+
+            mostrarDatos();
+        }
+        else{
+            
+            click.
+            
+        }
     }    
+    
+    public Tooltip TextButton(String s){
+        
+        Tooltip t = new Tooltip(s);
+        return t;
+        
+    }
 
     @FXML
     private void Busqueda(ActionEvent event) {
@@ -596,7 +615,7 @@ public class MateriaController extends App implements Initializable{
 
         } 
     }
-
+    
     @FXML
     private void bajarPDF(ActionEvent event) {
     }
