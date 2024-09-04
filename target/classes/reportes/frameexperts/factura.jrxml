@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZnJhbWVleHBlcnRzLmRldGFsbGVwZWRpZG8gLDIyNCwzNiwyM2UxY2Y1Ni1hYTRjLTQ0ZjUtOTk5
+Ni1jNjcwNjViYTBiYzA7ZnJhbWVleHBlcnRzLnBlZGlkbyAsMTUsMTc2LDJkZTFjYTM0LWE2NWUt
+NGZlMS05NjBiLWQ2YzgzY2E2NTJhNTtmcmFtZWV4cGVydHMuY2xpZW50ZSAsMjY4LDMzMyw1OTlm
+ZmYwNy00NzY4LTRiNTgtOGMyYi0yNGYwODczMDg5YmM7ZnJhbWVleHBlcnRzLmZhY3R1cmEgLDQ5
+MSwxMzgsMDA1YTI3MjUtZTYyNS00NjRmLTg1N2UtNzY3N2U3OGUwYmJlOw==]]>
+	</property>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
@@ -56,17 +64,76 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
-	<parameter name="telfCliente" class="java.lang.String"/>
-	<parameter name="correoCliente" class="java.lang.String"/>
-	<parameter name="nombreCliente" class="java.lang.String"/>
-	<parameter name="subtotal" class="java.lang.String"/>
-	<parameter name="total" class="java.lang.String"/>
-	<parameter name="factNumero" class="java.lang.String"/>
+	<parameter name="factNumero" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT p.servicio,
+	p.fecha,
+	c.nombre,
+	c.correo,
+	c.telefono,
+	f.`numFactura`,
+	f.subtotal,
+	f.total
+FROM frameexperts.pedido p
+	INNER JOIN frameexperts.cliente c ON 
+	 p.`Cliente_idCliente` = c.`idCliente` 
+	INNER JOIN frameexperts.detallepedido dp ON 
+	 p.`idPedido` = dp.`Pedido_idPedido` 
+	INNER JOIN frameexperts.factura f ON 
+	 p.`idPedido` = f.`Pedido_idPedido` 
+WHERE 
+	 f.`numFactura` = $P{factNumero}]]>
 	</queryString>
+	<field name="servicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="servicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="servicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pedido"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pedido"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="correo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="correo"/>
+		<property name="com.jaspersoft.studio.field.label" value="correo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numFactura" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="numFactura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="subtotal"/>
+		<property name="com.jaspersoft.studio.field.label" value="subtotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<title>
-		<band height="169" splitType="Stretch">
+		<band height="173" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="90" width="84" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -92,17 +159,12 @@
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="80" height="70" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
 				<imageExpression><![CDATA["C:/Users/Acer/Desktop/Helena Arzamendia/Proyecto final CTN/Inventario este si/Inventario/src/main/resources/com/mycompany/inventario/logo_e_corner.png"]]></imageExpression>
 			</image>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="465" y="30" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{factNumero}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="380" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
@@ -132,16 +194,20 @@
 				<text><![CDATA[Dublin, D06 T0C8, Ireland]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="145" width="100" height="15" uuid="422d4b67-de79-4c76-9f8a-09ee9aa57b88"/>
-				<textFieldExpression><![CDATA[$P{correoCliente}]]></textFieldExpression>
+				<reportElement x="465" y="30" width="84" height="20" uuid="71b73f59-d159-4344-b533-6e9180f0ad02"/>
+				<textFieldExpression><![CDATA[$F{numFactura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="130" width="100" height="15" uuid="b72f7474-7ab4-4874-90bc-aac92a7ec25d"/>
-				<textFieldExpression><![CDATA[$P{telfCliente}]]></textFieldExpression>
+				<reportElement x="0" y="115" width="100" height="15" uuid="34b52bbc-d902-45da-b2ce-59525184809a"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="115" width="100" height="15" uuid="5a6aa5bc-3ffd-46af-af4c-2802e3eecf23"/>
-				<textFieldExpression><![CDATA[$P{nombreCliente}]]></textFieldExpression>
+				<reportElement x="0" y="130" width="100" height="15" uuid="cb5fa8f9-42eb-431e-b2f4-2648da04f9fb"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="145" width="100" height="15" uuid="6df9cca3-cdd9-488e-99e8-9989c8153ab0"/>
+				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -186,15 +252,15 @@
 		<band height="53">
 			<textField>
 				<reportElement x="0" y="0" width="280" height="35" uuid="0c2b9cd1-e6dc-4889-9c6d-b267c6b5fcd8"/>
-				<textFieldExpression><![CDATA[$P{servicio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="0" width="140" height="35" uuid="d8ed9da1-872f-48d9-bc28-62e71db81fd9"/>
-				<textFieldExpression><![CDATA[$P{subtotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="421" y="0" width="134" height="35" uuid="7f9954fe-ed38-4406-ae30-d7e1b7205480"/>
-				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -221,7 +287,7 @@
 			<textField>
 				<reportElement x="460" y="121" width="89" height="18" uuid="763da769-b4b3-4734-b671-2584f8c37f60"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
