@@ -35,7 +35,7 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="txtContra" layoutX="288.0" layoutY="157.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="txtContra" layoutX="288.0" layoutY="157.0" prefHeight="25.0" prefWidth="150.0" promptText="Contraseña Nueva" />
             <TextField fx:id="txtNombre" layoutX="289.0" layoutY="106.0" prefHeight="25.0" prefWidth="150.0" />
             <Button fx:id="btnModificar" layoutX="204.0" layoutY="342.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE">
                <font>

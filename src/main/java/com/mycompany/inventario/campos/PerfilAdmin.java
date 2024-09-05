@@ -71,7 +71,7 @@ public class PerfilAdmin extends conexion {
     public boolean Modificar(){
         
 String sql = "update usuario set codigoAdmin = ?, nombre = ?, correo = ?, codigo = ?"
-                + " where codigoAdmi != NULL";
+                + " where codigoAdmin != NULL";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))

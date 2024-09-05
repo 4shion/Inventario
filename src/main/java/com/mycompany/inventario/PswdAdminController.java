@@ -60,6 +60,7 @@ public class PswdAdminController implements Initializable {
         else {
             
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Codigo incorrecto");
+            TxtContraAdmin.clear();
             return;
             
         }

@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -64,7 +65,8 @@ public class PerfilAdminController implements Initializable {
         TxtCod.setDisable(false);
         txtCorreo.setDisable(false);
         
-        btnModificar.setDisable(false);
+        btnModificar.setDisable(true);
+        btnGuardar.setDisable(false);
         
     }
 
@@ -75,11 +77,14 @@ public class PerfilAdminController implements Initializable {
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
                 
+                Stage stage = (Stage) btnGuardar.getScene().getWindow();
+                // Cerrar la ventana
+                stage.close();
             }
             else{
                 
                 alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido modificado correctamente");
-
+                return;
                 
             }
         

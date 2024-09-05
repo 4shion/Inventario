@@ -35,8 +35,8 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="txtContra" layoutX="288.0" layoutY="157.0" prefHeight="25.0" prefWidth="150.0" />
-            <TextField fx:id="txtNombre" layoutX="289.0" layoutY="106.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="txtContra" focusTraversable="false" layoutX="288.0" layoutY="157.0" prefHeight="25.0" prefWidth="150.0" promptText="Contraseña Nueva" />
+            <TextField fx:id="txtNombre" focusTraversable="false" layoutX="289.0" layoutY="106.0" prefHeight="25.0" prefWidth="150.0" />
             <Button fx:id="btnModificar" layoutX="204.0" layoutY="342.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -47,7 +47,7 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="TxtCod" layoutX="288.0" layoutY="210.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="TxtCod" focusTraversable="false" layoutX="288.0" layoutY="210.0" prefHeight="25.0" prefWidth="150.0" />
             <Button fx:id="btnGuardar" layoutX="303.0" layoutY="342.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -58,7 +58,7 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="txtCorreo" layoutX="288.0" layoutY="264.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="txtCorreo" focusTraversable="false" layoutX="288.0" layoutY="264.0" prefHeight="25.0" prefWidth="150.0" />
          </children>
       </Pane>
    </children>
