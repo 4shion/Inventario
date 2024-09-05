@@ -90,58 +90,61 @@ public class MainController extends conexion implements Initializable {
         pCli = p.Clientes(usuarioActual);
         pPe = p.Pedidos(usuarioActual);
         
+        String USi = "Este usuario tiene permiso para modificar esta vista";
+        String UNo = "Este usuario no tiene permiso para modificar esta vista";
+        
         if(pPro){
             
-            btnProveedores.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnProveedores.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnProveedores.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnProveedores.setTooltip(TextButton(UNo));
             
         }
         
         if(pUsu){
             
-            btnUsuarios.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnUsuarios.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnUsuarios.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnUsuarios.setTooltip(TextButton(UNo));
             
         }
         
         if(pMate){
             
-            btnMateriales.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnMateriales.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnMateriales.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnMateriales.setTooltip(TextButton(UNo));
             
         }
         
         if(pCli){
             
-            btnClientes.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnClientes.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnClientes.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnClientes.setTooltip(TextButton(UNo));
             
         }
         
         if(pPe){
             
-            btnPedidos.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnPedidos.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnPedidos.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnPedidos.setTooltip(TextButton(UNo));
             
         }
         
@@ -157,49 +160,67 @@ public class MainController extends conexion implements Initializable {
     }
 
     @FXML
-    private void swicthToProveedor(ActionEvent event) {
-        
+    private void switchToMateriales(ActionEvent event) {
+        if (sesionIniciada) {
             try {
-                App.setRoot("proveedor");
+                App.setRoot("materia");
             } catch (IOException ex) {
-                Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }
-
-    @FXML
-    private void switchToUsuarios(ActionEvent event) {
-        
-        try {
-            App.setRoot("usuario");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 
     @FXML
-    private void switchToMateriales(ActionEvent event) {
-        try {
-            App.setRoot("materia");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+    private void switchToUsuarios(ActionEvent event) {
+        if (sesionIniciada) {
+            try {
+                App.setRoot("usuario");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 
     @FXML
     private void switchToCliente(ActionEvent event) {
-        try {
-            App.setRoot("cliente");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        if (sesionIniciada) {
+            try {
+                App.setRoot("cliente");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 
     @FXML
     private void switchToPedido(ActionEvent event) {
-        try {
-            App.setRoot("pedido");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        if (sesionIniciada) {
+            try {
+                App.setRoot("pedido");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
+        }
+    }
+
+    @FXML
+    private void swicthToProveedor(ActionEvent event) {
+        if (sesionIniciada) {
+            try {
+                App.setRoot("proveedor");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 

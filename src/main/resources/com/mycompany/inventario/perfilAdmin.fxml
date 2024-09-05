@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="855.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="855.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.PerfilAdminController">
    <children>
       <Rectangle id="menu_bar" arcHeight="5.0" arcWidth="5.0" fill="#ad1316" height="51.0" layoutX="20.0" layoutY="-9.2" stroke="#ad1316" strokeType="INSIDE" strokeWidth="0.0" width="862.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ImageView fitHeight="51.0" fitWidth="200.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -35,9 +35,9 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <TextField layoutX="288.0" layoutY="157.0" prefHeight="25.0" prefWidth="150.0" />
-            <TextField layoutX="289.0" layoutY="106.0" prefHeight="25.0" prefWidth="150.0" />
-            <Button layoutX="204.0" layoutY="342.0" mnemonicParsing="false" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE">
+            <TextField fx:id="txtContra" layoutX="288.0" layoutY="157.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="txtNombre" layoutX="289.0" layoutY="106.0" prefHeight="25.0" prefWidth="150.0" />
+            <Button fx:id="btnModificar" layoutX="204.0" layoutY="342.0" mnemonicParsing="false" onAction="#Modificar" style="-fx-background-color: #ad1316;" text="Modificar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -47,8 +47,8 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <TextField layoutX="288.0" layoutY="210.0" prefHeight="25.0" prefWidth="150.0" />
-            <Button layoutX="303.0" layoutY="342.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE">
+            <TextField fx:id="TxtCod" layoutX="288.0" layoutY="210.0" prefHeight="25.0" prefWidth="150.0" />
+            <Button fx:id="btnGuardar" layoutX="303.0" layoutY="342.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -58,7 +58,7 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <TextField layoutX="288.0" layoutY="264.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="txtCorreo" layoutX="288.0" layoutY="264.0" prefHeight="25.0" prefWidth="150.0" />
          </children>
       </Pane>
    </children>

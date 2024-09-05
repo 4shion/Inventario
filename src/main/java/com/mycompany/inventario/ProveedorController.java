@@ -4,8 +4,10 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.proveedor;
 import com.mycompany.inventario.clases.alertas;
+import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -25,6 +27,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -79,6 +82,11 @@ public class ProveedorController implements Initializable {
     ObservableList<proveedor> listaFiltrada;
     
     alertas alert = new alertas();
+    Login login = new Login();
+    permisos per = new permisos();
+    boolean permiso = false;
+    String h = "Boton Inhabilitado";
+    
     @FXML
     private TableColumn<proveedor, String> ColumTelefono;
     @FXML
@@ -91,18 +99,102 @@ public class ProveedorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        permiso = per.Proveedores(login.getUsuarioActual());
+        
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
         txtTelefono.setDisable(true);
         
-        btnGuardar.setDisable(true);
-        btnCancelar.setDisable(true);
-        btnEliminar.setDisable(true);
-        btnModificar.setDisable(true);
+        if(permiso){
+
+            btnGuardar.setDisable(true);
+            btnCancelar.setDisable(true);
+            btnEliminar.setDisable(true);
+            btnModificar.setDisable(true);
+            
+        }
+        else{
+            
+            btnGuardar.setDisable(false);
+            btnCancelar.setDisable(false);
+            btnEliminar.setDisable(false);
+            btnModificar.setDisable(false);
+            btnNuevo.setDisable(false);
+            btnLimpiar.setDisable(false);
+            
+            btnNuevo.setTooltip(TextButton(h));
+            btnCancelar.setTooltip(TextButton(h));
+            btnEliminar.setTooltip(TextButton(h));
+            btnGuardar.setTooltip(TextButton(h));
+            btnModificar.setTooltip(TextButton(h));
+            btnLimpiar.setTooltip(TextButton(h));
+            
+            btnGuardar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Guardar ha sido presionado.");
+            });
+            
+            btnNuevo.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Nuevo ha sido presionado.");
+            });
+            
+            btnEliminar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Eliminar ha sido presionado.");
+            });
+            
+            btnCancelar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Cancelar ha sido presionado.");
+            });
+            
+            btnModificar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Modificar ha sido presionado.");
+            });
+            
+            btnLimpiar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Limpiar ha sido presionado.");
+            });
+            
+        }
         
         mostrardatos();
         
     }    
+    
+    public Tooltip TextButton(String s){
+
+        Tooltip t = new Tooltip(s);
+        return t;
+        
+    }
 
     @FXML
     private void Busqueda(ActionEvent event) {
@@ -136,20 +228,28 @@ public class ProveedorController implements Initializable {
     @FXML
     private void click(MouseEvent event) {
         
+        if (!permiso) {
+            event.consume(); // Consume el evento para evitar cualquier otra acción
+            return; // Salir del método
+        }
+        
         proveedor one = table.getSelectionModel().getSelectedItem();
-        txtNombre.setText(one.getNombre());
-        txtCorreo.setText(one.getCorreo());
-        txtTelefono.setText(one.getTelefono());
-        txtId.setText(String.valueOf(one.getId()));
         
-        btnModificar.setDisable(false);
-        btnEliminar.setDisable(false);
-        btnCancelar.setDisable(false);
-        
-        txtNombre.setDisable(true);
-        txtCorreo.setDisable(true);
-        
-        btnNuevo.setDisable(true);
+        if(one != null){
+            txtNombre.setText(one.getNombre());
+            txtCorreo.setText(one.getCorreo());
+            txtTelefono.setText(one.getTelefono());
+            txtId.setText(String.valueOf(one.getId()));
+
+            btnModificar.setDisable(false);
+            btnEliminar.setDisable(false);
+            btnCancelar.setDisable(false);
+
+            txtNombre.setDisable(true);
+            txtCorreo.setDisable(true);
+
+            btnNuevo.setDisable(true);
+        }
         
     }
 
@@ -431,7 +531,7 @@ public class ProveedorController implements Initializable {
     @FXML
     private void abrirPerfilAdmin() {
     
-        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+        m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
     
     }
     

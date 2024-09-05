@@ -11,11 +11,14 @@ com\mycompany\inventario\ProveedorController.class
 com\mycompany\inventario\UsuarioController.class
 com\mycompany\inventario\campos\materia.class
 com\mycompany\inventario\clases\alertas.class
+com\mycompany\inventario\campos\Pswd.class
 com\mycompany\inventario\campos\Login.class
 com\mycompany\inventario\campos\pedido.class
+com\mycompany\inventario\PerfilAdminController.class
 com\mycompany\inventario\clases\conexion.class
 com\mycompany\inventario\MateriaController$1.class
 com\mycompany\inventario\HistorialController.class
+com\mycompany\inventario\campos\PerfilAdmin.class
 module-info.class
 com\mycompany\inventario\clases\encriptacion.class
 com\mycompany\inventario\campos\proveedor.class

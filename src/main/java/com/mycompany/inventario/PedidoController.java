@@ -228,6 +228,23 @@ public class PedidoController implements Initializable {
             alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos antes de generar la factura");
             return;
         }
+<<<<<<< HEAD
+=======
+    }
+    
+    @FXML
+    private void abrirGestorContra() {
+    
+        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+    
+    }
+>>>>>>> main
 
         try {
             Map<String, Object> parametros = new HashMap<>();
