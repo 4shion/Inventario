@@ -122,7 +122,6 @@ public class HistorialController implements Initializable {
         m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
     
     }
-    @FXML
     private void abrirPerfilAdmin() {
     
         m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
@@ -168,6 +167,10 @@ public class HistorialController implements Initializable {
 
     @FXML
     private void bajarPDF(ActionEvent event) {
+    }
+
+    @FXML
+    private void verificar(ActionEvent event) {
     }
 
 }

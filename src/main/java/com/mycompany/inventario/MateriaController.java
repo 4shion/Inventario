@@ -87,8 +87,7 @@ public class MateriaController extends App implements Initializable{
     
     materia m = new materia();
     proveedor p = new proveedor();
-    Login login = new Login();
-    permisos per = new permisos();
+    alertas alert = new alertas();
     
     ObservableList<materia> listaMateria;
     ObservableList<proveedor> listaProveedor;
@@ -103,7 +102,6 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private TextField txtCamMín;
     
-    alertas alert = new alertas();
     @FXML
     private Pane configuracion;
     
@@ -116,13 +114,19 @@ public class MateriaController extends App implements Initializable{
     
     MainController main = new MainController();
     
+    Login login = new Login();
+    permisos per = new permisos();
+    boolean permiso = false;
+    String h = "Boton Inhabilitado";
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-<<<<<<< HEAD
+        permiso = per.Materiales(login.getUsuarioActual());
+        
         txtNombre.setDisable(true);
         txtPrecio.setDisable(true);
         txtCantidad.setDisable(true);
@@ -130,11 +134,86 @@ public class MateriaController extends App implements Initializable{
         txtCamMín.setDisable(true);
         TxtUniMed.setDisable(true);
         
-        btnGuardar.setDisable(true);
-        btnCancelar.setDisable(true);
-        btnEliminar.setDisable(true);
-        btnModificar.setDisable(true);
-        
+        if(permiso){
+
+            btnGuardar.setDisable(true);
+            btnCancelar.setDisable(true);
+            btnEliminar.setDisable(true);
+            btnModificar.setDisable(true);
+            
+        }
+        else{
+            
+            btnGuardar.setDisable(false);
+            btnCancelar.setDisable(false);
+            btnEliminar.setDisable(false);
+            btnModificar.setDisable(false);
+            btnNuevo.setDisable(false);
+            btnLimpiar.setDisable(false);
+            
+            btnNuevo.setTooltip(TextButton(h));
+            btnCancelar.setTooltip(TextButton(h));
+            btnEliminar.setTooltip(TextButton(h));
+            btnGuardar.setTooltip(TextButton(h));
+            btnModificar.setTooltip(TextButton(h));
+            btnLimpiar.setTooltip(TextButton(h));
+            
+            btnGuardar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Guardar ha sido presionado.");
+            });
+            
+            btnNuevo.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Nuevo ha sido presionado.");
+            });
+            
+            btnEliminar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Eliminar ha sido presionado.");
+            });
+            
+            btnCancelar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Cancelar ha sido presionado.");
+            });
+            
+            btnModificar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Modificar ha sido presionado.");
+            });
+            
+            btnLimpiar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Limpiar ha sido presionado.");
+            });
+            
+        }
+                
         mostrarDatos();
         
         table.setRowFactory(tv -> new TableRow<materia>() {
@@ -154,28 +233,8 @@ public class MateriaController extends App implements Initializable{
                     }
                 }
             }
-    });
-}    
-=======
-        if(per.Materiales(login.getUsuarioActual())){
-            txtNombre.setDisable(true);
-            txtPrecio.setDisable(true);
-            txtCantidad.setDisable(true);
-            cboSelProov.setDisable(true);
-            txtCamMín.setDisable(true);
-            TxtUniMed.setDisable(true);
-
-            btnGuardar.setDisable(true);
-            btnCancelar.setDisable(true);
-            btnEliminar.setDisable(true);
-            btnModificar.setDisable(true);
-
-            mostrarDatos();
-        }
-        else{
-            
-            
-        }
+        });
+        
     }    
     
     public Tooltip TextButton(String s){
@@ -184,7 +243,6 @@ public class MateriaController extends App implements Initializable{
         return t;
         
     }
->>>>>>> main
 
     @FXML
     private void Busqueda(ActionEvent event) {
@@ -489,28 +547,38 @@ public class MateriaController extends App implements Initializable{
 
     @FXML
     private void Click(MouseEvent event) {
-        
+        // Verificar si el permiso es falso
+        if (!permiso) {
+            event.consume(); // Consume el evento para evitar cualquier otra acción
+            return; // Salir del método
+        }
+
+        // Continuar con la funcionalidad del evento si el permiso es verdadero
         materia m = table.getSelectionModel().getSelectedItem();
-        txtId.setText(String.valueOf(m.getId()));
-        txtNombre.setText(m.getNombre());
-        TxtUniMed.setText(m.getUnidadMedida());
-        txtPrecio.setText(String.valueOf(m.getPrecio()));
-        txtCantidad.setText(String.valueOf(m.getCantidad()));
-        txtCamMín.setText(String.valueOf(m.getCantidad_min()));
-        cboSelProov.setValue(m.getNombreproveedor());
-        
-        btnModificar.setDisable(false);
-        btnEliminar.setDisable(false);
-        btnCancelar.setDisable(false);
-        
-        txtNombre.setDisable(true);
-        txtPrecio.setDisable(true);
-        txtCantidad.setDisable(true);
-        cboSelProov.setDisable(true);
-        txtCamMín.setDisable(true);
-        
-        btnNuevo.setDisable(true);
-        
+
+        // Asegúrate de que hay un elemento seleccionado
+        if (m != null) {
+            txtId.setText(String.valueOf(m.getId()));
+            txtNombre.setText(m.getNombre());
+            TxtUniMed.setText(m.getUnidadMedida());
+            txtPrecio.setText(String.valueOf(m.getPrecio()));
+            txtCantidad.setText(String.valueOf(m.getCantidad()));
+            txtCamMín.setText(String.valueOf(m.getCantidad_min()));
+            cboSelProov.setValue(m.getNombreproveedor());
+
+            btnModificar.setDisable(false);
+            btnEliminar.setDisable(false);
+            btnCancelar.setDisable(false);
+
+            txtNombre.setDisable(true);
+            txtPrecio.setDisable(true);
+            txtCantidad.setDisable(true);
+            cboSelProov.setDisable(true);
+            txtCamMín.setDisable(true);
+            TxtUniMed.setDisable(true);
+
+            btnNuevo.setDisable(true);
+        }
     }
     
     @FXML

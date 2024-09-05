@@ -90,58 +90,61 @@ public class MainController extends conexion implements Initializable {
         pCli = p.Clientes(usuarioActual);
         pPe = p.Pedidos(usuarioActual);
         
+        String USi = "Este usuario tiene permiso para modificar esta vista";
+        String UNo = "Este usuario no tiene permiso para modificar esta vista";
+        
         if(pPro){
             
-            btnProveedores.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnProveedores.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnProveedores.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnProveedores.setTooltip(TextButton(UNo));
             
         }
         
         if(pUsu){
             
-            btnUsuarios.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnUsuarios.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnUsuarios.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnUsuarios.setTooltip(TextButton(UNo));
             
         }
         
         if(pMate){
             
-            btnMateriales.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnMateriales.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnMateriales.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnMateriales.setTooltip(TextButton(UNo));
             
         }
         
         if(pCli){
             
-            btnClientes.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnClientes.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnClientes.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnClientes.setTooltip(TextButton(UNo));
             
         }
         
         if(pPe){
             
-            btnPedidos.setTooltip(TextButton("Este usuario tiene permiso para modificar esta vista"));
+            btnPedidos.setTooltip(TextButton(USi));
             
         }
         else{
             
-            btnPedidos.setTooltip(TextButton("Este usuario no tiene permiso para modificar esta vista"));
+            btnPedidos.setTooltip(TextButton(UNo));
             
         }
         

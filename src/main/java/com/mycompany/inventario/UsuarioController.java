@@ -4,8 +4,10 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
+import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -26,6 +28,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -91,6 +94,10 @@ public class UsuarioController implements Initializable {
     
     usuario one = new usuario();
     alertas alert = new alertas();
+    Login login = new Login();
+    permisos per = new permisos();
+    boolean permiso = false;
+    String h = "Boton Inhabilitado";
     @FXML
     private Pane configuracion;
     MainController m = new MainController();
@@ -100,6 +107,8 @@ public class UsuarioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        permiso = per.Usuarios(login.getUsuarioActual());
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
@@ -112,13 +121,95 @@ public class UsuarioController implements Initializable {
         checkProveedor.setDisable(true);
         checkUsuarios.setDisable(true);
         
-        btnGuardar.setDisable(true);
-        btnCancelar.setDisable(true);
-        btnEliminar.setDisable(true);
-        btnModificar.setDisable(true);
+        if(permiso){
+
+            btnGuardar.setDisable(true);
+            btnCancelar.setDisable(true);
+            btnEliminar.setDisable(true);
+            btnModificar.setDisable(true);
+            
+        }
+        else{
+            
+            btnGuardar.setDisable(false);
+            btnCancelar.setDisable(false);
+            btnEliminar.setDisable(false);
+            btnModificar.setDisable(false);
+            btnNuevo.setDisable(false);
+            btnLimpiar.setDisable(false);
+            
+            btnNuevo.setTooltip(TextButton(h));
+            btnCancelar.setTooltip(TextButton(h));
+            btnEliminar.setTooltip(TextButton(h));
+            btnGuardar.setTooltip(TextButton(h));
+            btnModificar.setTooltip(TextButton(h));
+            btnLimpiar.setTooltip(TextButton(h));
+            
+            btnGuardar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Guardar ha sido presionado.");
+            });
+            
+            btnNuevo.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Nuevo ha sido presionado.");
+            });
+            
+            btnEliminar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Eliminar ha sido presionado.");
+            });
+            
+            btnCancelar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Cancelar ha sido presionado.");
+            });
+            
+            btnModificar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Modificar ha sido presionado.");
+            });
+            
+            btnLimpiar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Limpiar ha sido presionado.");
+            });
+            
+        }
         
         mostrardatos();
     }    
+    
+    public Tooltip TextButton(String s){
+
+        Tooltip t = new Tooltip(s);
+        return t;
+        
+    }
     
     @FXML
     private void switchToMain(ActionEvent event) {
@@ -505,28 +596,36 @@ public class UsuarioController implements Initializable {
     @FXML
     private void Click(MouseEvent event) {
         
+        if (!permiso) {
+            event.consume(); // Consume el evento para evitar cualquier otra acción
+            return; // Salir del método
+        }
+        
         usuario one = table.getSelectionModel().getSelectedItem();
-        txtNombre.setText(one.getNombre());
-        txtCorreo.setText(one.getCorreo());
-        txtID.setText(String.valueOf(one.getId()));
         
-        checkCliente.setSelected(one.isPcliente());
-        checkFacturacion.setSelected(one.isPfactura());
-        checkMateriales.setSelected(one.isPmateriales());
-        checkPedido.setSelected(one.isPpedido());
-        checkProveedor.setSelected(one.isPproveedor());
-        checkUsuarios.setSelected(one.isPusuarios());
-        System.out.println(one.isPcliente());
-        
-        btnModificar.setDisable(false);
-        btnEliminar.setDisable(false);
-        btnCancelar.setDisable(false);
-        
-        txtNombre.setDisable(true);
-        txtCorreo.setDisable(true);
-        txtCodigo.setDisable(true);
-        
-        btnNuevo.setDisable(true);
+        if(one != null){
+            txtNombre.setText(one.getNombre());
+            txtCorreo.setText(one.getCorreo());
+            txtID.setText(String.valueOf(one.getId()));
+
+            checkCliente.setSelected(one.isPcliente());
+            checkFacturacion.setSelected(one.isPfactura());
+            checkMateriales.setSelected(one.isPmateriales());
+            checkPedido.setSelected(one.isPpedido());
+            checkProveedor.setSelected(one.isPproveedor());
+            checkUsuarios.setSelected(one.isPusuarios());
+            System.out.println(one.isPcliente());
+
+            btnModificar.setDisable(false);
+            btnEliminar.setDisable(false);
+            btnCancelar.setDisable(false);
+
+            txtNombre.setDisable(true);
+            txtCorreo.setDisable(true);
+            txtCodigo.setDisable(true);
+
+            btnNuevo.setDisable(true);
+        }
         
     }
 
