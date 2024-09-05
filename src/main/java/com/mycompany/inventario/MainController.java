@@ -157,49 +157,67 @@ public class MainController extends conexion implements Initializable {
     }
 
     @FXML
-    private void swicthToProveedor(ActionEvent event) {
-        
+    private void switchToMateriales(ActionEvent event) {
+        if (sesionIniciada) {
             try {
-                App.setRoot("proveedor");
+                App.setRoot("materia");
             } catch (IOException ex) {
-                Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }
-
-    @FXML
-    private void switchToUsuarios(ActionEvent event) {
-        
-        try {
-            App.setRoot("usuario");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 
     @FXML
-    private void switchToMateriales(ActionEvent event) {
-        try {
-            App.setRoot("materia");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+    private void switchToUsuarios(ActionEvent event) {
+        if (sesionIniciada) {
+            try {
+                App.setRoot("usuario");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 
     @FXML
     private void switchToCliente(ActionEvent event) {
-        try {
-            App.setRoot("cliente");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        if (sesionIniciada) {
+            try {
+                App.setRoot("cliente");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 
     @FXML
     private void switchToPedido(ActionEvent event) {
-        try {
-            App.setRoot("pedido");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        if (sesionIniciada) {
+            try {
+                App.setRoot("pedido");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
+        }
+    }
+
+    @FXML
+    private void swicthToProveedor(ActionEvent event) {
+        if (sesionIniciada) {
+            try {
+                App.setRoot("proveedor");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
         }
     }
 
