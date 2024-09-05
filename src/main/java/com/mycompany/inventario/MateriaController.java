@@ -125,8 +125,11 @@ public class MateriaController extends App implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+<<<<<<< HEAD
         permiso = per.Materiales(login.getUsuarioActual());
         
+=======
+>>>>>>> diseño
         txtNombre.setDisable(true);
         txtPrecio.setDisable(true);
         txtCantidad.setDisable(true);
@@ -233,9 +236,15 @@ public class MateriaController extends App implements Initializable{
                     }
                 }
             }
+<<<<<<< HEAD
         });
         
     }    
+=======
+    });
+}    
+
+>>>>>>> diseño
     
     public Tooltip TextButton(String s){
         
