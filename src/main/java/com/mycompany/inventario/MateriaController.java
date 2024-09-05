@@ -122,7 +122,6 @@ public class MateriaController extends App implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-<<<<<<< HEAD
         txtNombre.setDisable(true);
         txtPrecio.setDisable(true);
         txtCantidad.setDisable(true);
@@ -156,28 +155,7 @@ public class MateriaController extends App implements Initializable{
             }
     });
 }    
-=======
-        if(per.Materiales(login.getUsuarioActual())){
-            txtNombre.setDisable(true);
-            txtPrecio.setDisable(true);
-            txtCantidad.setDisable(true);
-            cboSelProov.setDisable(true);
-            txtCamMín.setDisable(true);
-            TxtUniMed.setDisable(true);
 
-            btnGuardar.setDisable(true);
-            btnCancelar.setDisable(true);
-            btnEliminar.setDisable(true);
-            btnModificar.setDisable(true);
-
-            mostrarDatos();
-        }
-        else{
-            
-            click.
-            
-        }
-    }    
     
     public Tooltip TextButton(String s){
         
@@ -185,7 +163,6 @@ public class MateriaController extends App implements Initializable{
         return t;
         
     }
->>>>>>> main
 
     @FXML
     private void Busqueda(ActionEvent event) {

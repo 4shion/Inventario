@@ -475,5 +475,9 @@ public class ClienteController implements Initializable {
     @FXML
     private void bajarPDF(ActionEvent event) {
     }
+
+    @FXML
+    private void verificar(ActionEvent event) {
+    }
     
 }
