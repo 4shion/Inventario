@@ -434,6 +434,11 @@ public class ProveedorController implements Initializable {
         m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
     
     }
+    
+    @FXML
+    private void verificar() {
+        m.abrirformularios("pswdAdmin.fxml", "Verificar Identidad");
+    }
 
     @FXML
     private void Config(ActionEvent event) {
