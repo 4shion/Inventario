@@ -668,7 +668,7 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private void abrirPerfilAdmin() {
     
-        main.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+        main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
     
     }
 

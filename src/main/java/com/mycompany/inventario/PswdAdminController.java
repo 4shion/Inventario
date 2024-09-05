@@ -4,12 +4,16 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Pswd;
+import com.mycompany.inventario.clases.alertas;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 /**
  * FXML Controller class
@@ -21,17 +25,44 @@ public class PswdAdminController implements Initializable {
 
     @FXML
     private PasswordField TxtContraAdmin;
-    @FXML 
-    private Button aceptar;
+    
+    Pswd ps = new Pswd();
+    alertas alert = new alertas();
+    MainController main = new MainController();
+
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TxtContraAdmin.setOnAction(e -> verificarContra());
+        
+        TxtContraAdmin.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) {
+                verificarContra();
+            }
+        });
+        
     }
 
+    @FXML
     private void verificarContra() {
+        
+        ps.setCod(TxtContraAdmin.getText());
+        
+        if(ps.verificar()){
+            
+            main.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+            
+            TxtContraAdmin.getScene().getWindow().hide();
+            
+        }
+        else {
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Codigo incorrecto");
+            return;
+            
+        }
         
     }
     

@@ -501,7 +501,7 @@ public class ClienteController implements Initializable {
     }
     private void abrirPerfilAdmin() {
     
-        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+        m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
     
     }
 

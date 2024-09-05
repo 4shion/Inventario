@@ -531,7 +531,7 @@ public class ProveedorController implements Initializable {
     @FXML
     private void abrirPerfilAdmin() {
     
-        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+        m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
     
     }
     
