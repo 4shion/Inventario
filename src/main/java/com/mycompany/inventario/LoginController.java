@@ -69,6 +69,7 @@ public class LoginController implements Initializable {
         else {
             
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Usuario y/o Contraseña incorrectos");
+            txtContra.clear();
             
         }
         

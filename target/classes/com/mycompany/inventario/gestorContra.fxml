@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="855.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="855.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.GestorContraController">
    <children>
       <Rectangle id="menu_bar" arcHeight="5.0" arcWidth="5.0" fill="#ad1316" height="51.0" layoutX="20.0" layoutY="-9.2" stroke="#ad1316" strokeType="INSIDE" strokeWidth="0.0" width="862.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ImageView fitHeight="51.0" fitWidth="200.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -32,19 +32,19 @@
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <Text layoutX="288.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="155.20001220703125">
+            <Text fx:id="textNombre" layoutX="288.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="155.20001220703125">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <ComboBox layoutX="85.0" layoutY="86.0" prefHeight="25.0" prefWidth="239.0" promptText="Seleccione el usuario" />
+            <ComboBox fx:id="cbmUsuario" layoutX="85.0" layoutY="86.0" prefHeight="25.0" prefWidth="239.0" promptText="Seleccione el usuario" />
             <Text layoutX="121.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña Nueva:">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <PasswordField layoutX="341.0" layoutY="86.0" promptText="Contraseña Actual" />
-            <Button layoutX="377.0" layoutY="114.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="133.0" style="-fx-background-color: white;" text="Olvide mi contraseña" textAlignment="RIGHT" textFill="#ad1316" underline="true">
+            <PasswordField fx:id="txtContraA" layoutX="341.0" layoutY="86.0" promptText="Contraseña Actual" />
+            <Button fx:id="btnOlvidar" layoutX="377.0" layoutY="114.0" mnemonicParsing="false" onAction="#Olvidar" prefHeight="14.0" prefWidth="133.0" style="-fx-background-color: white;" text="Olvide mi contraseña" textAlignment="RIGHT" textFill="#ad1316" underline="true">
                <font>
                   <Font size="10.0" />
                </font>
@@ -52,20 +52,20 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <PasswordField fx:id="contraNueva" layoutX="288.0" layoutY="202.0" prefHeight="25.0" prefWidth="155.0" />
+            <PasswordField fx:id="txtContraN" layoutX="288.0" layoutY="202.0" prefHeight="25.0" prefWidth="155.0" />
             <Button fx:id="verificarContra" layoutX="54.0" layoutY="103.0" mnemonicParsing="false" text="Verificar" visible="false" />
             <Text layoutX="121.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Repetir Contraseña:">
                <font>
                   <Font name="Corbel" size="14.0" />
                </font>
             </Text>
-            <PasswordField fx:id="contraNueva2" layoutX="288.0" layoutY="246.0" prefHeight="25.0" prefWidth="155.0" />
-            <Button layoutX="206.0" layoutY="329.0" mnemonicParsing="false" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE">
+            <PasswordField fx:id="txtRepetir" layoutX="288.0" layoutY="246.0" prefHeight="25.0" prefWidth="155.0" />
+            <Button fx:id="btnGuardar" layoutX="206.0" layoutY="329.0" mnemonicParsing="false" onAction="#Guardar" style="-fx-background-color: #ad1316;" text="Guardar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="305.0" layoutY="329.0" mnemonicParsing="false" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="btnCancelar" layoutX="305.0" layoutY="329.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: #ad1316;" text="Cancelar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

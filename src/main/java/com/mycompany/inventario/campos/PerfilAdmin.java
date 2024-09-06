@@ -5,6 +5,7 @@
 package com.mycompany.inventario.campos;
 
 import com.mycompany.inventario.clases.conexion;
+import com.mycompany.inventario.clases.encriptacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,26 +71,27 @@ public class PerfilAdmin extends conexion {
     
     public boolean Modificar(){
         
-String sql = "update usuario set codigoAdmin = ?, nombre = ?, correo = ?, codigo = ?"
-                + " where codigoAdmin != NULL";
-        
+        encriptacion encriptador = new encriptacion();
+
+        // Encripta la contraseña antes de guardarla
+        String contraseñaEncriptada = encriptador.hash(this.codigo);
+
+        String sql = "update usuario set codigoAdmin = ?, nombre = ?, correo = ?, codigo = ?"
+                    + " where codigoAdmin is NOT NULL";
+
         try(Connection con = getCon();
-            PreparedStatement stm = con.prepareStatement(sql))
-            
-        {
+            PreparedStatement stm = con.prepareStatement(sql)) {
+
             stm.setString(1, this.codAdmi);
             stm.setString(2, this.nombre);
             stm.setString(3, this.Correo);
-            stm.setString(4, this.codigo);
+            stm.setString(4, contraseñaEncriptada); // Guarda la contraseña encriptada
             stm.executeUpdate();
             return true;
-            
-        } 
-        catch (SQLException ex){
-            
+
+        } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-            
         }
         
     }

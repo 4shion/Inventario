@@ -5,6 +5,7 @@
 package com.mycompany.inventario.campos;
 
 import com.mycompany.inventario.clases.conexion;
+import com.mycompany.inventario.clases.encriptacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,18 +38,22 @@ public class Pswd extends conexion {
     
     public boolean verificar(){
         
-        String sql = "SELECT codigoAdmin FROM usuario WHERE codigoAdmin = ?";
+        String sql = "SELECT codigo FROM usuario WHERE codigoAdmin is NOT NULL";
     
         try (Connection con = getCon();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
-
-            pstmt.setString(1, this.cod);
-
+            
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 
-                return true;
+                String ContraEncriptada = rs.getString("codigo");
+                
+                if (encriptacion.verify(this.cod, ContraEncriptada)) {
+
+                    return true;
+                    
+                }
                 
             }
 

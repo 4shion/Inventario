@@ -73,6 +73,11 @@ public class PerfilAdminController implements Initializable {
     @FXML
     private void Guardar(ActionEvent event) {
         
+        p.setCodigo(txtContra.getText());
+        p.setNombre(txtNombre.getText());
+        p.setCorreo(txtCorreo.getText());
+        p.setCodAdmi(TxtCod.getText());
+        
         if(p.Modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");

@@ -390,7 +390,7 @@ public class MateriaController extends App implements Initializable{
 
                 Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
                 alerta2.setHeaderText(null);
-                alerta2.setContentText("La Cantidad Mínima introducida es mayor o igual que la Cantidad Total. ¿Desea continuar?");
+                alerta2.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea continuar?");
                 ButtonType btnSi = new ButtonType("Sí");
                 ButtonType btnNo = new ButtonType("No");
                 alerta2.getButtonTypes().setAll(btnSi, btnNo);
