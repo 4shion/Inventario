@@ -160,5 +160,6 @@
       </Pane>
       <TextField fx:id="correoCliente" layoutX="14.0" layoutY="109.0" visible="false" />
       <TextField fx:id="telfCliente" layoutX="15.0" layoutY="148.0" visible="false" />
+      <TextField fx:id="numFactura" layoutX="15.0" layoutY="198.0" visible="false" />
    </children>
 </AnchorPane>
