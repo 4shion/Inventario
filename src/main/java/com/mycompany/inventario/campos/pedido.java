@@ -313,6 +313,7 @@ public class pedido extends conexion{
             stm.setString(1, nombreCliente);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
+                this.setIdCliente(rs.getInt("idCliente"));
                 return rs.getInt("idCliente");
             } else {
                 throw new SQLException("No se encontró un cliente con el nombre " + nombreCliente);
@@ -354,6 +355,29 @@ public class pedido extends conexion{
         
         return listaMaterialesIds;
         
+    }
+    
+    public void searchId(){
+        String sql = "select max(idPedido) as idPedido from pedido";
+        
+        try(
+            Connection con = getCon();
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);){
+            
+            if(rs.next()){
+                
+                int id = rs.getInt("idPedido");
+                this.setIdPedido(id);
+                
+            }
+            
+        } 
+        catch (SQLException ex){
+            
+            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
     }
     
 }

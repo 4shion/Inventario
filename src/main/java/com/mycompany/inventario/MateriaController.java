@@ -126,7 +126,10 @@ public class MateriaController extends App implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         
         permiso = per.Materiales(login.getUsuarioActual());
+<<<<<<< HEAD
 
+=======
+>>>>>>> diseño
         txtNombre.setDisable(true);
         txtPrecio.setDisable(true);
         txtCantidad.setDisable(true);
@@ -233,9 +236,14 @@ public class MateriaController extends App implements Initializable{
                     }
                 }
             }
+<<<<<<< HEAD
         });
         
     }
+=======
+    });
+}    
+>>>>>>> diseño
     
     public Tooltip TextButton(String s){
         
@@ -672,15 +680,15 @@ public class MateriaController extends App implements Initializable{
     
     }
 
-    @FXML
-    private void Reporte(ActionEvent event) {
-        reportes r = new reportes();
-        String ubicacion = "/reportes/materia.jasper";
-        String titulo = "Informe de Materiales";
-
-        Map<String, Object> parametros = new HashMap<>();
-
-    }
+//    @FXML
+//    private void Reporte(ActionEvent event) {
+//        reportes r = new reportes();
+//        String ubicacion = "/reportes/materia.jasper";
+//        String titulo = "Informe de Materiales";
+//
+//        Map<String, Object> parametros = new HashMap<>();
+//
+//    }
     
     @FXML
     private void Config(ActionEvent event) {

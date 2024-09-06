@@ -1,5 +1,6 @@
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.cliente;
 import com.mycompany.inventario.campos.factura;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.pedido;
@@ -25,7 +26,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -34,10 +38,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class PedidoController implements Initializable {
@@ -85,6 +91,15 @@ public class PedidoController implements Initializable {
     alertas alert = new alertas();
     pedido p = new pedido();
     factura f = new factura();
+<<<<<<< HEAD
+=======
+    @FXML
+    private TextField correoCliente;
+    @FXML
+    private TextField telfCliente;
+    @FXML
+    private TextField numFactura;
+>>>>>>> diseño
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -134,6 +149,13 @@ public class PedidoController implements Initializable {
         p.setServicio(TxtServicio.getText());
         p.setNombreC(txtNomCliente.getText());
         
+<<<<<<< HEAD
+=======
+        p.obtenerIdClientePorNombre(txtNomCliente.getText());
+        
+        System.out.println("id cliente: " + p.getIdCliente());
+        
+>>>>>>> diseño
         
         int numFilas = table.getItems().size();
 
@@ -153,6 +175,12 @@ public class PedidoController implements Initializable {
 
             alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
             
+<<<<<<< HEAD
+=======
+            p.searchId();     
+            
+            System.out.println("la id del pedido es:" + p.getIdPedido());
+>>>>>>> diseño
 
         }
          else{
@@ -290,7 +318,6 @@ public class PedidoController implements Initializable {
         m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
     
     }
-    @FXML
     private void abrirPerfilAdmin() {
     
         m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
@@ -346,6 +373,10 @@ public class PedidoController implements Initializable {
   
     @FXML
     private void verificar() {
+<<<<<<< HEAD
+=======
+        m.abrirformularios("pswdAdmin.fxml", "Verificar Identidad");
+>>>>>>> diseño
     }
 
     @FXML
@@ -483,6 +514,7 @@ public class PedidoController implements Initializable {
         btnGuardar.setDisable(true);
         CbmMateriales.setDisable(true);
         
+<<<<<<< HEAD
     }
     
     private Map<String, String> buscarDatosCliente() {
@@ -510,11 +542,14 @@ public class PedidoController implements Initializable {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return datosCliente;
+=======
+>>>>>>> diseño
     }
-
+    
     @FXML
     private void Factura(ActionEvent event) {
         
+<<<<<<< HEAD
         if (txtNomCliente.getText().isEmpty() || TxtServicio.getText().isEmpty()) {
             alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos para generar la factura");
             return;
@@ -528,17 +563,45 @@ public class PedidoController implements Initializable {
             
         reportes report = new reportes();
         buscarDatosCliente();
+=======
+    if (txtNomCliente.getText().isEmpty() || TxtServicio.getText().isEmpty()) {
+        alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos para generar la factura");
+        return;
+    }
+    
+    cliente client = new cliente();
+    client.buscarDatosCliente(txtNomCliente.getText());
+    
+    if (client.getNombre().isEmpty()) {
+        return;
+    }
+        reportes report = new reportes();
+>>>>>>> diseño
         double subtotal = calcularSubtotal();
         double total = calcularTotal();
         int numFactura = f.getNumFactura();
         System.out.println(numFactura);
+<<<<<<< HEAD
 
+=======
+        
+        f.setSubTotal(subtotal);
+        f.setTotal(total);
+        f.setNumFactura(numFactura);
+        f.setIdPedido(p.getIdPedido());
+        //asignar nroFactura por medio de metodo (vos podes Walter)
+        
+>>>>>>> diseño
         try {
             f.insertar();
             reportes r=new reportes();
             String ubicacion = "/reportes.frameexperts/factura.jasper";
             String titulo = "Factura N~" + String.valueOf(numFactura);
+<<<<<<< HEAD
 //            r.generarFacturaReporte(ubicacion, titulo, numFactura);
+=======
+            r.generarFactura(ubicacion, titulo, numFactura);
+>>>>>>> diseño
             System.out.println("Reporte exitoso");
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);

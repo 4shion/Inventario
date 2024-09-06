@@ -4,6 +4,8 @@
  */
 package com.mycompany.inventario.campos;
 
+import com.mycompany.inventario.PedidoController;
+import static com.mycompany.inventario.clases.alertas.ShowAlert;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.sentencias;
 import java.sql.Connection;
@@ -12,8 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -33,11 +38,17 @@ public class cliente extends conexion implements sentencias{
         this.telefono = telefono;
     }
 
+    public cliente(String nombre, String correo, String telefono) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
+    
     public cliente() {
         
         
         
-    }
+   }
 
     public String getNombre() {
         return nombre;
@@ -105,7 +116,6 @@ public class cliente extends conexion implements sentencias{
         String sql = "select c.idCliente, c.nombre, c.correo, c.telefono from cliente c where nombre != 'Sin nombre'";
         
         try(
-
             Connection con = getCon();
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);){
@@ -181,4 +191,26 @@ public class cliente extends conexion implements sentencias{
         }        
     }
     
+    public void buscarDatosCliente(String nombreCliente) {
+        String correo;
+        int telf;
+        String consulta = "SELECT correo, telefono FROM Cliente WHERE nombre = ?";
+
+        try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
+            stmt.setString(1, nombreCliente);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                correo = rs.getString("correo");
+                telf = rs.getInt("telefono");
+                this.setNombre(nombreCliente);
+                this.setCorreo(correo); 
+                this.setTelefono(String.valueOf(telf));
+            } else {
+                ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
 }
