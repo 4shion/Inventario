@@ -22,6 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -94,7 +95,6 @@ public class GestorContraController implements Initializable {
                 else{
                     
                     alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Contraseña incorrecta");
-                    return;
                     
                 }
                 
@@ -185,6 +185,37 @@ public class GestorContraController implements Initializable {
 
     @FXML
     private void Guardar(ActionEvent event) {
+        
+        String contraNueva = txtContraN.getText();
+        String Repetida = txtRepetir.getText();
+        
+        if(contraNueva.equals(Repetida)){
+            
+            g.setContraN(contraNueva);
+            g.setSelecUsuario(textNombre.getText());
+            
+            if(g.Modificar()){
+                
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                Stage stage = (Stage) btnGuardar.getScene().getWindow();
+                // Cerrar la ventana
+                stage.close();
+                
+                }
+                else{
+
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido modificado correctamente");
+
+                }
+            
+        }
+        else{
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Las contraseñas no coinciden");
+            txtRepetir.clear();
+            
+        }
+        
     }
 
     @FXML

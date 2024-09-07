@@ -20,38 +20,9 @@ import java.util.logging.Logger;
 public class GestorContra extends conexion {
     
     private String SelecUsuario; 
-    private String ContraA;
-    private String nom; 
-    private String correo;
-    private String CodAdmi;
     private String ContraN;
-    private int idUsuario;
     
     public GestorContra(){
-    }
-
-    public GestorContra(String ContraA, String nom, String correo, String CodAdmi, int idUsuario) {
-        this.ContraA = ContraA;
-        this.nom = nom;
-        this.correo = correo;
-        this.CodAdmi = CodAdmi;
-        this.idUsuario = idUsuario;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getCodAdmi() {
-        return CodAdmi;
-    }
-
-    public void setCodAdmi(String CodAdmi) {
-        this.CodAdmi = CodAdmi;
     }
     
     public String getSelecUsuario() {
@@ -62,40 +33,12 @@ public class GestorContra extends conexion {
         this.SelecUsuario = SelecUsuario;
     }
 
-    public String getContraA() {
-        return ContraA;
-    }
-
-    public void setContraA(String ContraA) {
-        this.ContraA = ContraA;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public String getContraN() {
         return ContraN;
     }
 
     public void setContraN(String ContraN) {
         this.ContraN = ContraN;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-    
-    public boolean Modificar(){
-        return true;
     }
     
     public boolean verificarContraSeleccionada(String contraIngresada) {
@@ -154,6 +97,30 @@ public class GestorContra extends conexion {
         }
         
         return false;        
+    }
+    
+    public boolean Modificar(){
+        
+        String codEncriptado = encriptacion.hash(this.ContraN);
+        
+        String sql="UPDATE Usuario SET codigo = ? WHERE nombre = ?"; 
+        
+        try( 
+               Connection con=getCon();
+               PreparedStatement stm=con.prepareStatement(sql)){
+               stm.setString(1,codEncriptado);
+               stm.setString(2,this.SelecUsuario);
+
+               stm.executeUpdate();
+               return true;
+               
+           } 
+        catch (SQLException ex) {
+            
+               Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+               return false;
+               
+           }            
     }
     
 }
