@@ -1,5 +1,6 @@
 package com.mycompany.inventario.campos;
 
+import com.mycompany.inventario.PedidoController;
 import com.mycompany.inventario.clases.conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -239,7 +240,7 @@ public class pedido extends conexion{
     
     public boolean insertar() {
         
-        setIdCliente(obtenerIdClientePorNombre(nombreC));
+        obtenerIdClientePorNombre(nombreC);
         setListaMaterialesId(obtenerIdMaterial(listaMaterialesN));
         String sqlPedido = "INSERT INTO Pedido (idPedido, servicio, fecha, totalPedido, Cliente_idCliente) VALUES (null, ?, ?, ?, ?)";
         String sqlDetalle = "INSERT INTO detallePedido (Pedido_idPedido, materiaPrima_idMaterial, cantidad) VALUES (?, ?, ?)";
@@ -306,22 +307,26 @@ public class pedido extends conexion{
         }
     }
     
-    public int obtenerIdClientePorNombre(String nombreCliente) {
+    public void obtenerIdClientePorNombre(String nombreCliente) {
+        
         String sql = "SELECT idCliente FROM cliente WHERE nombre = ?";
+        
         try (Connection con = getCon();
              PreparedStatement stm = con.prepareStatement(sql)) {
+            
             stm.setString(1, nombreCliente);
             ResultSet rs = stm.executeQuery();
+            
             if (rs.next()) {
                 this.setIdCliente(rs.getInt("idCliente"));
-                return rs.getInt("idCliente");
             } else {
                 throw new SQLException("No se encontró un cliente con el nombre " + nombreCliente);
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(pedido.class.getName()).log(Level.SEVERE, null, ex);
-            return -1; // O manejar el error de una forma adecuada para tu aplicación
         }
+        
     }
     
     public int[] obtenerIdMaterial(String[] listaM){
@@ -334,27 +339,79 @@ public class pedido extends conexion{
             PreparedStatement stm = con.prepareStatement(sql)){
             
             for (int i = 0; i < listaM.length; i++) {
-                
                         stm.setString(1, listaM[i]);
                         ResultSet rs = stm.executeQuery();
                         
                         if (rs.next()){
-                            
-                            listaMaterialesIds[i] = rs.getInt("IdMaterial");
-                            
+                            listaMaterialesIds[i] = rs.getInt("IdMaterial");  
                         }
-                        
-                    }
-
+            }
             
         } catch (SQLException ex) {
-            
             Logger.getLogger(pedido.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
         
         return listaMaterialesIds;
         
+    }
+    
+    public double obtenerPrecioMaterial(String nombreMaterial) {
+        double precio = 0.0;
+        String query = "SELECT precio FROM materiaPrima WHERE nombre = ?";
+
+        try (Connection con = getCon();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, nombreMaterial);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                precio = rs.getDouble("precio");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener precio del material", e);
+        }
+
+        return precio;
+    }
+    
+    public double obtenerStockActual(String nombreMaterial) {
+        
+        double stockActual = 0.0;
+        String query = "SELECT cantidad FROM materiaPrima WHERE nombre = ?";
+
+        try (Connection con = getCon();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, nombreMaterial);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                stockActual = rs.getInt("cantidad");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener stock del material", e);
+        }
+
+        return stockActual;
+    }
+    
+    public String obtenerUnidadMedida(String nombreMaterial) {
+        
+        String unidad = "";
+        String query = "SELECT UnidadMedida FROM materiaPrima WHERE nombre = ?";
+
+        try (Connection con = getCon();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, nombreMaterial);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                unidad = rs.getString("UnidadMedida");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener precio del material", e);
+        }
+
+        return unidad;
     }
     
     public void searchId(){

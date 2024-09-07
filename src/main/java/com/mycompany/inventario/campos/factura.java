@@ -74,11 +74,29 @@ public class factura extends conexion {
         this.IdPedido = IdPedido;
     }
     
-    
+        public boolean insertar() {
+        
+        String sql = "INSERT INTO factura (numFactura, subtotal, total, Pedido_idPedido, Cliente_Idcliente) VALUES (null, ?, ?, ?, ?)";
+
+        try (Connection con = getCon();
+             PreparedStatement stm = con.prepareStatement(sql)) {
+
+            stm.setDouble(1, this.subTotal);
+            stm.setDouble(2, this.Total);
+            stm.setInt(3, this.IdPedido);  
+            stm.setInt(4, this.Idcliente);  
+            stm.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 
     // Placeholder sin IdPedido
     public boolean insertarPlaceholder() {
-        String sql = "INSERT INTO factura (numFactura, subtotal, total, Cliente_idCliente) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO factura (numFactura, subtotal, total, Cliente_idCliente) VALUES (null, ?, ?, ?)";
         try (Connection con = getCon();
              PreparedStatement stm = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
@@ -102,27 +120,6 @@ public class factura extends conexion {
         }
         return false;
     }
-
-    // Insertar sin IdPedido
-    public boolean insertar() {
-    String sql = "INSERT INTO factura (subtotal, total, Pedido_idPedido, Cliente_Idcliente) VALUES (?, ?, ?, ?)";
-
-    try (Connection con = getCon();
-         PreparedStatement stm = con.prepareStatement(sql)) {
-
-        stm.setDouble(1, this.subTotal);
-        stm.setDouble(2, this.Total);
-        stm.setInt(3, this.IdPedido);  
-        stm.setInt(4, this.Idcliente);  
-        stm.executeUpdate();
-        return true;
-
-    } catch (SQLException ex) {
-        Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
-        return false;
-    }
-}
-
 
     public boolean actualizar() {
         String sql = "UPDATE factura SET subTotal = ?, Total = ?, Idcliente = ? WHERE numFactura = ?";

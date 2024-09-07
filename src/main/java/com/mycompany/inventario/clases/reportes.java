@@ -15,29 +15,6 @@ public class reportes extends conexion {
 
     public reportes() {
     }
-
-    // Método para guardar los datos de la factura
-    private void guardarDatosFactura(int nroFactura, String nombreCliente, String correo, String telefono, double subtotal, double total) {
-        String sql = "INSERT INTO factura (nroFactura, nombreCliente, correo, telefono, subtotal, total) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE nombreCliente=?, correo=?, telefono=?, subtotal=?, total=?";
-        
-        try (PreparedStatement stmt = getCon().prepareStatement(sql)) {
-            stmt.setInt(1, nroFactura);
-            stmt.setString(2, nombreCliente);
-            stmt.setString(3, correo);
-            stmt.setString(4, telefono);
-            stmt.setDouble(5, subtotal);
-            stmt.setDouble(6, total);
-            stmt.setString(7, nombreCliente); //actualizacion
-            stmt.setString(8, correo);        
-            stmt.setString(9, telefono);      
-            stmt.setDouble(10, subtotal);     
-            stmt.setDouble(11, total);        
-            
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     
     public void generarReporte(String ubicacion, String titulo) {
 
@@ -63,6 +40,7 @@ public class reportes extends conexion {
     }
 
     public void generarFactura(String ubicacion, String titulo, int Nrofactura) {
+        
         try {
             // Ruta al archivo .jasper (compilado)
             String reportPath = getClass().getResource(ubicacion).getPath();
@@ -70,8 +48,8 @@ public class reportes extends conexion {
             // Parámetros del informe
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("factNumero", Nrofactura);
-//            parameters.put("Nrofactura", nroFactura);
-//            parameters.put("iva10", iva);
+            //parameters.put("Nrofactura", nroFactura);
+            //parameters.put("iva10", iva);
 
             // Llenar el informe
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, getCon());
@@ -83,11 +61,36 @@ public class reportes extends conexion {
 
         } catch (JRException ex) {
             Logger.getLogger(reportes.class.getName()).log(Level.SEVERE, "Error al generar el informe: ", ex);
- }
+        }
+        
     }
+    
+    // Método para guardar los datos de la factura
+    private void guardarDatosFactura(int nroFactura, String nombreCliente, String correo, String telefono, double subtotal, double total) {
+        
+        String sql = "INSERT INTO factura (nroFactura, nombreCliente, correo, telefono, subtotal, total) "
+                + "VALUES (?, ?, ?, ?, ?, ?) "
+                + "ON DUPLICATE KEY UPDATE nombreCliente=?, correo=?, telefono=?, subtotal=?, total=?";
+        
+        try (PreparedStatement stmt = getCon().prepareStatement(sql)) {
+            
+            stmt.setInt(1, nroFactura);
+            stmt.setString(2, nombreCliente);
+            stmt.setString(3, correo);
+            stmt.setString(4, telefono);
+            stmt.setDouble(5, subtotal);
+            stmt.setDouble(6, total);
+            
+            stmt.setString(7, nombreCliente); //actualizacion
+            stmt.setString(8, correo);        
+            stmt.setString(9, telefono);      
+            stmt.setDouble(10, subtotal);     
+            stmt.setDouble(11, total);        
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
-
-
- 
-
-

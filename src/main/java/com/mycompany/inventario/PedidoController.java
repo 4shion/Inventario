@@ -26,10 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -38,12 +35,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class PedidoController implements Initializable {
@@ -106,6 +101,7 @@ public class PedidoController implements Initializable {
         cargarMaterial();
         TxtServicio.setPrefWidth(200);
         TxtServicio.setWrapText(true);
+        
     }
 
     @FXML
@@ -116,9 +112,7 @@ public class PedidoController implements Initializable {
         if (materialseleccionado != null) {
             
             String nombreMaterial = materialseleccionado.getNombreM();
-
             table.getItems().remove(materialseleccionado);
-            
             CbmMateriales.getItems().add(nombreMaterial);
 
             TxtCant.clear();
@@ -128,9 +122,7 @@ public class PedidoController implements Initializable {
             calcularSubtotal();
             
             if (table.getItems().isEmpty()) {
-                
                 txtCosto.setText("SubTotal:");
-                
             }
             
         } else {
@@ -167,16 +159,12 @@ public class PedidoController implements Initializable {
         if(p.insertar()){
 
             alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
-            
-            p.searchId();     
-            
+            p.searchId();
             System.out.println("la id del pedido es:" + p.getIdPedido());
 
         }
          else{
-            
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
-        
         }
 
     }
@@ -197,79 +185,79 @@ public class PedidoController implements Initializable {
     
     @FXML
     private void Agregar(ActionEvent event) {
-    try {
-        // Obtiene el nombre del material seleccionado en el ComboBox
-        String nombreMaterial = CbmMateriales.getSelectionModel().getSelectedItem();
+        try {
+            // Obtiene el nombre del material seleccionado en el ComboBox
+            String nombreMaterial = CbmMateriales.getSelectionModel().getSelectedItem();
 
-        // Verifica si se ha seleccionado un material y se ha ingresado una cantidad
-        if (nombreMaterial == null || TxtCant.getText().isEmpty()) {
-            // Muestra un mensaje de error si alguno de los campos está vacío
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe seleccionar un material y una cantidad");
-            return;
-        }
-
-        // Intenta convertir la cantidad ingresada en un número
-        double cantidad = Double.parseDouble(TxtCant.getText());
-        // Obtiene el precio del material seleccionado
-        double precio = obtenerPrecioMaterial(nombreMaterial);
-        // Obtiene el stock actual del material
-        double stockActual = obtenerStockActual(nombreMaterial);
-        // Calcula el stock restante después de agregar la cantidad solicitada
-        double stockRestante = stockActual - cantidad;
-        // Obtiene la unidad de medida
-        String unidad = obtenerUnidadMedida(nombreMaterial);
-
-        // Verifica si el stock restante es negativo (cantidad solicitada excede el stock)
-        if (stockRestante < 0) {
-            // Muestra un mensaje de error si la cantidad solicitada excede el stock
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad solicitada excede la cantidad del stock");
-            return;
-        }
-
-        // Busca en la tabla si ya existe un pedido con el mismo material
-        pedido pedidoExistente = null;
-        for (pedido p : table.getItems()) {
-            if (p.getNombreM().equals(nombreMaterial)) {
-                // Si se encuentra un pedido existente, lo asigna a la variable
-                pedidoExistente = p;
-                break;
+            // Verifica si se ha seleccionado un material y se ha ingresado una cantidad
+            if (nombreMaterial == null || TxtCant.getText().isEmpty()) {
+                // Muestra un mensaje de error si alguno de los campos está vacío
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe seleccionar un material y una cantidad");
+                return;
             }
-        }
 
-        // Si ya existe un pedido con el mismo material, actualiza su cantidad y stock
-        if (pedidoExistente != null) {
-            // Actualiza la cantidad del pedido existente
-            pedidoExistente.setCant(cantidad);
-            // Actualiza el stock restante del pedido existente
-            pedidoExistente.setStockRestante(stockRestante);
-            // Actualiza el precio del pedido existente
-            pedidoExistente.setPrecio(precio);
-            // Actualiza la unidad del pedido exitente
-            pedidoExistente.setUnidad(unidad);
-            // Refresca la tabla para mostrar los cambios
-            table.refresh();
+            // Intenta convertir la cantidad ingresada en un número
+            double cantidad = Double.parseDouble(TxtCant.getText());
+            // Obtiene el precio del material seleccionado
+            double precio = p.obtenerPrecioMaterial(nombreMaterial);
+            // Obtiene el stock actual del material
+            double stockActual = p.obtenerStockActual(nombreMaterial);
+            // Calcula el stock restante después de agregar la cantidad solicitada
+            double stockRestante = stockActual - cantidad;
+            // Obtiene la unidad de medida
+            String unidad = p.obtenerUnidadMedida(nombreMaterial);
+
+            // Verifica si el stock restante es negativo (cantidad solicitada excede el stock)
+            if (stockRestante < 0) {
+                // Muestra un mensaje de error si la cantidad solicitada excede el stock
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad solicitada excede la cantidad del stock");
+                return;
+            }
+
+            // Busca en la tabla si ya existe un pedido con el mismo material
+            pedido pedidoExistente = null;
+            for (pedido p : table.getItems()) {
+                if (p.getNombreM().equals(nombreMaterial)) {
+                    // Si se encuentra un pedido existente, lo asigna a la variable
+                    pedidoExistente = p;
+                    break;
+                }
+            }
+
+            // Si ya existe un pedido con el mismo material, actualiza su cantidad y stock
+            if (pedidoExistente != null) {
+                // Actualiza la cantidad del pedido existente
+                pedidoExistente.setCant(cantidad);
+                // Actualiza el stock restante del pedido existente
+                pedidoExistente.setStockRestante(stockRestante);
+                // Actualiza el precio del pedido existente
+                pedidoExistente.setPrecio(precio);
+                // Actualiza la unidad del pedido exitente
+                pedidoExistente.setUnidad(unidad);
+                // Refresca la tabla para mostrar los cambios
+                table.refresh();
+                CbmMateriales.getSelectionModel().clearSelection();
+            } else {
+                // Si no existe un pedido con el mismo material, crea uno nuevo
+                pedido nuevoPedido = new pedido(0, "", 0, 0, 0, cantidad, "", nombreMaterial, stockRestante, precio, unidad);
+                // Añade el nuevo pedido a la tabla
+                table.getItems().add(nuevoPedido);
+                // Elimina el material seleccionado del ComboBox
+                CbmMateriales.getItems().remove(nombreMaterial);
+            }
+
+            // Limpia el ComboBox y el campo de cantidad después de agregar o modificar
+            TxtCant.clear();
+            CbmMateriales.setDisable(false);
+            btnGuardar.setDisable(false);
             CbmMateriales.getSelectionModel().clearSelection();
-        } else {
-            // Si no existe un pedido con el mismo material, crea uno nuevo
-            pedido nuevoPedido = new pedido(0, "", 0, 0, 0, cantidad, "", nombreMaterial, stockRestante, precio, unidad);
-            // Añade el nuevo pedido a la tabla
-            table.getItems().add(nuevoPedido);
-            // Elimina el material seleccionado del ComboBox
-            CbmMateriales.getItems().remove(nombreMaterial);
-        }
+            CbmMateriales.setValue(null);
 
-        // Limpia el ComboBox y el campo de cantidad después de agregar o modificar
-        TxtCant.clear();
-        CbmMateriales.setDisable(false);
-        btnGuardar.setDisable(false);
-        CbmMateriales.getSelectionModel().clearSelection();
-        CbmMateriales.setValue(null);
-
-        // Recarga el Combo Box
-        // Muestra los datos en la tabla
-        mostrarDatos();
-        // Calcula el subtotal de los pedidos
-        calcularSubtotal();
+            // Recarga el Combo Box
+            // Muestra los datos en la tabla
+            mostrarDatos();
+            // Calcula el subtotal de los pedidos
+            calcularSubtotal();
         
         } catch (NumberFormatException e) {
             // Maneja el caso en que la cantidad ingresada no es un número válido
@@ -302,18 +290,6 @@ public class PedidoController implements Initializable {
         }
     }
     
-    @FXML
-    private void abrirGestorContra() {
-    
-        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
-    
-    }
-    private void abrirPerfilAdmin() {
-    
-        m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
-    
-    }
-
     @FXML
     private void switchToHistorial(ActionEvent event) {
         try {
@@ -360,10 +336,19 @@ public class PedidoController implements Initializable {
         }
         
     }
-  
+    
     @FXML
-    private void verificar() {
-        m.abrirformularios("pswdAdmin.fxml", "Verificar Identidad");
+    private void abrirGestorContra() {
+    
+        m.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+    
     }
 
     @FXML
@@ -392,6 +377,29 @@ public class PedidoController implements Initializable {
         rotateTransition.setAutoReverse(false);
         rotateTransition.playFromStart();
     }
+    
+    @FXML
+    private void Click(MouseEvent event) {
+        
+        p = table.getSelectionModel().getSelectedItem();
+        TxtCant.setText(String.valueOf(p.getCant()));
+        CbmMateriales.setValue(p.getNombreM());
+        btnEliminar.setDisable(false);
+        btnGuardar.setDisable(true);
+        CbmMateriales.setDisable(true);
+        
+    }
+    
+    private void mostrarDatos(){
+        ColumMaterial.setCellValueFactory(new PropertyValueFactory<>("nombreM"));
+        // Utilizar las propiedades calculadas para las columnas
+        ColumCantidad.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getCantidadConUnidad()));
+
+        ColumStock.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getStockRestanteConUnidad()));
+        
+    }
 
     private void cargarMaterial() {
         listaMateriales = FXCollections.observableArrayList(new materia().consulta());
@@ -409,25 +417,6 @@ public class PedidoController implements Initializable {
         return 0;
     }
 
-    private double obtenerPrecioMaterial(String nombreMaterial) {
-        double precio = 0.0;
-        String query = "SELECT precio FROM materiaPrima WHERE nombre = ?";
-
-        try (Connection con = conexionDB.getCon();
-             PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, nombreMaterial);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                precio = rs.getDouble("precio");
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener precio del material", e);
-        }
-
-        return precio;
-    }
-
     private double calcularSubtotal() {
         double subtotal = 0.0;
         for (pedido p : table.getItems()) {
@@ -440,67 +429,6 @@ public class PedidoController implements Initializable {
     private double calcularTotal() {
         double subtotal = calcularSubtotal();
         return subtotal + (subtotal * 0.23); // 23% IVA
-    }
-
-    private double obtenerStockActual(String nombreMaterial) {
-        double stockActual = 0.0;
-        String query = "SELECT cantidad FROM materiaPrima WHERE nombre = ?";
-
-        try (Connection con = conexionDB.getCon();
-             PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, nombreMaterial);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                stockActual = rs.getInt("cantidad");
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener stock del material", e);
-        }
-
-        return stockActual;
-    }
-    
-    private String obtenerUnidadMedida(String nombreMaterial) {
-        String unidad = "";
-        String query = "SELECT UnidadMedida FROM materiaPrima WHERE nombre = ?";
-
-        try (Connection con = conexionDB.getCon();
-             PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, nombreMaterial);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                unidad = rs.getString("UnidadMedida");
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al obtener precio del material", e);
-        }
-
-        return unidad;
-    }
-    
-    private void mostrarDatos(){
-        ColumMaterial.setCellValueFactory(new PropertyValueFactory<>("nombreM"));
-        // Utilizar las propiedades calculadas para las columnas
-        ColumCantidad.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getCantidadConUnidad()));
-
-        ColumStock.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getStockRestanteConUnidad()));
-        
-    }
-    
-    @FXML
-    private void Click(MouseEvent event) {
-        
-        p = table.getSelectionModel().getSelectedItem();
-        TxtCant.setText(String.valueOf(p.getCant()));
-        CbmMateriales.setValue(p.getNombreM());
-        btnEliminar.setDisable(false);
-        btnGuardar.setDisable(true);
-        CbmMateriales.setDisable(true);
-        
     }
     
     private Map<String, String> buscarDatosCliente() {
@@ -573,6 +501,10 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void bajarPDF(ActionEvent event) {
+    }
+    
+    @FXML
+    private void verificar() {
     }
     
 }
