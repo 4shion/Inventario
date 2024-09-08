@@ -7,6 +7,7 @@ import com.mycompany.inventario.campos.pedido;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.reportes;
+import java.io.IOException;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
@@ -57,6 +58,7 @@ public class PedidoController implements Initializable {
     private factura f = new factura();
     private cliente client = new cliente();
     private reportes r = new reportes();
+    private MainController main = new MainController();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -259,5 +261,104 @@ public class PedidoController implements Initializable {
         ColumMaterial.setCellValueFactory(new PropertyValueFactory<>("nombreM"));
         ColumCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidadConUnidad"));
         ColumStock.setCellValueFactory(new PropertyValueFactory<>("stockRestanteConUnidad"));
+    }
+    
+    @FXML
+    private void switchToMain(ActionEvent event) {
+        
+        try {
+            App.setRoot("main");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+    }
+
+    @FXML
+    private void swicthToProveedor(ActionEvent event) {
+        
+        try {
+            App.setRoot("proveedor");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void switchToUsuarios(ActionEvent event) {
+        
+        try {
+            App.setRoot("usuario");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void switchToHistorial(ActionEvent event) {
+        
+        try {
+            App.setRoot("historial");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void switchToMateriales(ActionEvent event) {
+        
+        try {
+            App.setRoot("materia");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void switchToCliente(ActionEvent event) {
+        
+        try {
+            App.setRoot("cliente");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void switchToPedido(ActionEvent event) {
+        
+        try {
+            App.setRoot("pedido");
+        } catch (IOException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    @FXML
+    private void abrirGestorContra() {
+    
+        main.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+    
+    }
+
+    @FXML
+    private void bajarPDF(ActionEvent event) {
+    }
+    
+    @FXML
+    private void verificar(ActionEvent event) {
     }
 }
