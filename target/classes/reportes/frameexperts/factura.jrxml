@@ -161,10 +161,6 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
-			<image hAlign="Center">
-				<reportElement x="0" y="0" width="80" height="70" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
-				<imageExpression><![CDATA["C:/Users/Acer/Desktop/Helena Arzamendia/Proyecto final CTN/Inventario este si/Inventario/src/main/resources/com/mycompany/inventario/logo_e_corner.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="380" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
@@ -209,6 +205,10 @@ WHERE
 				<reportElement x="0" y="145" width="100" height="15" uuid="6df9cca3-cdd9-488e-99e8-9989c8153ab0"/>
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="20" y="15" width="50" height="50" uuid="090c6848-6131-4eb7-a15c-7467789a9aa6"/>
+				<imageExpression><![CDATA["logo_e_corner.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

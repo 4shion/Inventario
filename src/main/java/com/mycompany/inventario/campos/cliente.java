@@ -193,8 +193,9 @@ public class cliente extends conexion implements sentencias{
     
     public void buscarDatosCliente(String nombreCliente) {
         String correo;
+        int idC;
         int telf;
-        String consulta = "SELECT correo, telefono FROM Cliente WHERE nombre = ?";
+        String consulta = "SELECT correo, telefono, IdCliente FROM Cliente WHERE nombre = ?";
 
         try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
             stmt.setString(1, nombreCliente);
@@ -203,9 +204,11 @@ public class cliente extends conexion implements sentencias{
             if (rs.next()) {
                 correo = rs.getString("correo");
                 telf = rs.getInt("telefono");
+                idC = rs.getInt("IdCliente");
                 this.setNombre(nombreCliente);
                 this.setCorreo(correo); 
                 this.setTelefono(String.valueOf(telf));
+                this.setId(idC);
             } else {
                 ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
             }

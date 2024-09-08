@@ -82,10 +82,11 @@ public class PedidoController implements Initializable {
     private ObservableList<materia> listaMateriales;
     
     MainController m = new MainController();
-    navegacion nav = new navegacion();
     alertas alert = new alertas();
     pedido p = new pedido();
     factura f = new factura();
+    cliente client = new cliente();
+    reportes r = new reportes();
 
     @FXML
     private TextField correoCliente;
@@ -139,9 +140,8 @@ public class PedidoController implements Initializable {
         p.setServicio(TxtServicio.getText());
         p.setNombreC(txtNomCliente.getText());
         p.obtenerIdClientePorNombre(txtNomCliente.getText());
+        p.setTotalPedido(calcularTotal());
         
-        System.out.println("id cliente: " + p.getIdCliente());
-                
         int numFilas = table.getItems().size();
 
         String[] listaMaterialesN = new String[numFilas];
@@ -431,71 +431,32 @@ public class PedidoController implements Initializable {
         return subtotal + (subtotal * 0.23); // 23% IVA
     }
     
-    private Map<String, String> buscarDatosCliente() {
-        String nombreCliente = txtNomCliente.getText();
-        String correo = "";
-        int telf = 0;
-
-
-        String consulta = "SELECT correo, telefono FROM Cliente WHERE nombre = ?";
-        Map<String, String> datosCliente = new HashMap<>();
-
-        try (PreparedStatement stmt = conexionDB.getCon().prepareStatement(consulta)) {
-            stmt.setString(1, nombreCliente);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                correo = rs.getString("correo");
-                telf = rs.getInt("telefono");
-            } else {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
-            }
-            p.setCorreo(correo);
-            p.setTelf(telf);
-        } catch (SQLException ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return datosCliente;
-    }
-    
     @FXML
     private void Factura(ActionEvent event) {
-
-    if (txtNomCliente.getText().isEmpty() || TxtServicio.getText().isEmpty()) {
-        alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe completar todos los campos para generar la factura");
-        return;
-    }
-    
-    cliente client = new cliente();
-    client.buscarDatosCliente(txtNomCliente.getText());
-    
-    if (client.getNombre().isEmpty()) {
-        return;
-    }
-        reportes report = new reportes();
-        double subtotal = calcularSubtotal();
-        double total = calcularTotal();
-        int numFactura = f.getNumFactura();
-        System.out.println(numFactura);
-
         
-        f.setSubTotal(subtotal);
-        f.setTotal(total);
-        f.setNumFactura(numFactura);
+        f.setSubTotal(calcularSubtotal());
+        f.setTotal(calcularTotal());
+        
+        client.buscarDatosCliente(txtNomCliente.getText());
+        f.setIdcliente(client.getId());
+        
+        p.searchId();
         f.setIdPedido(p.getIdPedido());
-        //asignar nroFactura por medio de metodo (vos podes Walter)
         
-        try {
-            f.insertar();
-            reportes r=new reportes();
-            String ubicacion = "/reportes.frameexperts/factura.jasper";
-            String titulo = "Factura N~" + String.valueOf(numFactura);
+        f.insertar();
+        f.obtenerNumFac();
+        int numFactura = f.getNumFactura();
 
+        try {
+
+            String ubicacion = "/reportes/frameexperts/factura.jasper";
+            String titulo = "Factura N~" + String.valueOf(numFactura);
+            
             r.generarFactura(ubicacion, titulo, numFactura);
             System.out.println("Reporte exitoso");
+            
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
-            System.out.println("no funca xd");
         }
     }
 

@@ -74,9 +74,9 @@ public class factura extends conexion {
         this.IdPedido = IdPedido;
     }
     
-        public boolean insertar() {
+    public boolean insertar() {
         
-        String sql = "INSERT INTO factura (numFactura, subtotal, total, Pedido_idPedido, Cliente_Idcliente) VALUES (null, ?, ?, ?, ?)";
+        String sql = "INSERT INTO factura (numFactura, subtotal, total, Pedido_idPedido, Cliente_IdCliente) VALUES (null, ?, ?, ?, ?)";
 
         try (Connection con = getCon();
              PreparedStatement stm = con.prepareStatement(sql)) {
@@ -92,52 +92,24 @@ public class factura extends conexion {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }
+    }    
 
-    // Placeholder sin IdPedido
-    public boolean insertarPlaceholder() {
-        String sql = "INSERT INTO factura (numFactura, subtotal, total, Cliente_idCliente) VALUES (null, ?, ?, ?)";
+    public void obtenerNumFac() {
+        String sql = "SELECT numFactura FROM factura ORDER BY numFactura DESC LIMIT 1"; // Ejemplo de consulta
+
         try (Connection con = getCon();
-             PreparedStatement stm = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stm = con.prepareStatement(sql);
+             ResultSet rs = stm.executeQuery()) {
 
-            // Valores placeholders
-            stm.setDouble(1, 0.0); // subTotal
-            stm.setDouble(2, 0.0); // Total
-            stm.setInt(3, 0); // IdCliente placeholder
-
-            int affectedRows = stm.executeUpdate();
-
-            if (affectedRows > 0) {
-                try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        this.numFactura = generatedKeys.getInt(1); // num factura generado
-                        return true;
-                    }
-                }
+            if (rs.next()) {
+                this.numFactura = rs.getInt("numFactura");
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(factura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
     }
-
-    public boolean actualizar() {
-        String sql = "UPDATE factura SET subTotal = ?, Total = ?, Idcliente = ? WHERE numFactura = ?";
-        try (Connection con = getCon();
-             PreparedStatement stm = con.prepareStatement(sql)) {
-
-            stm.setDouble(1, this.subTotal);
-            stm.setDouble(2, this.Total);
-            stm.setInt(3, this.Idcliente);
-            stm.setInt(4, this.numFactura);
-
-            int affectedRows = stm.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException ex) {
-            Logger.getLogger(factura.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
+    
 }
 
 
