@@ -3,11 +3,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
 	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[ZnJhbWVleHBlcnRzLmRldGFsbGVwZWRpZG8gLDIyNCwzNiwyM2UxY2Y1Ni1hYTRjLTQ0ZjUtOTk5
-Ni1jNjcwNjViYTBiYzA7ZnJhbWVleHBlcnRzLnBlZGlkbyAsMTUsMTc2LDJkZTFjYTM0LWE2NWUt
-NGZlMS05NjBiLWQ2YzgzY2E2NTJhNTtmcmFtZWV4cGVydHMuY2xpZW50ZSAsMjY4LDMzMyw1OTlm
-ZmYwNy00NzY4LTRiNTgtOGMyYi0yNGYwODczMDg5YmM7ZnJhbWVleHBlcnRzLmZhY3R1cmEgLDQ5
-MSwxMzgsMDA1YTI3MjUtZTYyNS00NjRmLTg1N2UtNzY3N2U3OGUwYmJlOw==]]>
+		<![CDATA[ZnJhbWVleHBlcnRzLmRldGFsbGVwZWRpZG8gLDIxMSwyMDcsZjgzYzVkMDAtZjkwNS00OWFiLWEw
+ODYtODBkMmQ4ZjE3MjJjO2ZyYW1lZXhwZXJ0cy5wZWRpZG8gLDE1LDE3NiwyODRmYzQwZS1iZWMy
+LTQ0MzEtYjRhZi02ZTZmYzFmY2ViNTI7ZnJhbWVleHBlcnRzLmZhY3R1cmEgLDIxMSwzNjgsNGFi
+NWM1ZGQtNzk1OC00ZmRiLTkxMDMtZDUwZWJjNzdkYTMwO2ZyYW1lZXhwZXJ0cy5jbGllbnRlICwy
+MTEsMTUsZjkwNDZlYzUtYTg4MS00NzRmLTgwNzEtMTJhNzRmOGMzOGJjOw==]]>
 	</property>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -158,9 +158,15 @@ WHERE
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
+			<image hAlign="Center">
+				<reportElement x="0" y="0" width="80" height="70" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
+				<imageExpression><![CDATA["C:/Users/Acer/Desktop/Helena Arzamendia/Proyecto final CTN/Inventario este si/Inventario/src/main/resources/com/mycompany/inventario/logo_e_corner.png"]]></imageExpression>
+			</image>
 			<staticText>
 				<reportElement x="380" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
@@ -191,6 +197,9 @@ WHERE
 			</staticText>
 			<textField>
 				<reportElement x="465" y="30" width="84" height="20" uuid="71b73f59-d159-4344-b533-6e9180f0ad02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{numFactura}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -205,10 +214,6 @@ WHERE
 				<reportElement x="0" y="145" width="100" height="15" uuid="6df9cca3-cdd9-488e-99e8-9989c8153ab0"/>
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="20" y="15" width="50" height="50" uuid="090c6848-6131-4eb7-a15c-7467789a9aa6"/>
-				<imageExpression><![CDATA["logo_e_corner.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<columnHeader>
@@ -249,17 +254,19 @@ WHERE
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="53">
+		<band height="45">
 			<textField>
 				<reportElement x="0" y="0" width="280" height="35" uuid="0c2b9cd1-e6dc-4889-9c6d-b267c6b5fcd8"/>
 				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="0" width="140" height="35" uuid="d8ed9da1-872f-48d9-bc28-62e71db81fd9"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="421" y="0" width="134" height="35" uuid="7f9954fe-ed38-4406-ae30-d7e1b7205480"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -286,7 +293,7 @@ WHERE
 			</staticText>
 			<textField>
 				<reportElement x="460" y="121" width="89" height="18" uuid="763da769-b4b3-4734-b671-2584f8c37f60"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
