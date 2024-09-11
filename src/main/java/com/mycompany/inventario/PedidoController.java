@@ -59,6 +59,8 @@ public class PedidoController implements Initializable {
     private cliente client = new cliente();
     private reportes r = new reportes();
     private MainController main = new MainController();
+    @FXML
+    private Button btnNoName;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -92,7 +94,9 @@ public class PedidoController implements Initializable {
         p.setServicio(TxtServicio.getText());
         p.setNombreC(txtNomCliente.getText());
         p.obtenerIdClientePorNombre(txtNomCliente.getText());
-        p.setTotalPedido(calcularTotal());
+        p.setTotalPedido(calcularSubtotal());
+        p.searchId();
+        f.setIdPedido(p.getIdPedido());
 
         int numFilas = table.getItems().size();
         String[] listaMaterialesN = new String[numFilas];
@@ -122,6 +126,7 @@ public class PedidoController implements Initializable {
         table.getItems().clear();
         CbmMateriales.setDisable(false);
         btnGuardar.setDisable(false);
+        txtNomCliente.setDisable(false);
     }
 
     @FXML
@@ -161,9 +166,9 @@ public class PedidoController implements Initializable {
                 CbmMateriales.getItems().remove(nombreMaterial);
             }
 
-            limpiarCampos();
             CbmMateriales.setDisable(false);
             btnGuardar.setDisable(false);
+            TxtCant.clear();
             mostrarDatos();
             calcularSubtotal();
 
@@ -176,12 +181,16 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Factura(ActionEvent event) {
+        
+        if (f.getIdPedido() == null) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe guardar el pedido antes de generar la factura.");
+            return;
+        }
+        
         f.setSubTotal(calcularSubtotal());
         f.setTotal(calcularTotal());
         client.buscarDatosCliente(txtNomCliente.getText());
         f.setIdcliente(client.getId());
-        p.searchId();
-        f.setIdPedido(p.getIdPedido());
         f.insertar();
         f.obtenerNumFac();
         int numFactura = f.getNumFactura();
@@ -194,6 +203,14 @@ public class PedidoController implements Initializable {
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
         }
+        
+        limpiarCampos();
+        table.getItems().clear();
+        txtNomCliente.setDisable(false);
+        btnEliminar.setDisable(true);
+        btnGuardar.setDisable(false);
+        CbmMateriales.setDisable(false);
+        f.setIdPedido(null);
     }
 
     @FXML
@@ -254,7 +271,8 @@ public class PedidoController implements Initializable {
     }
 
     private double calcularTotal() {
-        return calcularSubtotal() * 0.23;
+        double t = calcularSubtotal() + (calcularSubtotal() * 0.23);
+        return t;
     }
 
     private void configurarColumnas() {
@@ -347,6 +365,7 @@ public class PedidoController implements Initializable {
         main.abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
     
     }
+    
     @FXML
     private void abrirPerfilAdmin() {
     
@@ -360,5 +379,13 @@ public class PedidoController implements Initializable {
     
     @FXML
     private void verificar(ActionEvent event) {
+    }
+
+    @FXML
+    private void NoName(ActionEvent event) {
+        
+        txtNomCliente.setText("Sin nombre");
+        txtNomCliente.setDisable(true);
+        
     }
 }

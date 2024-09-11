@@ -20,7 +20,7 @@ public class factura extends conexion {
     
     private double subTotal;
     private double Total;
-    private int IdPedido;
+    private Integer IdPedido;
     private int Idcliente;
     private int numFactura;
     
@@ -66,11 +66,11 @@ public class factura extends conexion {
         this.numFactura = numFactura;
     }
 
-    public int getIdPedido() {
+    public Integer getIdPedido() {
         return IdPedido;
     }
 
-    public void setIdPedido(int IdPedido) {
+    public void setIdPedido(Integer IdPedido) {
         this.IdPedido = IdPedido;
     }
     
