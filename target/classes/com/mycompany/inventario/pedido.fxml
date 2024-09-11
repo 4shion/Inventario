@@ -63,11 +63,7 @@
                   <Button fx:id="btnLimpiar" layoutX="154.0" layoutY="11.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
                </children>
             </Pane>
-<<<<<<< HEAD
-            <Button layoutX="136.0" layoutY="309.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Cliente sin nombre" textFill="#ad1316" underline="true">
-=======
             <Button fx:id="btnNoName" layoutX="136.0" layoutY="309.0" mnemonicParsing="false" onAction="#NoName" style="-fx-background-color: white;" text="Cliente sin nombre" textFill="#ad1316" underline="true">
->>>>>>> main
                <font>
                   <Font name="Corbel" size="12.0" />
                </font>
