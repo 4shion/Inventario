@@ -1,11 +1,13 @@
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.cliente;
 import com.mycompany.inventario.campos.factura;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.pedido;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
+import com.mycompany.inventario.clases.permisos;
 import com.mycompany.inventario.clases.reportes;
 import java.io.IOException;
 import javafx.animation.RotateTransition;
@@ -23,10 +25,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class PedidoController implements Initializable {
 
@@ -59,16 +64,112 @@ public class PedidoController implements Initializable {
     private cliente client = new cliente();
     private reportes r = new reportes();
     private MainController main = new MainController();
+    
+    Login login = new Login();
+    permisos per = new permisos();
+    boolean permiso = false;
+    String h = "Boton Inhabilitado";
+    
     @FXML
     private Button btnNoName;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btnEliminar.setDisable(true);
+        
         cargarMaterial();
-        TxtServicio.setPrefWidth(200);
-        TxtServicio.setWrapText(true);
         configurarColumnas();
+        
+        if(permiso){
+
+            btnEliminar.setDisable(true);
+            TxtServicio.setPrefWidth(200);
+            TxtServicio.setWrapText(true);
+            
+        }
+        else{
+            
+            btnGuardar.setDisable(false);
+            BtnAgregar.setDisable(false);
+            btnEliminar.setDisable(false);
+            btnNoName.setDisable(false);
+            BtnFactura.setDisable(false);
+            btnLimpiar.setDisable(false);
+            
+            TxtCant.setDisable(true);
+            TxtServicio.setDisable(true);
+            txtNomCliente.setDisable(true);
+            CbmMateriales.setDisable(true);
+            
+            BtnAgregar.setTooltip(TextButton(h));
+            BtnFactura.setTooltip(TextButton(h));
+            btnEliminar.setTooltip(TextButton(h));
+            btnGuardar.setTooltip(TextButton(h));
+            btnNoName.setTooltip(TextButton(h));
+            btnLimpiar.setTooltip(TextButton(h));
+            
+            btnGuardar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Guardar ha sido presionado.");
+            });
+            
+            BtnAgregar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Agregar ha sido presionado.");
+            });
+            
+            btnEliminar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Eliminar ha sido presionado.");
+            });
+            
+            btnNoName.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Cliente Sin Nombre ha sido presionado.");
+            });
+            
+            BtnFactura.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Factura ha sido presionado.");
+            });
+            
+            btnLimpiar.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Limpiar ha sido presionado.");
+            });
+            
+        }
+        
+    }
+    
+    public Tooltip TextButton(String s){
+        
+        Tooltip t = new Tooltip(s);
+        return t;
+        
     }
 
     @FXML
@@ -112,9 +213,25 @@ public class PedidoController implements Initializable {
         p.setListaCant(listaCant);
 
         if (p.insertar()) {
-            alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
-            p.searchId();
-            System.out.println("La id del pedido es: " + p.getIdPedido());
+            
+            Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta1.setHeaderText(null);
+            alerta1.setContentText("Insertado correctamente");
+            alerta1.showAndWait(); // Esperar a que el usuario cierre la alerta     
+            
+            // Mostrar la segunda alerta para generar factura
+            Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta2.setHeaderText(null);
+            alerta2.setContentText("¿Desea generar factura del pedido?");
+            ButtonType btnSi = new ButtonType("Sí");
+            ButtonType btnNo = new ButtonType("No");
+            alerta2.getButtonTypes().setAll(btnSi, btnNo);
+
+            Optional<ButtonType> result = alerta2.showAndWait();
+            if (result.get() == btnSi) {
+                Factura(event);
+            }
+            
         } else {
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
         }
@@ -198,8 +315,13 @@ public class PedidoController implements Initializable {
         try {
             String ubicacion = "/reportes/frameexperts/factura.jasper";
             String titulo = "Factura N~" + numFactura;
-            r.generarFactura(ubicacion, titulo, numFactura);
-            System.out.println("Reporte exitoso");
+            JasperPrint jasperPrint = r.generarFactura(ubicacion, titulo, numFactura);
+            
+            String outputPath = "C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/Facturas/Factura_" + numFactura + ".pdf"; // Cambia a la ruta deseada en tu PC
+            JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+
+            System.out.println("Reporte exitoso y guardado en: " + outputPath);
+            
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
         }
