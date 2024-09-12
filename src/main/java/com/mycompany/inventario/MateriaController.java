@@ -11,6 +11,8 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -37,6 +39,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -668,16 +677,6 @@ public class MateriaController extends App implements Initializable{
         main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
     
     }
-
-//    @FXML
-//    private void Reporte(ActionEvent event) {
-//        reportes r = new reportes();
-//        String ubicacion = "/reportes/materia.jasper";
-//        String titulo = "Informe de Materiales";
-//
-//        Map<String, Object> parametros = new HashMap<>();
-//
-//    }
     
     @FXML
     private void Config(ActionEvent event) {
@@ -720,6 +719,29 @@ public class MateriaController extends App implements Initializable{
     private void bajarPDF(ActionEvent event) {
     }
     
+    @FXML
+    private void generarReporteMateriales(ActionEvent event) {
+        try {
+            // Cargar el archivo del reporte (.jasper)
+            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("ruta/a/reporteMateriales.jasper");
+
+            // Crear un Map para pasar los parámetros al reporte
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("nombreReporte", "Reporte de Materiales");
+
+            // Crear la lista de datos (puedes usar la lista que ya tienes en la tabla)
+            JRBeanCollectionDataSource datos = new JRBeanCollectionDataSource(listaMateria);
+
+            // Llenar el reporte con los datos y parámetros
+            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, datos);
+
+            // Mostrar el reporte en una vista
+            JasperViewer.viewReport(print, false);
+        } catch (JRException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     
 }
