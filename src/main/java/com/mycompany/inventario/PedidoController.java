@@ -78,6 +78,9 @@ public class PedidoController implements Initializable {
         
         cargarMaterial();
         configurarColumnas();
+                
+        permiso = per.Pedidos(login.getUsuarioActual());
+        
         
         if(permiso){
 
@@ -492,6 +495,7 @@ public class PedidoController implements Initializable {
     private void abrirPerfilAdmin() {
     
         main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+        System.out.println("Hola");
     
     }
 
@@ -499,9 +503,6 @@ public class PedidoController implements Initializable {
     private void bajarPDF(ActionEvent event) {
     }
     
-    @FXML
-    private void verificar(ActionEvent event) {
-    }
 
     @FXML
     private void NoName(ActionEvent event) {
