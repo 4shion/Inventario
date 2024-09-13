@@ -30,6 +30,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -69,6 +71,7 @@ public class PedidoController implements Initializable {
     permisos per = new permisos();
     boolean permiso = false;
     String h = "Boton Inhabilitado";
+    Alert alertachi;
     
     @FXML
     private Button btnNoName;
@@ -220,12 +223,16 @@ public class PedidoController implements Initializable {
             Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
             alerta1.setHeaderText(null);
             alerta1.setContentText("Insertado correctamente");
+            Stage stage1 = (Stage) alerta1.getDialogPane().getScene().getWindow();
+            stage1.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             alerta1.showAndWait(); // Esperar a que el usuario cierre la alerta     
             
             // Mostrar la segunda alerta para generar factura
             Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
             alerta2.setHeaderText(null);
             alerta2.setContentText("¿Desea generar factura del pedido?");
+            Stage stage = (Stage) alerta2.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             ButtonType btnSi = new ButtonType("Sí");
             ButtonType btnNo = new ButtonType("No");
             alerta2.getButtonTypes().setAll(btnSi, btnNo);
@@ -247,6 +254,9 @@ public class PedidoController implements Initializable {
         CbmMateriales.setDisable(false);
         btnGuardar.setDisable(false);
         txtNomCliente.setDisable(false);
+        
+        CbmMateriales.getSelectionModel().clearSelection();
+        cargarMaterial();
     }
 
     @FXML
@@ -374,6 +384,9 @@ public class PedidoController implements Initializable {
 
     private void cargarMaterial() {
         listaMateriales = FXCollections.observableArrayList(new materia().consulta());
+        
+        CbmMateriales.getItems().clear();
+        
         CbmMateriales.getItems().addAll(
             listaMateriales.stream().map(materia::getNombre).toList()
         );
@@ -495,7 +508,6 @@ public class PedidoController implements Initializable {
     private void abrirPerfilAdmin() {
     
         main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
-        System.out.println("Hola");
     
     }
 

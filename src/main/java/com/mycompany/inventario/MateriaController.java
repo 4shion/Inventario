@@ -32,10 +32,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -335,6 +337,8 @@ public class MateriaController extends App implements Initializable{
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
         alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
         if(opcion.get() == ButtonType.OK){
@@ -388,6 +392,8 @@ public class MateriaController extends App implements Initializable{
                 Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
                 alerta2.setHeaderText(null);
                 alerta2.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea continuar?");
+                Stage stage = (Stage) alerta2.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
                 ButtonType btnSi = new ButtonType("Sí");
                 ButtonType btnNo = new ButtonType("No");
                 alerta2.getButtonTypes().setAll(btnSi, btnNo);
@@ -446,6 +452,8 @@ public class MateriaController extends App implements Initializable{
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setHeaderText(null);
             alerta.setContentText("Error en el formato de número: " + e.getMessage());
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             alerta.show();
             
         }
