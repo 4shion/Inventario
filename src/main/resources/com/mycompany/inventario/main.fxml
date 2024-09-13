@@ -68,6 +68,11 @@
                   </Button>
                </children>
             </Pane>
+            <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="1098.0" layoutY="598.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@qrlinktree.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
