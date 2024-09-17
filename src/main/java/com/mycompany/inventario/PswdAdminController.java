@@ -28,7 +28,7 @@ public class PswdAdminController implements Initializable {
     Pswd ps = new Pswd();
     alertas alert = new alertas();
     MainController main = new MainController();
-    private int intentosFallidos = 0;
+    public static int intentosFallidos = 0;
 
     
     /**
@@ -37,15 +37,9 @@ public class PswdAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        TxtContraAdmin.setOnKeyPressed(event -> {
+        TxtContraAdmin.setOnKeyReleased(event -> {
             if (event.getCode().toString().equals("ENTER")) {
-                System.out.println(TxtContraAdmin.getText().isEmpty());
-                if (TxtContraAdmin.getText().isEmpty()) {
-                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Error. Debes ingresar una contraseña");
-                } else {
                     verificarContra();
-                    TxtContraAdmin.clear(); // Limpiar el campo solo si se ha ingresado una contraseña
-                }
             }   
         });
         
@@ -54,36 +48,44 @@ public class PswdAdminController implements Initializable {
     @FXML
     private void verificarContra() {
         
+        if (TxtContraAdmin.getText().isEmpty()) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Error. Debes ingresar una contraseña");
+            return;        
+        }
+        
         ps.setCod(TxtContraAdmin.getText());
         
         if (ps.verificar()) {
             
             main.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
             TxtContraAdmin.getScene().getWindow().hide();
+            intentosFallidos = 0;
+            
             
         } else {
             
             intentosFallidos++;
-            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Contraseña incorrecta.");
 
-            if (intentosFallidos >= 4) {
-                // Utiliza Platform.runLater para asegurarte de que la alerta se muestre en el siguiente ciclo de la aplicación
+            // Si los intentos fallidos son menos de 3, muestra el mensaje de "contraseña incorrecta"
+            if (intentosFallidos < 3) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Contraseña incorrecta.");
+                TxtContraAdmin.clear();
+            } 
+
+            // Si los intentos fallidos son exactamente 3, muestra la alerta final y cierra el programa
+            if (intentosFallidos == 3) {
                 javafx.application.Platform.runLater(() -> {
-                    // Crea una alerta para indicar que se cerrará el programa
                     Alert alertaFinal = new Alert(Alert.AlertType.ERROR, "Demasiados intentos fallidos. Cerrando el programa.");
                     Stage stage = (Stage) alertaFinal.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                    stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
                     alertaFinal.setTitle("Aviso");
                     alertaFinal.setHeaderText(null);
 
-                    // Define la acción para cerrar el programa después de cerrar la alerta
+                    // Cerrar el programa después de la alerta
                     alertaFinal.setOnHidden(evt -> System.exit(0));
-
-                    // Muestra la alerta y espera a que el usuario la cierre
                     alertaFinal.showAndWait();
                 });
-                
-                
+            
             }
             
         }

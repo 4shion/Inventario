@@ -318,6 +318,7 @@ public class MainController extends conexion implements Initializable {
 
     public void cerrarSesion() {
         sesionIniciada = false;
+        PswdAdminController.intentosFallidos = 0;
         btnSesion.setText("Iniciar Sesión");
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
         login.cerrarSesion();
