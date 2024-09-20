@@ -11,7 +11,7 @@
    <children>
       <Pane layoutX="2.0" layoutY="-37.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;">
          <children>
-            <Pane layoutX="-16.0" layoutY="14.0" prefHeight="736.0" prefWidth="350.0" style="-fx-background-color: white;">
+            <Pane layoutX="-16.0" layoutY="14.0" prefHeight="733.0" prefWidth="350.0" style="-fx-background-color: white;">
                <children>
                   <ImageView fitHeight="63.0" fitWidth="349.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -68,6 +68,11 @@
                   </Button>
                </children>
             </Pane>
+            <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="1098.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@qrlinktree.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

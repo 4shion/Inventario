@@ -108,6 +108,10 @@ public class materia extends conexion implements sentencias {
         this.unidadMedida = unidadMedida;
     }
     
+    public boolean necesitaRestock() {
+        return cantidad_min <= cantidad;
+    }
+    
     @Override
     public boolean insertar() {
         String sql="insert into materiaPrima(idMaterial,nombre,precio,cantidad,cantidad_min,Proveedor_idProveedor,UnidadMedida) values(?,?,?,?,?,?,?)";
