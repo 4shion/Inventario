@@ -11,6 +11,10 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -37,8 +41,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+<<<<<<< HEAD
 import javafx.stage.Stage;
+=======
+import javafx.scene.paint.Material;
+>>>>>>> diseño
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -723,6 +738,35 @@ public class MateriaController extends App implements Initializable{
 
         } 
     }
+    
+    public void generarReporteMateriales(List<materia> materiales) {
+        // Crea una lista para almacenar los parámetros de cada material
+        List<Map<String, Object>> listaMateriales = new ArrayList<>();
+
+        // Itera sobre cada material y guarda los datos en un mapa
+        for (materia m : materiales) {
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("idMaterial", m.getId());
+            parametros.put("nombreMaterial", m.getNombre());
+            parametros.put("cantidadActual", m.getCantidad());
+            parametros.put("restock", m.necesitaRestock() ? "Necesario" : "No necesario");
+            parametros.put("proveedor", m.getProveedor().getNombre());
+            parametros.put("correoProveedor", m.getProveedor().getCorreo());
+
+            // Añade el mapa de parámetros a la lista
+            listaMateriales.add(parametros);
+        }
+
+        // Luego puedes pasar esta lista a tu reporte Jasper
+        try {
+            JasperReport reporte = JasperCompileManager.compileReport("ruta_al_reporte.jasper");
+            JasperPrint print = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(listaMateriales));
+            JasperViewer.viewReport(print, false);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
     
     @FXML
     private void bajarPDF(ActionEvent event) {
