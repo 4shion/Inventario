@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +29,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -63,6 +68,12 @@ public class MainController extends conexion implements Initializable {
     private boolean pMate = false;
     private boolean pCli = false;
     private boolean pPe = false;
+    
+    @FXML
+    private Pane configuracion;
+    
+    @FXML
+    private ImageView engranaje;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -323,5 +334,60 @@ public class MainController extends conexion implements Initializable {
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
         login.cerrarSesion();
         configurarTooltips();
+    }
+    
+    @FXML
+    private void Config(ActionEvent event) {
+
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), configuracion);
+        slideIn.setFromX(800); 
+        slideIn.setToX(0);
+
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), configuracion);
+        slideOut.setFromX(0);
+        slideOut.setToX(800);
+        
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(350), engranaje);
+
+        if (configuracion.isVisible()) {
+
+            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+            slideOut.play();
+
+            rotateTransition.setByAngle(60); 
+            rotateTransition.setCycleCount(1); 
+            rotateTransition.setAutoReverse(false); 
+
+            rotateTransition.playFromStart();
+
+        } else {
+
+            configuracion.setVisible(true);
+            slideIn.play();
+            rotateTransition.setByAngle(-60); 
+            rotateTransition.setCycleCount(1); 
+            rotateTransition.setAutoReverse(false); 
+
+            rotateTransition.playFromStart();
+
+        } 
+    }
+    
+    @FXML
+    private void bajarPDF() {
+    
+    }
+    
+    @FXML
+    private void abrirGestorContra() {
+    
+        abrirformularios("gestorContra.fxml", "Gestor de Contraseñas");
+    
+    }
+    @FXML
+    private void abrirPerfilAdmin() {
+    
+        abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+    
     }
 }
