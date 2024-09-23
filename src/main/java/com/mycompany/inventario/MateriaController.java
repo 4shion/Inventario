@@ -739,11 +739,7 @@ public class MateriaController extends App implements Initializable{
             parametros.put("nombreMaterial", m.getNombre());
             parametros.put("cantidadActual", m.getCantidad());
             parametros.put("restock", m.necesitaRestock() ? "Necesario" : "No necesario");
-<<<<<<< HEAD
-            parametros.put("proveedor", m.getNombre());
-=======
             parametros.put("proveedor", m.getNombreproveedor());
->>>>>>> main
             parametros.put("correoProveedor", p.getCorreo());
 
             // Añade el mapa de parámetros a la lista
