@@ -16,30 +16,35 @@ public class reportes extends conexion {
     public reportes() {
     }
     
-    public void generarReporte(String ubicacion, String titulo) {
-
+    public void reporteMateriales(String ubicacion, String titulo) {
         try {
-            // Ruta al archivo .jasper
+
             String reportPath = getClass().getResource(ubicacion).getPath();
 
-            // Parámetros del informe
             Map<String, Object> parameters = new HashMap<>();
-            // Agrega parámetros según sea necesario
 
-            // Llenar el informe
+            //consulta materiales que necesitan restock
+            String query = "SELECT * FROM materiales WHERE cantidadActual < cantidadMinima";
+            parameters.put("QUERY_RESTOCK", query);
+
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, getCon());
 
-            // Mostrar el informe en una nueva ventana
-            JasperViewer viewer = new JasperViewer(jasperPrint, false);
-            viewer.setTitle(titulo);
-            viewer.setVisible(true);
+            if (jasperPrint.getPages().isEmpty()) {
+                System.out.println("El reporte no contiene datos.");
+            } else {
+                JasperViewer viewer = new JasperViewer(jasperPrint, false);
+                viewer.setTitle(titulo);
+                viewer.setVisible(true);
+                System.out.println("Reporte generado correctamente.");
+            }
 
         } catch (JRException ex) {
-            Logger.getLogger(reportes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(reportes.class.getName()).log(Level.SEVERE, "Error al generar el informe: ", ex);
         }
     }
 
     public JasperPrint generarFactura(String ubicacion, String titulo, int Nrofactura) {
+        
         JasperPrint jasperPrint = null; // Declarar fuera del bloque try para devolverlo al final
 
         // Intentar obtener la ruta del archivo de reporte

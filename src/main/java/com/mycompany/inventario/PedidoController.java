@@ -330,7 +330,7 @@ public class PedidoController implements Initializable {
             String titulo = "Factura N~" + numFactura;
             JasperPrint jasperPrint = r.generarFactura(ubicacion, titulo, numFactura);
             
-            String outputPath = "C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/Facturas/Factura_" + numFactura + ".pdf"; // Cambia a la ruta deseada en tu PC
+            String outputPath = "Inventario/Facturas/Factura_" + numFactura + ".pdf"; // Cambia a la ruta deseada en tu PC
             JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
 
             System.out.println("Reporte exitoso y guardado en: " + outputPath);
