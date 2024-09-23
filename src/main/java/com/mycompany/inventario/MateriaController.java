@@ -11,6 +11,7 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +37,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.scene.paint.Material;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
@@ -48,6 +51,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -347,6 +351,8 @@ public class MateriaController extends App implements Initializable{
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
         alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
         if(opcion.get() == ButtonType.OK){
@@ -400,6 +406,8 @@ public class MateriaController extends App implements Initializable{
                 Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
                 alerta2.setHeaderText(null);
                 alerta2.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea continuar?");
+                Stage stage = (Stage) alerta2.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
                 ButtonType btnSi = new ButtonType("Sí");
                 ButtonType btnNo = new ButtonType("No");
                 alerta2.getButtonTypes().setAll(btnSi, btnNo);
@@ -458,6 +466,8 @@ public class MateriaController extends App implements Initializable{
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setHeaderText(null);
             alerta.setContentText("Error en el formato de número: " + e.getMessage());
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             alerta.show();
             
         }
@@ -729,7 +739,11 @@ public class MateriaController extends App implements Initializable{
             parametros.put("nombreMaterial", m.getNombre());
             parametros.put("cantidadActual", m.getCantidad());
             parametros.put("restock", m.necesitaRestock() ? "Necesario" : "No necesario");
+<<<<<<< HEAD
             parametros.put("proveedor", m.getNombre());
+=======
+            parametros.put("proveedor", m.getNombreproveedor());
+>>>>>>> main
             parametros.put("correoProveedor", p.getCorreo());
 
             // Añade el mapa de parámetros a la lista
@@ -750,7 +764,34 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private void bajarPDF(ActionEvent event) {
     }
+
+    @FXML
+    private void GenerarReporte(ActionEvent event) {
+    }
     
+    @FXML
+    private void generarReporteMateriales(ActionEvent event) {
+        try {
+            // Cargar el archivo del reporte (.jasper)
+            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("ruta/a/reporteMateriales.jasper");
+
+            // Crear un Map para pasar los parámetros al reporte
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("nombreReporte", "Reporte de Materiales");
+
+            // Crear la lista de datos (puedes usar la lista que ya tienes en la tabla)
+            JRBeanCollectionDataSource datos = new JRBeanCollectionDataSource(listaMateria);
+
+            // Llenar el reporte con los datos y parámetros
+            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, datos);
+
+            // Mostrar el reporte en una vista
+            JasperViewer.viewReport(print, false);
+        } catch (JRException ex) {
+            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     
 }

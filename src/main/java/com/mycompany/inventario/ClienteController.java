@@ -29,9 +29,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -242,6 +244,8 @@ public class ClienteController implements Initializable {
         Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
+        Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
         Optional<ButtonType> opcion = alerta1.showAndWait();
         

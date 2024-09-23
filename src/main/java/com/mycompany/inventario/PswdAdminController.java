@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -26,6 +28,7 @@ public class PswdAdminController implements Initializable {
     Pswd ps = new Pswd();
     alertas alert = new alertas();
     MainController main = new MainController();
+    public static int intentosFallidos = 0;
 
     
     /**
@@ -34,10 +37,10 @@ public class PswdAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        TxtContraAdmin.setOnKeyPressed(event -> {
+        TxtContraAdmin.setOnKeyReleased(event -> {
             if (event.getCode().toString().equals("ENTER")) {
-                verificarContra();
-            }
+                    verificarContra();
+            }   
         });
         
     }
@@ -45,20 +48,45 @@ public class PswdAdminController implements Initializable {
     @FXML
     private void verificarContra() {
         
+        if (TxtContraAdmin.getText().isEmpty()) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Error. Debes ingresar una contraseña");
+            return;        
+        }
+        
         ps.setCod(TxtContraAdmin.getText());
         
-        if(ps.verificar()){
+        if (ps.verificar()) {
             
             main.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
-            
             TxtContraAdmin.getScene().getWindow().hide();
+            intentosFallidos = 0;
             
-        }
-        else {
             
-            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Contraseña incorrecto");
-            TxtContraAdmin.clear();
-            return;
+        } else {
+            
+            intentosFallidos++;
+
+            // Si los intentos fallidos son menos de 3, muestra el mensaje de "contraseña incorrecta"
+            if (intentosFallidos < 3) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Error. Contraseña incorrecta.");
+                TxtContraAdmin.clear();
+            } 
+
+            // Si los intentos fallidos son exactamente 3, muestra la alerta final y cierra el programa
+            if (intentosFallidos == 3) {
+                javafx.application.Platform.runLater(() -> {
+                    Alert alertaFinal = new Alert(Alert.AlertType.ERROR, "Demasiados intentos fallidos. Cerrando el programa.");
+                    Stage stage = (Stage) alertaFinal.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                    alertaFinal.setTitle("Aviso");
+                    alertaFinal.setHeaderText(null);
+
+                    // Cerrar el programa después de la alerta
+                    alertaFinal.setOnHidden(evt -> System.exit(0));
+                    alertaFinal.showAndWait();
+                });
+            
+            }
             
         }
         
