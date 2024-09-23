@@ -680,16 +680,6 @@ public class MateriaController extends App implements Initializable{
         main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
     
     }
-
-//    @FXML
-//    private void Reporte(ActionEvent event) {
-//        reportes r = new reportes();
-//        String ubicacion = "/reportes/materia.jasper";
-//        String titulo = "Informe de Materiales";
-//
-//        Map<String, Object> parametros = new HashMap<>();
-//
-//    }
     
     @FXML
     private void Config(ActionEvent event) {
@@ -739,8 +729,8 @@ public class MateriaController extends App implements Initializable{
             parametros.put("nombreMaterial", m.getNombre());
             parametros.put("cantidadActual", m.getCantidad());
             parametros.put("restock", m.necesitaRestock() ? "Necesario" : "No necesario");
-            parametros.put("proveedor", m.getProveedor().getNombre());
-            parametros.put("correoProveedor", m.getProveedor().getCorreo());
+            parametros.put("proveedor", m.getNombre());
+            parametros.put("correoProveedor", p.getCorreo());
 
             // Añade el mapa de parámetros a la lista
             listaMateriales.add(parametros);
