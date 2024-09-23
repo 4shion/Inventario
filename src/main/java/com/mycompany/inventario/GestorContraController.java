@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -156,6 +157,8 @@ public class GestorContraController implements Initializable {
         dialog.setTitle("Recuperar Contraseña");
         dialog.setHeaderText("Introduzca el código de recuperación");
         dialog.setContentText("Código:");
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
 
         Optional<String> result = dialog.showAndWait();
 

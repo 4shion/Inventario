@@ -32,7 +32,11 @@
                   <TableColumn fx:id="ColumUni" prefWidth="59.60003662109375" text="Unidad" />
                </columns>
             </TableView>
+<<<<<<< HEAD
             <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#generarReporteMateriales" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
+=======
+            <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#GenerarReporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
+>>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
          </children>
       </Pane>
       <Pane layoutX="119.0" layoutY="601.0" prefHeight="46.0" prefWidth="931.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="52.60000000000002" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="149.80000000000018">

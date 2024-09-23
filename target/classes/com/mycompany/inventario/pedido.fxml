@@ -32,7 +32,7 @@
                <font>
                   <Font name="Corbel" size="14.0" />
                </font></Text>
-            <TableView fx:id="table" layoutX="282.0" layoutY="65.0" onMouseClicked="#Click" prefHeight="365.0" prefWidth="504.0">
+            <TableView fx:id="table" focusTraversable="false" layoutX="282.0" layoutY="65.0" onMouseClicked="#Click" prefHeight="365.0" prefWidth="504.0">
               <columns>
                 <TableColumn fx:id="ColumMaterial" prefWidth="258.4000244140625" text="Material" />
                 <TableColumn fx:id="ColumCantidad" prefWidth="127.99993896484375" text="Cantidad" />
@@ -156,7 +156,7 @@
                   <Font name="Corbel Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#verificar" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
+            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirPerfilAdmin" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
                <font>
                   <Font name="Corbel Bold" size="14.0" />
                </font>

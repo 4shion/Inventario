@@ -43,20 +43,26 @@ public class reportes extends conexion {
         }
     }
 
+<<<<<<< HEAD
 
 
     public void generarFactura(String ubicacion, String titulo, int Nrofactura) {
         
+=======
+    public JasperPrint generarFactura(String ubicacion, String titulo, int Nrofactura) {
+        JasperPrint jasperPrint = null; // Declarar fuera del bloque try para devolverlo al final
+
+>>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
         // Intentar obtener la ruta del archivo de reporte
         String reportPath = getClass().getResource(ubicacion).getPath();
 
-        try (Connection connection =getCon()) { // Intentar abrir la conexión automáticamente cerrándola después
+        try (Connection connection = getCon()) { // Abrir la conexión y cerrarla automáticamente después
             // Parámetros del informe
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("factNumero", Nrofactura);
 
             // Llenar el informe con los parámetros y la conexión
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, connection);
+            jasperPrint = JasperFillManager.fillReport(reportPath, parameters, connection);
 
             // Mostrar el informe en una nueva ventana
             JasperViewer viewer = new JasperViewer(jasperPrint, false);
@@ -65,8 +71,10 @@ public class reportes extends conexion {
 
         } catch (JRException | SQLException ex) { // Capturar posibles excepciones
             Logger.getLogger(reportes.class.getName()).log(Level.SEVERE, "Error al generar el informe: ", ex);
-        } 
+        }
 
+        return jasperPrint; // Devolver el objeto JasperPrint
     }
+
     
 }

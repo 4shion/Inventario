@@ -11,7 +11,13 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
+<<<<<<< HEAD
 import java.util.HashMap;
+=======
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+>>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -34,17 +40,27 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.scene.paint.Material;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
+<<<<<<< HEAD
+=======
+import net.sf.jasperreports.engine.JasperCompileManager;
+>>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+<<<<<<< HEAD
 import net.sf.jasperreports.engine.util.JRLoader;
+=======
+>>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -344,6 +360,8 @@ public class MateriaController extends App implements Initializable{
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
         alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
         if(opcion.get() == ButtonType.OK){
@@ -397,6 +415,8 @@ public class MateriaController extends App implements Initializable{
                 Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
                 alerta2.setHeaderText(null);
                 alerta2.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea continuar?");
+                Stage stage = (Stage) alerta2.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
                 ButtonType btnSi = new ButtonType("Sí");
                 ButtonType btnNo = new ButtonType("No");
                 alerta2.getButtonTypes().setAll(btnSi, btnNo);
@@ -455,6 +475,8 @@ public class MateriaController extends App implements Initializable{
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setHeaderText(null);
             alerta.setContentText("Error en el formato de número: " + e.getMessage());
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             alerta.show();
             
         }
@@ -715,8 +737,41 @@ public class MateriaController extends App implements Initializable{
         } 
     }
     
+    public void generarReporteMateriales(List<materia> materiales) {
+        // Crea una lista para almacenar los parámetros de cada material
+        List<Map<String, Object>> listaMateriales = new ArrayList<>();
+
+        // Itera sobre cada material y guarda los datos en un mapa
+        for (materia m : materiales) {
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("idMaterial", m.getId());
+            parametros.put("nombreMaterial", m.getNombre());
+            parametros.put("cantidadActual", m.getCantidad());
+            parametros.put("restock", m.necesitaRestock() ? "Necesario" : "No necesario");
+            parametros.put("proveedor", m.getNombreproveedor());
+            parametros.put("correoProveedor", p.getCorreo());
+
+            // Añade el mapa de parámetros a la lista
+            listaMateriales.add(parametros);
+        }
+
+        // Luego puedes pasar esta lista a tu reporte Jasper
+        try {
+            JasperReport reporte = JasperCompileManager.compileReport("ruta_al_reporte.jasper");
+            JasperPrint print = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(listaMateriales));
+            JasperViewer.viewReport(print, false);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
     @FXML
     private void bajarPDF(ActionEvent event) {
+    }
+
+    @FXML
+    private void GenerarReporte(ActionEvent event) {
     }
     
     @FXML

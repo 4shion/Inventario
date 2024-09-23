@@ -29,9 +29,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -302,6 +304,8 @@ public class ProveedorController implements Initializable {
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
         alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
         if(opcion.get() == ButtonType.OK){
