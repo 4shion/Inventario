@@ -11,13 +11,10 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
-<<<<<<< HEAD
 import java.util.HashMap;
-=======
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
->>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -49,18 +46,12 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Material;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
-<<<<<<< HEAD
-=======
 import net.sf.jasperreports.engine.JasperCompileManager;
->>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-<<<<<<< HEAD
 import net.sf.jasperreports.engine.util.JRLoader;
-=======
->>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
 import net.sf.jasperreports.view.JasperViewer;
 
 /**

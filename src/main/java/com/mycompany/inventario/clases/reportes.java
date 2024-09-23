@@ -43,16 +43,10 @@ public class reportes extends conexion {
         }
     }
 
-<<<<<<< HEAD
-
-
-    public void generarFactura(String ubicacion, String titulo, int Nrofactura) {
-        
-=======
     public JasperPrint generarFactura(String ubicacion, String titulo, int Nrofactura) {
+        
         JasperPrint jasperPrint = null; // Declarar fuera del bloque try para devolverlo al final
 
->>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
         // Intentar obtener la ruta del archivo de reporte
         String reportPath = getClass().getResource(ubicacion).getPath();
 
