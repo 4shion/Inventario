@@ -76,6 +76,16 @@ public class LoginAdmiController implements Initializable {
     @FXML
     private void Aceptar(ActionEvent event) {
         
+        if (nombreAdmin.getText().isEmpty() || correoAdmin.getText().isEmpty() || codAdmin.getText().isEmpty() || pswd.getText().isEmpty() || pswdVerificacion.getText().isEmpty()) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
+            return;
+        }
+        
+        if (!correoAdmin.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El formato del correo es incorrecto");
+            return;
+        }
+        
         admi.setNombre(nombreAdmin.getText());
         admi.setCorreo(correoAdmin.getText());
         admi.setCodAdmi(codAdmin.getText());

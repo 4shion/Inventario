@@ -41,11 +41,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-<<<<<<< HEAD
 import javafx.stage.Stage;
-=======
 import javafx.scene.paint.Material;
->>>>>>> diseño
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -691,16 +688,6 @@ public class MateriaController extends App implements Initializable{
         main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
     
     }
-
-//    @FXML
-//    private void Reporte(ActionEvent event) {
-//        reportes r = new reportes();
-//        String ubicacion = "/reportes/materia.jasper";
-//        String titulo = "Informe de Materiales";
-//
-//        Map<String, Object> parametros = new HashMap<>();
-//
-//    }
     
     @FXML
     private void Config(ActionEvent event) {
@@ -750,8 +737,8 @@ public class MateriaController extends App implements Initializable{
             parametros.put("nombreMaterial", m.getNombre());
             parametros.put("cantidadActual", m.getCantidad());
             parametros.put("restock", m.necesitaRestock() ? "Necesario" : "No necesario");
-            parametros.put("proveedor", m.getProveedor().getNombre());
-            parametros.put("correoProveedor", m.getProveedor().getCorreo());
+            parametros.put("proveedor", m.getNombreproveedor());
+            parametros.put("correoProveedor", p.getCorreo());
 
             // Añade el mapa de parámetros a la lista
             listaMateriales.add(parametros);
@@ -770,6 +757,10 @@ public class MateriaController extends App implements Initializable{
     
     @FXML
     private void bajarPDF(ActionEvent event) {
+    }
+
+    @FXML
+    private void GenerarReporte(ActionEvent event) {
     }
     
 
