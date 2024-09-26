@@ -77,6 +77,14 @@ public class GestorContraController implements Initializable {
         txtContraA.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) {
                 
+                String nombreUsuario = cbmUsuario.getSelectionModel().getSelectedItem();
+                if (nombreUsuario == null || 
+                    txtContraA.getText().isEmpty()) {
+
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
+                    return;
+                }
+                
                 verificarContra();
                 
                 if(comprobacion){
@@ -95,7 +103,7 @@ public class GestorContraController implements Initializable {
                 }
                 else{
                     
-                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Contraseña incorrecta");
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Contraseña incorrecta.");
                     
                 }
                 
@@ -143,7 +151,6 @@ public class GestorContraController implements Initializable {
             comprobacion = true;
 
         } else {
-            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "Contraseña incorrecta.");
             comprobacion = false;
             txtContraA.clear();
 
@@ -191,6 +198,11 @@ public class GestorContraController implements Initializable {
         
         String contraNueva = txtContraN.getText();
         String Repetida = txtRepetir.getText();
+        
+        if (!contraNueva.matches("^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La contraseña debe tener un mínimo de 6 caracteres, contener letras, números, al menos una mayúscula y un carácter especial.");
+            return;
+        }
         
         if(contraNueva.equals(Repetida)){
             

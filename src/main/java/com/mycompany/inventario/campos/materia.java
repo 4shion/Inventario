@@ -220,4 +220,32 @@ public class materia extends conexion implements sentencias {
         
     }
     
+    public String getCantidadConUnidad() {
+        return cantidad + " " + unidadMedida;
+    }
+
+    public String getCant_MinConUnidad() {
+        return cantidad_min + " " + unidadMedida;
+    }
+    
+    public String getPrecioConEuro(){
+        return precio + " " + "€";
+    }
+    
+    public boolean existeMaterial(String nombre) {
+        
+        String query = "SELECT COUNT(*) FROM materiaPrima WHERE nombre = ?";
+        try (Connection con=getCon();
+             PreparedStatement stmt=con.prepareStatement(query)) {
+            stmt.setString(1, nombre);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si hay al menos un material con ese nombre
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de excepciones
+        }
+        return false; // Si ocurre un error o no se encuentra, retornar false
+    }
+    
 }

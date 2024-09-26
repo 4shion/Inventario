@@ -54,6 +54,11 @@ public class LoginController implements Initializable {
     @FXML
     private void Ingresar(ActionEvent event) {
         
+        if (txtUsuario.getText().isEmpty() || txtContra.getText().isEmpty()) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
+            return;
+        }
+        
         login.setUsuario(txtUsuario.getText());
         login.setContra(txtContra.getText());
         

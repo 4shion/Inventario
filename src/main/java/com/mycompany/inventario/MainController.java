@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.cliente;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.permisos;
@@ -334,43 +335,52 @@ public class MainController extends conexion implements Initializable {
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
         login.cerrarSesion();
         configurarTooltips();
+        App.getLoadedViews().clear();
+        
     }
     
     @FXML
     private void Config(ActionEvent event) {
 
-        TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), configuracion);
-        slideIn.setFromX(800); 
-        slideIn.setToX(0);
+        if (sesionIniciada) {
+            
+            TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), configuracion);
+            slideIn.setFromX(800); 
+            slideIn.setToX(0);
 
-        TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), configuracion);
-        slideOut.setFromX(0);
-        slideOut.setToX(800);
-        
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(350), engranaje);
+            TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), configuracion);
+            slideOut.setFromX(0);
+            slideOut.setToX(800);
 
-        if (configuracion.isVisible()) {
+            RotateTransition rotateTransition = new RotateTransition(Duration.millis(350), engranaje);
 
-            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
-            slideOut.play();
+            if (configuracion.isVisible()) {
 
-            rotateTransition.setByAngle(60); 
-            rotateTransition.setCycleCount(1); 
-            rotateTransition.setAutoReverse(false); 
+                slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+                slideOut.play();
 
-            rotateTransition.playFromStart();
+                rotateTransition.setByAngle(60); 
+                rotateTransition.setCycleCount(1); 
+                rotateTransition.setAutoReverse(false); 
 
+                rotateTransition.playFromStart();
+
+            } else {
+
+                configuracion.setVisible(true);
+                slideIn.play();
+                rotateTransition.setByAngle(-60); 
+                rotateTransition.setCycleCount(1); 
+                rotateTransition.setAutoReverse(false); 
+
+                rotateTransition.playFromStart();
+
+            } 
+            
         } else {
-
-            configuracion.setVisible(true);
-            slideIn.play();
-            rotateTransition.setByAngle(-60); 
-            rotateTransition.setCycleCount(1); 
-            rotateTransition.setAutoReverse(false); 
-
-            rotateTransition.playFromStart();
-
-        } 
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
+        }
+        
     }
     
     @FXML
@@ -387,7 +397,7 @@ public class MainController extends conexion implements Initializable {
     @FXML
     private void abrirPerfilAdmin() {
     
-        abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+        abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
 }

@@ -73,6 +73,31 @@ public class PerfilAdminController implements Initializable {
     @FXML
     private void Guardar(ActionEvent event) {
         
+        if (txtNombre.getText().isEmpty() || 
+            txtCorreo.getText().isEmpty() || 
+            TxtCod.getText().isEmpty()) {
+
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
+            return;
+        }
+        
+        if (txtNombre.getText().matches("\\d+")) { // Comprueba si el nombre solo contiene dígitos
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El nombre no puede contener solo números");
+            return;
+        }
+        if (!txtCorreo.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El formato del correo es incorrecto");
+            return;
+        }
+        if (!TxtCod.getText().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El codigo debe tener un mínimo de 6 caracteres y debe contener letras y números");
+            return;
+        }
+        if (!txtContra.getText().matches("^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La contraseña debe tener un mínimo de 6 caracteres, contener letras, números, al menos una mayúscula y un carácter especial.");
+            return;
+        }
+        
         p.setCodigo(txtContra.getText());
         p.setNombre(txtNombre.getText());
         p.setCorreo(txtCorreo.getText());
