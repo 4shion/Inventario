@@ -26,6 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -68,6 +70,7 @@ public class PedidoController implements Initializable {
     private cliente client = new cliente();
     private reportes r = new reportes();
     private MainController main = new MainController();
+    private materia m = new materia();
     
     Login login = new Login();
     permisos per = new permisos();
@@ -243,6 +246,27 @@ public class PedidoController implements Initializable {
             p.searchId();
             f.setIdPedido(p.getIdPedido());
 
+            List<String> materialesPorDebajoMinimo = new ArrayList<>();
+            for (int i = 0; i < numFilas; i++) {
+                pedido material = table.getItems().get(i);
+                m.buscarCantMaterial(material.getNombreM()); // Método para obtener la cantidad actual del material desde la base de datos
+                System.out.println(m.getCantidad_min());
+                if (m.getCantidad() < m.getCantidad_min()) {
+                    materialesPorDebajoMinimo.add(material.getNombreM());
+                }
+            }
+
+            // Si hay materiales por debajo de la cantidad mínima, mostrar alerta
+            if (!materialesPorDebajoMinimo.isEmpty()) {
+                Alert alertaMateriales = new Alert(Alert.AlertType.INFORMATION);
+                alertaMateriales.setHeaderText("Materiales por debajo del mínimo");
+                alertaMateriales.setContentText("Los siguientes materiales están por debajo de la cantidad mínima:\n" + 
+                    String.join("\n", materialesPorDebajoMinimo));
+                Stage stageMateriales = (Stage) alertaMateriales.getDialogPane().getScene().getWindow();
+                stageMateriales.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                alertaMateriales.showAndWait();
+            }
+
             // Mostrar la segunda alerta para generar factura
             Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
             alerta2.setHeaderText(null);
@@ -261,6 +285,10 @@ public class PedidoController implements Initializable {
         } else {
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
         }
+        
+        CbmMateriales.getSelectionModel().clearSelection();
+        cargarMaterial();
+        
     }
 
     @FXML
@@ -286,6 +314,10 @@ public class PedidoController implements Initializable {
             double cantidad;
             try {
                 cantidad = Double.parseDouble(TxtCant.getText());
+                if (cantidad <= 0) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un valor positivo mayor a 0.");
+                    return;
+                }
             } catch (NumberFormatException e) {
                 alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número válido");
                 return;

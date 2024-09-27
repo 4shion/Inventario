@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
@@ -408,7 +409,12 @@ public class MateriaController extends App implements Initializable{
 
             // Validar que el precio, cantidad y camMín sean números válidos
             try {
-                m.setPrecio(Double.parseDouble(txtPrecio.getText()));
+                double precio = Double.parseDouble(txtPrecio.getText());
+                if (precio <= 0) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El precio debe ser un valor positivo mayor a 0.");
+                    return;
+                }
+                m.setPrecio(precio);
             } catch (NumberFormatException e) {
                 alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El precio debe ser un número válido");
                 return;
@@ -416,15 +422,14 @@ public class MateriaController extends App implements Initializable{
 
             try {
                 double c = Double.parseDouble(txtCantidad.getText());
-            } catch (NumberFormatException e) {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número válido");
-                return;
-            }
-
-            try {
                 double cm = Double.parseDouble(txtCamMín.getText());
+
+                if (c <= 0 || cm <= 0) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad y la cantidad mínima deben ser valores positivos mayores a 0.");
+                    return;
+                }
             } catch (NumberFormatException e) {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El valor mínimo debe ser un número válido");
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Por favor ingrese un número válido en los campos de cantidad.");
                 return;
             }
 
@@ -433,13 +438,8 @@ public class MateriaController extends App implements Initializable{
                 return;
             }
 
-            if (!TxtUniMed.getText().matches("[a-zA-Z]{2}")) {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La unidad de medida debe tener exactamente dos letras");
-                return;
-            }
-
-            if (m.existeMaterial(txtNombre.getText())) {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El material ya existe en la base de datos");
+            if (!TxtUniMed.getText().matches("[a-zA-Z]{1,2}")) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La unidad de medida debe tener como máximo dos letras");
                 return;
             }
             
@@ -493,6 +493,11 @@ public class MateriaController extends App implements Initializable{
 
             }else{
 
+                if (m.existeMaterial(txtNombre.getText())) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El material ya existe en la base de datos");
+                    return;
+                }
+                
                 if(m.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
@@ -654,6 +659,42 @@ public class MateriaController extends App implements Initializable{
 
             btnNuevo.setDisable(true);
         }
+        
+        if (m.getCantidad() < m.getCantidad_min()){
+            
+            Alert alerta3 = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta3.setHeaderText(null);
+            alerta3.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea visualizar los datos del proveedor?");
+            Stage stage = (Stage) alerta3.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            ButtonType btnSi = new ButtonType("Sí");
+            ButtonType btnNo = new ButtonType("No");
+            alerta3.getButtonTypes().setAll(btnSi, btnNo);
+
+            Optional<ButtonType> result = alerta3.showAndWait();
+            if (result.isPresent() && result.get() == btnSi) {
+                
+                String proveedorNombre = m.getNombreproveedor();
+                p.buscarDatosProveedor(proveedorNombre);
+                String proveedorCorreo = p.getCorreo();
+                String proveedorTelefono = p.getTelefono();
+
+                // Mostrar los datos del proveedor en una alerta
+                Alert alertaProveedor = new Alert(Alert.AlertType.INFORMATION);
+                alertaProveedor.setHeaderText("Datos del Proveedor");
+                alertaProveedor.setContentText(
+                    "Nombre: " + proveedorNombre + "\n" +
+                    "Correo: " + proveedorCorreo + "\n" +
+                    "Teléfono: " + proveedorTelefono
+                );
+                Stage stageP = (Stage) alertaProveedor.getDialogPane().getScene().getWindow();
+                stageP.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                alertaProveedor.showAndWait();
+                
+            }
+            
+        }
+        
     }
     
     @FXML

@@ -429,10 +429,6 @@ public class UsuarioController implements Initializable {
             alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La contraseña debe tener un mínimo de 6 caracteres, contener letras, números, al menos una mayúscula y un carácter especial.");
             return;
         }
-        if (one.existeUsuario(txtNombre.getText())) {
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El material ya existe en la base de datos");
-            return;
-        }
         one.setNombre(txtNombre.getText());
         one.setCodigo(txtCodigo.getText());
         one.setCorreo(txtCorreo.getText());
@@ -464,7 +460,12 @@ public class UsuarioController implements Initializable {
             
         }
         else{
-        
+            
+            if (one.existeUsuario(txtNombre.getText())) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El usuario ya existe en la base de datos");
+                return;
+            }
+
             if(one.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");

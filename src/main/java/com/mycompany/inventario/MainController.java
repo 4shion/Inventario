@@ -5,7 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
-import com.mycompany.inventario.campos.cliente;
+import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.permisos;
@@ -15,9 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -51,6 +53,7 @@ public class MainController extends conexion implements Initializable {
     alertas alert = new alertas();
     Login login = new Login();
     permisos p = new permisos();
+    materia m = new materia();
 
     private Stage ventanaEmergente = null; 
     @FXML
@@ -400,4 +403,35 @@ public class MainController extends conexion implements Initializable {
         abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
+    
+    public void mostrarAlertaStockBajo() {
+        // Obtener la lista de materiales desde la base de datos
+        List<materia> listaMateriales = m.obtenerListaMateriales();
+
+        // Filtrar los materiales con cantidad menor a la cantidad mínima
+        List<materia> materialesStockBajo = listaMateriales.stream()
+                .filter(material -> material.getCantidad() < material.getCantidad_min())
+                .collect(Collectors.toList());
+
+        // Si hay materiales con stock bajo, mostrar alerta
+        if (!materialesStockBajo.isEmpty()) {
+            StringBuilder mensaje = new StringBuilder("Los siguientes materiales tienen stock bajo:\n");
+
+            for (materia material : materialesStockBajo) {
+                mensaje.append("Nombre: ").append(material.getNombre())
+                        .append(", Cantidad: ").append(material.getCantidad())
+                        .append(", Cantidad mínima: ").append(material.getCantidad_min())
+                        .append("\n");
+            }
+
+            // Mostrar la alerta
+            Alert alertaStockBajo = new Alert(Alert.AlertType.WARNING);
+            alertaStockBajo.setHeaderText("Stock bajo");
+            alertaStockBajo.setContentText(mensaje.toString());
+            Stage stage = (Stage) alertaStockBajo.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            alertaStockBajo.showAndWait();
+        }
+    }
+    
 }

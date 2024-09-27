@@ -178,6 +178,25 @@ public class proveedor extends conexion implements sentencias {
         
     }
     
-    
+    public void buscarDatosProveedor(String nombreProveedor) {
+        String correo;
+        int telf;
+        String consulta = "SELECT correo, telefono FROM proveedor WHERE nombre = ?";
+
+        try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
+            stmt.setString(1, nombreProveedor);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                correo = rs.getString("correo");
+                telf = rs.getInt("telefono");
+                this.setNombre(nombreProveedor);
+                this.setCorreo(correo); 
+                this.setTelefono(String.valueOf(telf));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(proveedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }
