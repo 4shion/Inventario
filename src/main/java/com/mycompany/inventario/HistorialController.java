@@ -124,7 +124,7 @@ public class HistorialController implements Initializable {
     }
     private void abrirPerfilAdmin() {
     
-        m.abrirformularios("perfilAdmin.fxml", "Perfil de Administrador");
+        m.abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
 

@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.permisos;
@@ -14,9 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -50,6 +53,7 @@ public class MainController extends conexion implements Initializable {
     alertas alert = new alertas();
     Login login = new Login();
     permisos p = new permisos();
+    materia m = new materia();
 
     private Stage ventanaEmergente = null; 
     @FXML
@@ -334,43 +338,52 @@ public class MainController extends conexion implements Initializable {
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
         login.cerrarSesion();
         configurarTooltips();
+        App.getLoadedViews().clear();
+        
     }
     
     @FXML
     private void Config(ActionEvent event) {
 
-        TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), configuracion);
-        slideIn.setFromX(800); 
-        slideIn.setToX(0);
+        if (sesionIniciada) {
+            
+            TranslateTransition slideIn = new TranslateTransition(Duration.millis(500), configuracion);
+            slideIn.setFromX(800); 
+            slideIn.setToX(0);
 
-        TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), configuracion);
-        slideOut.setFromX(0);
-        slideOut.setToX(800);
-        
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(350), engranaje);
+            TranslateTransition slideOut = new TranslateTransition(Duration.millis(500), configuracion);
+            slideOut.setFromX(0);
+            slideOut.setToX(800);
 
-        if (configuracion.isVisible()) {
+            RotateTransition rotateTransition = new RotateTransition(Duration.millis(350), engranaje);
 
-            slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
-            slideOut.play();
+            if (configuracion.isVisible()) {
 
-            rotateTransition.setByAngle(60); 
-            rotateTransition.setCycleCount(1); 
-            rotateTransition.setAutoReverse(false); 
+                slideOut.setOnFinished(event1 -> configuracion.setVisible(false));
+                slideOut.play();
 
-            rotateTransition.playFromStart();
+                rotateTransition.setByAngle(60); 
+                rotateTransition.setCycleCount(1); 
+                rotateTransition.setAutoReverse(false); 
 
+                rotateTransition.playFromStart();
+
+            } else {
+
+                configuracion.setVisible(true);
+                slideIn.play();
+                rotateTransition.setByAngle(-60); 
+                rotateTransition.setCycleCount(1); 
+                rotateTransition.setAutoReverse(false); 
+
+                rotateTransition.playFromStart();
+
+            } 
+            
         } else {
-
-            configuracion.setVisible(true);
-            slideIn.play();
-            rotateTransition.setByAngle(-60); 
-            rotateTransition.setCycleCount(1); 
-            rotateTransition.setAutoReverse(false); 
-
-            rotateTransition.playFromStart();
-
-        } 
+            alert.ShowAlert(Alert.AlertType.WARNING, "Acceso Denegado", "Debe iniciar sesión para acceder a esta sección.");
+        }
+        
     }
     
     @FXML
@@ -387,7 +400,38 @@ public class MainController extends conexion implements Initializable {
     @FXML
     private void abrirPerfilAdmin() {
     
-        abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+        abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
+    
+    public void mostrarAlertaStockBajo() {
+        // Obtener la lista de materiales desde la base de datos
+        List<materia> listaMateriales = m.obtenerListaMateriales();
+
+        // Filtrar los materiales con cantidad menor a la cantidad mínima
+        List<materia> materialesStockBajo = listaMateriales.stream()
+                .filter(material -> material.getCantidad() < material.getCantidad_min())
+                .collect(Collectors.toList());
+
+        // Si hay materiales con stock bajo, mostrar alerta
+        if (!materialesStockBajo.isEmpty()) {
+            StringBuilder mensaje = new StringBuilder("Los siguientes materiales tienen stock bajo:\n");
+
+            for (materia material : materialesStockBajo) {
+                mensaje.append("Nombre: ").append(material.getNombre())
+                        .append(", Cantidad: ").append(material.getCantidad())
+                        .append(", Cantidad mínima: ").append(material.getCantidad_min())
+                        .append("\n");
+            }
+
+            // Mostrar la alerta
+            Alert alertaStockBajo = new Alert(Alert.AlertType.WARNING);
+            alertaStockBajo.setHeaderText("Stock bajo");
+            alertaStockBajo.setContentText(mensaje.toString());
+            Stage stage = (Stage) alertaStockBajo.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            alertaStockBajo.showAndWait();
+        }
+    }
+    
 }

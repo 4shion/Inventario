@@ -19,8 +19,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,22 +91,27 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private TableColumn<materia, String> colNombre;
     @FXML
-    private TableColumn<materia, Double> colPrecio;
+    private TableColumn<materia, String> colPrecio;
     @FXML
+<<<<<<< HEAD
     private TableColumn<materia, Integer> colCantidad;  
+=======
+    private TableColumn<materia, String> colCantidad;
+>>>>>>> main
     @FXML
     private TableColumn<materia, String> colProveedor;
     
     materia m = new materia();
     proveedor p = new proveedor();
     alertas alert = new alertas();
+    MainController main = new MainController();
     
     ObservableList<materia> listaMateria;
     ObservableList<proveedor> listaProveedor;
     ObservableList<materia> listaFiltrada;
 
     @FXML
-    private TableColumn<materia, Integer> colCantMin;
+    private TableColumn<materia, String> colCantMin;
     
     boolean bandera = false;
     @FXML
@@ -119,6 +126,7 @@ public class MateriaController extends App implements Initializable{
     private TextField TxtUniMed;
     @FXML
     private TableColumn<materia, String> ColumUni;
+<<<<<<< HEAD
     @FXML
     private StackPane materialesStackPane;
     @FXML
@@ -126,12 +134,16 @@ public class MateriaController extends App implements Initializable{
     
     MainController main = new MainController();
     
+=======
+        
+>>>>>>> main
     Login login = new Login();
     permisos per = new permisos();
     boolean permiso = false;
     String h = "Boton Inhabilitado";
     double cantidad = m.cantidad;
     double cantidad_min = m.cantidad_min;
+    
     
     /**
      * Initializes the controller class.
@@ -314,6 +326,9 @@ public class MateriaController extends App implements Initializable{
     }
 
 
+    public MateriaController(){
+    }
+    
     @FXML
     private void Busqueda(ActionEvent event) {
         
@@ -449,9 +464,55 @@ public class MateriaController extends App implements Initializable{
     private void Guardar(ActionEvent event) {
         
         try{
+            String nombrePro = cboSelProov.getSelectionModel().getSelectedItem();
+            if (txtNombre.getText().isEmpty() || 
+                txtPrecio.getText().isEmpty() || 
+                txtCantidad.getText().isEmpty() || 
+                txtCamMín.getText().isEmpty() || 
+                TxtUniMed.getText().isEmpty() ||
+                nombrePro == null) {
+
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
+                return;
+            }
+
+            // Validar que el precio, cantidad y camMín sean números válidos
+            try {
+                double precio = Double.parseDouble(txtPrecio.getText());
+                if (precio <= 0) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El precio debe ser un valor positivo mayor a 0.");
+                    return;
+                }
+                m.setPrecio(precio);
+            } catch (NumberFormatException e) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El precio debe ser un número válido");
+                return;
+            }
+
+            try {
+                double c = Double.parseDouble(txtCantidad.getText());
+                double cm = Double.parseDouble(txtCamMín.getText());
+
+                if (c <= 0 || cm <= 0) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad y la cantidad mínima deben ser valores positivos mayores a 0.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Por favor ingrese un número válido en los campos de cantidad.");
+                return;
+            }
+
+            if (!txtNombre.getText().matches("[a-zA-Z ]+")) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El nombre no debe contener números");
+                return;
+            }
+
+            if (!TxtUniMed.getText().matches("[a-zA-Z]{1,2}")) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La unidad de medida debe tener como máximo dos letras");
+                return;
+            }
             
             m.setNombre(txtNombre.getText());
-            m.setPrecio(Double.parseDouble(txtPrecio.getText()));
             int pro = buscarProveedor();
             m.setIdProveedor(pro);
             double c = Double.parseDouble(txtCantidad.getText());
@@ -501,6 +562,11 @@ public class MateriaController extends App implements Initializable{
 
             }else{
 
+                if (m.existeMaterial(txtNombre.getText())) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El material ya existe en la base de datos");
+                    return;
+                }
+                
                 if(m.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
@@ -534,35 +600,39 @@ public class MateriaController extends App implements Initializable{
 
     @FXML
     private void Cancelar(ActionEvent event) {
-        
-        //limpiar txt
+        // Llamamos a la versión sobrecargada que no recibe eventos
+        Cancelar();
+    }
+
+    public void Cancelar() {
+        // Limpiar los campos de texto
         txtId.clear();
         txtNombre.clear();
         txtPrecio.clear();
         txtCantidad.clear();
         txtCamMín.clear();
         TxtUniMed.clear();
-        
+
+        // Limpiar y deshabilitar el comboBox
         cboSelProov.getItems().clear();
-          
-           
+        cboSelProov.setDisable(true);
+
+        // Deshabilitar los campos de texto
         txtNombre.setDisable(true);
         txtPrecio.setDisable(true);
         txtCantidad.setDisable(true);
-        cboSelProov.setDisable(true);
         txtCamMín.setDisable(true);
         TxtUniMed.setDisable(true);
-        
-        //deshabilitar btn
+
+        // Deshabilitar botones
         btnGuardar.setDisable(true);
         btnModificar.setDisable(true);
         btnEliminar.setDisable(true);
         btnCancelar.setDisable(true);
-        
-        //habilitar
+
+        // Habilitar otros botones
         btnNuevo.setDisable(false);
         btnLimpiar.setDisable(false);
-        
     }
     
     public void mostrarDatos(){
@@ -570,11 +640,14 @@ public class MateriaController extends App implements Initializable{
        listaMateria = FXCollections.observableArrayList(m.consulta());
        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-       colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-       colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
        colProveedor.setCellValueFactory(new PropertyValueFactory<>("nombreproveedor"));
-       colCantMin.setCellValueFactory(new PropertyValueFactory<>("cantidad_min"));
        ColumUni.setCellValueFactory(new PropertyValueFactory<>("unidadMedida"));
+       colCantidad.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getCantidadConUnidad()));
+       colCantMin.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getCant_MinConUnidad()));
+       colPrecio.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getPrecioConEuro()));
        table.setItems(listaMateria);
        
    }
@@ -655,6 +728,42 @@ public class MateriaController extends App implements Initializable{
 
             btnNuevo.setDisable(true);
         }
+        
+        if (m.getCantidad() < m.getCantidad_min()){
+            
+            Alert alerta3 = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta3.setHeaderText(null);
+            alerta3.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea visualizar los datos del proveedor?");
+            Stage stage = (Stage) alerta3.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            ButtonType btnSi = new ButtonType("Sí");
+            ButtonType btnNo = new ButtonType("No");
+            alerta3.getButtonTypes().setAll(btnSi, btnNo);
+
+            Optional<ButtonType> result = alerta3.showAndWait();
+            if (result.isPresent() && result.get() == btnSi) {
+                
+                String proveedorNombre = m.getNombreproveedor();
+                p.buscarDatosProveedor(proveedorNombre);
+                String proveedorCorreo = p.getCorreo();
+                String proveedorTelefono = p.getTelefono();
+
+                // Mostrar los datos del proveedor en una alerta
+                Alert alertaProveedor = new Alert(Alert.AlertType.INFORMATION);
+                alertaProveedor.setHeaderText("Datos del Proveedor");
+                alertaProveedor.setContentText(
+                    "Nombre: " + proveedorNombre + "\n" +
+                    "Correo: " + proveedorCorreo + "\n" +
+                    "Teléfono: " + proveedorTelefono
+                );
+                Stage stageP = (Stage) alertaProveedor.getDialogPane().getScene().getWindow();
+                stageP.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                alertaProveedor.showAndWait();
+                
+            }
+            
+        }
+        
     }
     
     @FXML
@@ -744,7 +853,7 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private void abrirPerfilAdmin() {
     
-        main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+        main.abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
     
@@ -841,6 +950,4 @@ public class MateriaController extends App implements Initializable{
         }
     }
 
-
-    
 }

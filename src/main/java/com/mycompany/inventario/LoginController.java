@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -54,17 +55,31 @@ public class LoginController implements Initializable {
     @FXML
     private void Ingresar(ActionEvent event) {
         
+        if (txtUsuario.getText().isEmpty() || txtContra.getText().isEmpty()) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
+            return;
+        }
+        
         login.setUsuario(txtUsuario.getText());
         login.setContra(txtContra.getText());
         
         if(login.verificar()){
                 
-            alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión iniciada correctamente");
+            Alert alertSesionIniciada = new Alert(Alert.AlertType.CONFIRMATION);
+            alertSesionIniciada.setTitle("Aviso");
+            alertSesionIniciada.setHeaderText(null);
+            alertSesionIniciada.setContentText("Sesión iniciada correctamente");
+            Stage stage1 = (Stage) alertSesionIniciada.getDialogPane().getScene().getWindow();
+            stage1.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            alertSesionIniciada.showAndWait();
+            
+            
             mainController.iniciarSesion(); 
             
             Stage stage = (Stage) btnIngresar.getScene().getWindow();
             // Cerrar la ventana
             stage.close();
+            mainController.mostrarAlertaStockBajo();
         }
         else {
             

@@ -2,7 +2,13 @@
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZnJhbWVleHBlcnRzLmNsaWVudGUgLDE4OSwxNSw3N2UwYWU4Ni0yMzBjLTQ3ZmMtYTA2Yi0zM2E0
+OWQwOWVlY2M7ZnJhbWVleHBlcnRzLmZhY3R1cmEgLDE4OSwzMjYsZTg5YTk2YWQtOTcyYy00NzBm
+LWE4ZTItOWYyZmQxYjkyMGZiO2ZyYW1lZXhwZXJ0cy5wZWRpZG8gLDE1LDE1Nyw4MzdlMDliMy0w
+NzZiLTRmZDUtYTFjMC0wYTBmYTYzNjYwYTk7ZnJhbWVleHBlcnRzLmRldGFsbGVwZWRpZG8gLDE4
+OSwxODMsOWEyMDA4MWUtYWEyYy00YWEwLWJjZDMtN2Q0MTQ4YmJmZjU0Ow==]]>
+	</property>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
@@ -60,23 +66,23 @@
 	</subDataset>
 	<parameter name="factNumero" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT p.servicio,
+		<![CDATA[SELECT DISTINCT p.servicio,
 	p.fecha,
 	c.nombre,
 	c.correo,
 	c.telefono,
-	f.`numFactura`,
+	f.numFactura,
 	f.subtotal,
 	f.total
 FROM frameexperts.pedido p
 	INNER JOIN frameexperts.cliente c ON 
-	 p.`Cliente_idCliente` = c.`idCliente` 
+	 p.Cliente_idCliente = c.idCliente 
 	INNER JOIN frameexperts.detallepedido dp ON 
-	 p.`idPedido` = dp.`Pedido_idPedido` 
+	 p.idPedido = dp.Pedido_idPedido 
 	INNER JOIN frameexperts.factura f ON 
-	 p.`idPedido` = f.`Pedido_idPedido` 
+	 p.idPedido = f.Pedido_idPedido 
 WHERE 
-	 f.`numFactura` = $P{factNumero}]]>
+	 f.numFactura = $P{factNumero}]]>
 	</queryString>
 	<field name="servicio" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="servicio"/>
@@ -114,13 +120,13 @@ WHERE
 		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="subtotal" class="java.lang.Integer">
+	<field name="subtotal" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="subtotal"/>
 		<property name="com.jaspersoft.studio.field.label" value="subtotal"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total" class="java.lang.Integer">
+	<field name="total" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="total"/>
 		<property name="com.jaspersoft.studio.field.label" value="total"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
@@ -157,10 +163,6 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
-			<image hAlign="Center">
-				<reportElement x="0" y="0" width="80" height="70" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
-				<imageExpression><![CDATA["C:/Users/Acer/Desktop/Helena Arzamendia/Proyecto final CTN/Inventario este si/Inventario/src/main/resources/com/mycompany/inventario/logo_e_corner.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="380" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
@@ -208,6 +210,10 @@ WHERE
 				<reportElement x="0" y="145" width="100" height="15" uuid="6df9cca3-cdd9-488e-99e8-9989c8153ab0"/>
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="17" y="7" width="50" height="50" uuid="905c0672-7f53-4b2e-88bf-f71d0337bcfa"/>
+				<imageExpression><![CDATA["C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/src/main/resources/reportes/frameexperts/logo_e_corner.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
@@ -255,7 +261,7 @@ WHERE
 			</textField>
 			<textField>
 				<reportElement x="280" y="0" width="140" height="35" uuid="d8ed9da1-872f-48d9-bc28-62e71db81fd9"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" markup="html"/>
 				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
 			</textField>
 			<textField>

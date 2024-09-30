@@ -9,6 +9,7 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.permisos;
 import com.mycompany.inventario.clases.reportes;
+import java.io.File;
 import java.io.IOException;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -25,6 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -32,6 +35,7 @@ import java.util.logging.Logger;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -66,6 +70,7 @@ public class PedidoController implements Initializable {
     private cliente client = new cliente();
     private reportes r = new reportes();
     private MainController main = new MainController();
+    private materia m = new materia();
     
     Login login = new Login();
     permisos per = new permisos();
@@ -198,14 +203,25 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void Guardar(ActionEvent event) {
+        
+        if (TxtServicio.getText().isEmpty() || 
+            txtNomCliente.getText().isEmpty()) {
+
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Los campos de servicio y nombre del cliente son obligatorios");
+            return;
+        }
+        
         p.setServicio(TxtServicio.getText());
         p.setNombreC(txtNomCliente.getText());
         p.obtenerIdClientePorNombre(txtNomCliente.getText());
         p.setTotalPedido(calcularSubtotal());
-        p.searchId();
-        f.setIdPedido(p.getIdPedido());
 
         int numFilas = table.getItems().size();
+        if (numFilas == 0) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La tabla de materiales no puede estar vacía");
+            return;
+        }
+        
         String[] listaMaterialesN = new String[numFilas];
         double[] listaCant = new double[numFilas];
 
@@ -227,6 +243,30 @@ public class PedidoController implements Initializable {
             stage1.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             alerta1.showAndWait(); // Esperar a que el usuario cierre la alerta     
             
+            p.searchId();
+            f.setIdPedido(p.getIdPedido());
+
+            List<String> materialesPorDebajoMinimo = new ArrayList<>();
+            for (int i = 0; i < numFilas; i++) {
+                pedido material = table.getItems().get(i);
+                m.buscarCantMaterial(material.getNombreM()); // Método para obtener la cantidad actual del material desde la base de datos
+                System.out.println(m.getCantidad_min());
+                if (m.getCantidad() < m.getCantidad_min()) {
+                    materialesPorDebajoMinimo.add(material.getNombreM());
+                }
+            }
+
+            // Si hay materiales por debajo de la cantidad mínima, mostrar alerta
+            if (!materialesPorDebajoMinimo.isEmpty()) {
+                Alert alertaMateriales = new Alert(Alert.AlertType.INFORMATION);
+                alertaMateriales.setHeaderText("Materiales por debajo del mínimo");
+                alertaMateriales.setContentText("Los siguientes materiales están por debajo de la cantidad mínima:\n" + 
+                    String.join("\n", materialesPorDebajoMinimo));
+                Stage stageMateriales = (Stage) alertaMateriales.getDialogPane().getScene().getWindow();
+                stageMateriales.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                alertaMateriales.showAndWait();
+            }
+
             // Mostrar la segunda alerta para generar factura
             Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
             alerta2.setHeaderText(null);
@@ -245,6 +285,10 @@ public class PedidoController implements Initializable {
         } else {
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
         }
+        
+        CbmMateriales.getSelectionModel().clearSelection();
+        cargarMaterial();
+        
     }
 
     @FXML
@@ -267,8 +311,18 @@ public class PedidoController implements Initializable {
                 alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe seleccionar un material y una cantidad");
                 return;
             }
+            double cantidad;
+            try {
+                cantidad = Double.parseDouble(TxtCant.getText());
+                if (cantidad <= 0) {
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un valor positivo mayor a 0.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La cantidad debe ser un número válido");
+                return;
+            }
 
-            double cantidad = Double.parseDouble(TxtCant.getText());
             double precio = p.obtenerPrecioMaterial(nombreMaterial);
             double stockActual = p.obtenerStockActual(nombreMaterial);
             double stockRestante = stockActual - cantidad;
@@ -328,12 +382,34 @@ public class PedidoController implements Initializable {
         try {
             String ubicacion = "/reportes/frameexperts/factura.jasper";
             String titulo = "Factura N~" + numFactura;
+            System.out.println(f.getSubTotal());
+            System.out.println(f.getTotal());
             JasperPrint jasperPrint = r.generarFactura(ubicacion, titulo, numFactura);
             
-            String outputPath = "Inventario/Facturas/Factura_" + numFactura + ".pdf"; // Cambia a la ruta deseada en tu PC
-            JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+            String relativePath = "Facturas/Factura_" + numFactura + ".pdf";
+    
+            // Crear un objeto File con la ruta relativa
+            File file = new File(relativePath);
 
-            System.out.println("Reporte exitoso y guardado en: " + outputPath);
+            // Verifica si el directorio existe, y si no, lo crea
+            File directorio = new File(file.getParent());
+            if (!directorio.exists()) {
+                if (directorio.mkdirs()) {
+                    System.out.println("Directorio creado: " + directorio.getPath());
+                } else {
+                    System.out.println("Error al crear el directorio");
+                    return; // Salir si no se pudo crear el directorio
+                }
+            }
+
+            try {
+                // Exportar el reporte a la ruta relativa
+                JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
+                System.out.println("Reporte generado correctamente en " + file.getPath());
+            } catch (JRException e) {
+                System.out.println("Error al generar el reporte");
+                e.printStackTrace();
+            }
             
         } catch (Exception e) {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
@@ -345,6 +421,8 @@ public class PedidoController implements Initializable {
         btnEliminar.setDisable(true);
         btnGuardar.setDisable(false);
         CbmMateriales.setDisable(false);
+        CbmMateriales.getSelectionModel().clearSelection();
+        cargarMaterial();
         f.setIdPedido(null);
     }
 
@@ -401,16 +479,20 @@ public class PedidoController implements Initializable {
     }
 
     private double calcularSubtotal() {
-        double subtotal = table.getItems().stream()
-            .mapToDouble(p -> p.getPrecio() * p.getCant())
-            .sum();
-        txtCosto.setText("SubTotal: " + subtotal);
+         double subtotal = table.getItems().stream()
+        .mapToDouble(p -> p.getPrecio() * p.getCant())
+        .sum();
+    
+        // Formatear el subtotal a dos decimales
+        String subtotalFormatted = String.format("SubTotal: %.2f" + " €", subtotal);
+        txtCosto.setText(subtotalFormatted);
+
         return subtotal;
     }
 
     private double calcularTotal() {
         double t = calcularSubtotal() + (calcularSubtotal() * 0.23);
-        return t;
+        return Math.round(t * 100.0) / 100.0;
     }
 
     private void configurarColumnas() {
@@ -507,14 +589,13 @@ public class PedidoController implements Initializable {
     @FXML
     private void abrirPerfilAdmin() {
     
-        main.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+        main.abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
 
     @FXML
     private void bajarPDF(ActionEvent event) {
     }
-    
 
     @FXML
     private void NoName(ActionEvent event) {

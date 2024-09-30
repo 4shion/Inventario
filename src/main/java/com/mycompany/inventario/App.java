@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 
@@ -22,6 +24,7 @@ public class App extends Application {
     private static Scene scene;
     alertas alert = new alertas();
     private static Parent root;
+    private static Map<String, Parent> loadedViews = new HashMap<>();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -60,7 +63,16 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        if (loadedViews.containsKey(fxml)) {
+            // Si la vista ya está cargada, la usamos directamente
+            scene.setRoot(loadedViews.get(fxml));
+        } 
+        else {
+            // Si no está cargada, la cargamos y almacenamos en el Map
+            Parent root = loadFXML(fxml);
+            loadedViews.put(fxml, root);
+            scene.setRoot(root);
+        }    
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -71,4 +83,9 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
+    
+    public static Map<String, Parent> getLoadedViews() {
+        return loadedViews;
+    }
+    
 }

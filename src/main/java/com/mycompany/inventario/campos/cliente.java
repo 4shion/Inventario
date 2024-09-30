@@ -4,7 +4,6 @@
  */
 package com.mycompany.inventario.campos;
 
-import com.mycompany.inventario.PedidoController;
 import static com.mycompany.inventario.clases.alertas.ShowAlert;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.sentencias;
@@ -14,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -213,7 +210,7 @@ public class cliente extends conexion implements sentencias{
                 ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }   
 }

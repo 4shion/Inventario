@@ -287,4 +287,20 @@ public class usuario extends conexion implements sentencias {
         }         
     }
     
+    public boolean existeUsuario(String nombre) {
+        
+        String query = "SELECT COUNT(*) FROM Usuario WHERE nombre = ?";
+        try (Connection con=getCon();
+             PreparedStatement stmt=con.prepareStatement(query)) {
+            stmt.setString(1, nombre);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si hay al menos un material con ese nombre
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de excepciones
+        }
+        return false; // Si ocurre un error o no se encuentra, retornar false
+    }
+    
 }

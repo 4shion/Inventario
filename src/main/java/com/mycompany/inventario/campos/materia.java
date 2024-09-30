@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
@@ -218,6 +219,84 @@ public class materia extends conexion implements sentencias {
             
         }
         
+    }
+    
+    public String getCantidadConUnidad() {
+        return cantidad + " " + unidadMedida;
+    }
+
+    public String getCant_MinConUnidad() {
+        return cantidad_min + " " + unidadMedida;
+    }
+    
+    public String getPrecioConEuro(){
+        return precio + " " + "€";
+    }
+    
+    public boolean existeMaterial(String nombre) {
+        
+        String query = "SELECT COUNT(*) FROM materiaPrima WHERE nombre = ?";
+        try (Connection con=getCon();
+             PreparedStatement stmt=con.prepareStatement(query)) {
+            stmt.setString(1, nombre);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si hay al menos un material con ese nombre
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de excepciones
+        }
+        return false; // Si ocurre un error o no se encuentra, retornar false
+    }
+    
+    public void buscarCantMaterial(String nombreMaterial) {
+        String consulta = "SELECT cantidad, cantidad_min FROM materiaPrima WHERE nombre = ?";
+
+        try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
+            stmt.setString(1, nombreMaterial);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                double Cant = rs.getDouble("cantidad");
+                double CantM = rs.getDouble("cantidad_min");
+                this.setCantidad(Cant);
+                this.setCantidad_min(CantM);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(materia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public List<materia> obtenerListaMateriales() {
+        List<materia> listaMateriales = new ArrayList<>();
+
+        String query = "SELECT nombre, cantidad, cantidad_min FROM materiaPrima";
+
+        try (Connection conn = getCon(); 
+             PreparedStatement pstmt = conn.prepareStatement(query); 
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                // Obtener los datos de la consulta
+                String nombreM = rs.getString("nombre");
+                double cantidad = rs.getDouble("cantidad");
+                double cantidad_min = rs.getDouble("cantidad_min");
+
+                // Crear el objeto 'materia' y agregarlo a la lista
+                materia material = new materia();
+                material.setNombre(nombreM);
+                material.setCantidad(cantidad);
+                material.setCantidad_min(cantidad_min);
+
+                listaMateriales.add(material);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de errores en caso de fallo en la conexión o consulta
+        }
+
+        return listaMateriales;
     }
     
 }

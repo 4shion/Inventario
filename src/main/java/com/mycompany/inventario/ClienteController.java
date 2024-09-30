@@ -281,9 +281,24 @@ public class ClienteController implements Initializable {
     @FXML
     private void Guardar(ActionEvent event) {
         
+        if (txtNombre.getText().isEmpty() || 
+            txtCorreo.getText().isEmpty() || 
+            txtTelefono.getText().isEmpty()) {
+
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
+            return;
+        }
+        if (txtNombre.getText().matches("\\d+")) { // Comprueba si el nombre solo contiene dígitos
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El nombre no puede contener solo números");
+            return;
+        }
         String telefono = txtTelefono.getText();
         if (!telefono.matches("\\d+")) {
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "El número de teléfono solo puede contener números.");
+            return;
+        }
+        if (!txtCorreo.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El formato del correo es incorrecto");
             return;
         }
         
@@ -505,7 +520,7 @@ public class ClienteController implements Initializable {
     }
     private void abrirPerfilAdmin() {
     
-        m.abrirformularios("pswdAdmin.fxml", "Ingrese su codigo de Administrador");
+        m.abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
 

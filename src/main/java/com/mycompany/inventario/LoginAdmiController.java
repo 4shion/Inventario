@@ -8,6 +8,8 @@ import com.mycompany.inventario.campos.Administrador;
 import com.mycompany.inventario.clases.alertas;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,16 +78,28 @@ public class LoginAdmiController implements Initializable {
     @FXML
     private void Aceptar(ActionEvent event) {
         
+        
         if (nombreAdmin.getText().isEmpty() || correoAdmin.getText().isEmpty() || codAdmin.getText().isEmpty() || pswd.getText().isEmpty() || pswdVerificacion.getText().isEmpty()) {
             alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
             return;
         }
-        
+        if (nombreAdmin.getText().matches("\\d+")) { // Comprueba si el nombre solo contiene dígitos
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El nombre no puede contener solo números");
+            return;
+        }
         if (!correoAdmin.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El formato del correo es incorrecto");
             return;
         }
-        
+        if (!codAdmin.getText().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El codigo debe tener un mínimo de 6 caracteres y debe contener letras y números");
+            return;
+        }
+        if (!pswd.getText().matches("^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$")) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La contraseña debe tener un mínimo de 6 caracteres, contener letras, números, al menos una mayúscula y un carácter especial.");
+            return;
+        }
+
         admi.setNombre(nombreAdmin.getText());
         admi.setCorreo(correoAdmin.getText());
         admi.setCodAdmi(codAdmin.getText());
