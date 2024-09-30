@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -32,11 +33,9 @@
                   <TableColumn fx:id="ColumUni" prefWidth="59.60003662109375" text="Unidad" />
                </columns>
             </TableView>
-<<<<<<< HEAD
+            
             <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#generarReporteMateriales" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
-=======
-            <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#GenerarReporte" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
->>>>>>> 88070e608d7caaf59b21aa8c41533af7763cb283
+
          </children>
       </Pane>
       <Pane layoutX="119.0" layoutY="601.0" prefHeight="46.0" prefWidth="931.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="52.60000000000002" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="149.80000000000018">
@@ -77,7 +76,26 @@
             <TextField fx:id="TxtUniMed" layoutX="48.0" layoutY="333.0" />
          </children>
       </Pane>
-      <HBox id="menuBar" layoutX="10.0" layoutY="10.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="configuracion" layoutX="973.0" layoutY="58.0" prefHeight="304.0" prefWidth="226.0" style="-fx-background-color: rgba(89, 89, 89, 0.5); -fx-opacity: 99%;" visible="false" AnchorPane.topAnchor="58.0">
+         <children>
+            <Button layoutX="11.0" layoutY="208.0" mnemonicParsing="false" onAction="#bajarPDF" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Manual de Usuario" textFill="WHITE">
+               <font>
+                  <Font name="Corbel Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="11.0" layoutY="112.0" mnemonicParsing="false" onAction="#abrirGestorContra" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Gestor de Contraseñas" textFill="WHITE">
+               <font>
+                  <Font name="Corbel Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirPerfilAdmin" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
+               <font>
+                  <Font name="Corbel Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <HBox id="menuBar" layoutY="20.0" prefHeight="58.0" prefWidth="1220.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button id="mainLogoButton" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #ad1316;">
                <graphic>
@@ -91,9 +109,9 @@
                   <Insets top="8.0" />
                </HBox.margin>
             </Button>
-            <ButtonBar prefHeight="58.0" prefWidth="756.0">
-               <buttons>
-                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="133.0" style="-fx-background-color: white;" text="Materiales" textFill="#ad1316">
+            <StackPane fx:id="materialesStackPane" prefHeight="58.0" prefWidth="105.0">
+               <children>
+                  <Button id="menuMateriales" fx:id="materiales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: white;" text="Materiales" textFill="#ad1316">
                      <effect>
                         <Blend />
                      </effect>
@@ -101,6 +119,16 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="60.0" right="-20.0" />
+               </HBox.margin>
+            </StackPane>
+            <ButtonBar prefHeight="58.0" prefWidth="601.0">
+               <opaqueInsets>
+                  <Insets left="100.0" />
+               </opaqueInsets>
+               <buttons>
                   <Button id="menuCliente" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Cliente" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
@@ -121,54 +149,29 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="menuHistorial" mnemonicParsing="false" onAction="#switchToHistorial" prefHeight="54.0" style="-fx-background-color: #ad1316;" text="Historial" textFill="WHITE">
+                  <Button id="menuHistorial" mnemonicParsing="false" onAction="#switchToHistorial" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Historial" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
                </buttons>
-               <opaqueInsets>
-                  <Insets left="100.0" />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets left="100.0" />
-               </HBox.margin>
             </ButtonBar>
             <Button id="helpButton" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
-               <HBox.margin>
-                  <Insets left="180.0" right="10.0" top="13.0" />
-               </HBox.margin>
                <graphic>
-                  <ImageView id="helpIMG" fx:id="engranaje" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="helpIMG" fx:id="engranaje1" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ayuda_logo.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets left="200.0" top="13.0" />
+               </HBox.margin>
             </Button>
          </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane fx:id="configuracion" layoutX="973.0" layoutY="58.0" prefHeight="304.0" prefWidth="226.0" style="-fx-background-color: rgba(89, 89, 89, 0.5); -fx-opacity: 99%;" visible="false" AnchorPane.topAnchor="58.0">
-         <children>
-            <Button layoutX="11.0" layoutY="208.0" mnemonicParsing="false" onAction="#bajarPDF" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Manual de Usuario" textFill="WHITE">
-               <font>
-                  <Font name="Corbel Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button layoutX="11.0" layoutY="112.0" mnemonicParsing="false" onAction="#abrirGestorContra" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Gestor de Contraseñas" textFill="WHITE">
-               <font>
-                  <Font name="Corbel Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirPerfilAdmin" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Perfil de Administrador" textFill="WHITE">
-               <font>
-                  <Font name="Corbel Bold" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
    </children>
 </AnchorPane>
