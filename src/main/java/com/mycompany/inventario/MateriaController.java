@@ -19,9 +19,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +40,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -94,7 +91,7 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private TableColumn<materia, Double> colPrecio;
     @FXML
-    private TableColumn<materia, Integer> colCantidad;
+    private TableColumn<materia, Integer> colCantidad;  
     @FXML
     private TableColumn<materia, String> colProveedor;
     
@@ -114,10 +111,8 @@ public class MateriaController extends App implements Initializable{
     private TextField txtId;
     @FXML
     private TextField txtCamMín;
-    
     @FXML
     private Pane configuracion;
-    
     @FXML
     private ImageView engranaje;
     @FXML
@@ -155,7 +150,7 @@ public class MateriaController extends App implements Initializable{
         
     Label burbuja = crearBurbuja("!", "#D6454A"); // 
     materialesStackPane.getChildren().add(1, burbuja);
-    
+    verificarStockBajo(burbuja);
         
         if(permiso){
 
@@ -246,16 +241,20 @@ public class MateriaController extends App implements Initializable{
 
             if (item == null || empty) {
                 setStyle("");
+                return;
             } else {
                 if (item.getCantidad() < item.getCantidad_min()) {
                     setStyle("-fx-background-color: #ff6969;");
-                    mostrarBurbuja(burbuja, item.getCantidad(), item.getCantidad_min());
+                    verificarStockBajo(burbuja);
                 } else if (item.getCantidad() == item.getCantidad_min()){
                     setStyle("-fx-background-color: #ffd569");
-                    mostrarBurbuja(burbuja, item.getCantidad(), item.getCantidad_min());
+                    verificarStockBajo(burbuja);
                 } else {
                     setStyle("");
-                }
+                    verificarStockBajo(burbuja);
+                } 
+                
+                actualizarBurbuja(burbuja, item.getCantidad(), item.getCantidad_min());
             }
         }
         });
@@ -273,7 +272,6 @@ public class MateriaController extends App implements Initializable{
     public Label crearBurbuja(String mensaje, String color) {
         Label burbuja = new Label(mensaje);
         burbuja.setStyle("-fx-background-color: " + color + "; -fx-text-fill: white; -fx-padding: 2px 3px; -fx-background-radius: 20; -fx-font-size: 1;");
-        //burbuja.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 
         burbuja.setTranslateX(40);  // horizontal
         burbuja.setTranslateY(-10);   // vertical
@@ -290,14 +288,31 @@ public class MateriaController extends App implements Initializable{
     }
 
     public void actualizarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
-        
-        if(cantidad > cantidad_min) {
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), ev -> {
-                burbuja.setVisible(false);
-            }));
-            timeline.play();
+        if(cantidad < cantidad_min || cantidad_min == cantidad) {
+        burbuja.setVisible(true);
+            
+        } else {
+            burbuja.setVisible(false);
         }
     }
+    
+    public void verificarStockBajo(Label burbuja) {
+        boolean hayStockBajo = false;
+
+        for (materia item : table.getItems()) {
+            if (item.getCantidad() < item.getCantidad_min()) {
+                hayStockBajo = true;
+                break; 
+            }
+        }
+
+        if (hayStockBajo) {
+            mostrarBurbuja(burbuja, cantidad, cantidad_min);
+        } else {
+            burbuja.setVisible(false); 
+        }
+    }
+
 
     @FXML
     private void Busqueda(ActionEvent event) {
@@ -474,7 +489,6 @@ public class MateriaController extends App implements Initializable{
                 if(m.modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
-                actualizarBurbuja(burbuja, cantidad, cantidad_min);
                 
                 }
                 else{
@@ -490,7 +504,6 @@ public class MateriaController extends App implements Initializable{
                 if(m.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
-                actualizarBurbuja(burbuja, cantidad, cantidad_min);
 
                 }
                 else{
