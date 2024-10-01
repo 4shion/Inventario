@@ -19,7 +19,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
@@ -882,6 +881,18 @@ public class MateriaController extends App implements Initializable{
             JasperViewer.viewReport(print, false);
         } catch (JRException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void actualizarMateriales() {
+
+        PedidoController pedidoController = (PedidoController) App.getController("pedido");
+
+        if (pedidoController != null) {
+            // Volver a cargar los datos de la tabla
+            pedidoController.cargarMaterial();
+        } else {
+            System.out.println("Error: No se encontró el controlador de pedidos/.");
         }
     }
 

@@ -10,6 +10,7 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,7 +21,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -293,14 +296,14 @@ public class ProveedorController implements Initializable {
 
     @FXML
     private void Eliminar(ActionEvent event) {
-        
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
         btnEliminar.setDisable(true);
         btnModificar.setDisable(true);
-        
+
         btnNuevo.setDisable(false);
-        
+
+        // Confirmación para eliminar
         Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
@@ -308,34 +311,27 @@ public class ProveedorController implements Initializable {
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         Optional<ButtonType> opcion = alerta1.showAndWait();
-        
-        if(opcion.get() == ButtonType.OK){
+
+        if (opcion.isPresent() && opcion.get() == ButtonType.OK) {
             
-            one.setId(Integer.parseInt(txtId.getText()));
-
-            if(one.eliminar()){
-
-                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
-
-                }
-                else{
-
-                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
-
-                }
-        } 
-        else{
-            
-            Cancelar(event);
-            
+            // Eliminar el proveedor
+            if (one.eliminar()) {
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
+            } else {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
+            }
+        } else {
+            Cancelar(event); // Si no se confirma la eliminación, cancelar
         }
-        
+
+        // Limpiar campos
         txtCorreo.clear();
         txtNombre.clear();
         txtTelefono.clear();
-        
+
+        // Actualizar datos en la interfaz
         mostrardatos();
-        
+        actualizarProveedor();
     }
 
     @FXML
@@ -417,6 +413,7 @@ public class ProveedorController implements Initializable {
         modificar = false;
         
         mostrardatos();
+        actualizarProveedor();
         
     }
 
@@ -462,7 +459,7 @@ public class ProveedorController implements Initializable {
     ColumNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     ColumCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
     ColumTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-    table.setItems(lista);   
+    table.setItems(lista);
         
     }
 
@@ -601,5 +598,17 @@ public class ProveedorController implements Initializable {
     @FXML
     private void bajarPDF(ActionEvent event) {
     }
+    
+    public void actualizarProveedor() {
+
+        MateriaController materiaController = (MateriaController) App.getController("materia");
+
+        if (materiaController != null) {
+            // Volver a cargar los datos de la tabla
+            materiaController.mostrarDatos();
+        } else {
+            System.out.println("Error: No se encontro el controlador de Materia.");
+        }
+        }
     
 }

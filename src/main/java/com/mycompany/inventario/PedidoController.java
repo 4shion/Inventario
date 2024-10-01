@@ -460,7 +460,7 @@ public class PedidoController implements Initializable {
             new SimpleStringProperty(cellData.getValue().getStockRestanteConUnidad()));
     }
 
-    private void cargarMaterial() {
+    public void cargarMaterial() {
         listaMateriales = FXCollections.observableArrayList(new materia().consulta());
         
         CbmMateriales.getItems().clear();
@@ -603,5 +603,6 @@ public class PedidoController implements Initializable {
         txtNomCliente.setText("Sin nombre");
         txtNomCliente.setDisable(true);
         
-    }
+    }    
+    
 }

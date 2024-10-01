@@ -5,6 +5,7 @@
  */
 package com.mycompany.inventario.campos;
 
+import static com.mycompany.inventario.clases.alertas.ShowAlert;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.encriptacion;
 import com.mycompany.inventario.clases.sentencias;
@@ -16,6 +17,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -301,6 +303,23 @@ public class usuario extends conexion implements sentencias {
             e.printStackTrace(); // Manejo de excepciones
         }
         return false; // Si ocurre un error o no se encuentra, retornar false
+    }
+    
+    public void buscarUsuario(String nombreUsuario) {
+        String consulta = "SELECT IdUsuario FROM Usuario WHERE nombre = ?";
+
+        try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
+            stmt.setString(1, nombreUsuario);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int IdUsua = rs.getInt("IdUsuario");
+                this.setId(IdUsua);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

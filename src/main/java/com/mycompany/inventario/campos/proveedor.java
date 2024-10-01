@@ -13,8 +13,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  *
@@ -158,23 +163,51 @@ public class proveedor extends conexion implements sentencias {
     @Override
     public boolean eliminar() {
         
-        String sql = "delete from proveedor where idProveedor = ?";
-        
-        try(Connection con = getCon();
-            PreparedStatement stm = con.prepareStatement(sql))
+        String sqlVerificarMateriales = "SELECT COUNT(*) FROM materiaPrima WHERE Proveedor_idProveedor = ?";
+        String sqlEliminarMateriales = "DELETE FROM materiaPrima WHERE Proveedor_idProveedor = ?";
+        String sqlEliminarProveedor = "DELETE FROM Proveedor WHERE idProveedor = ?";
             
-        {
-            stm.setInt(1, this.id);
-            stm.executeUpdate();
-            return true;
-            
-        } 
-        catch (SQLException ex){
-            
-            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-            
-        }        
+        try (Connection con = getCon();
+            PreparedStatement stmVerificar = con.prepareStatement(sqlVerificarMateriales);
+            PreparedStatement stmEliminarMateriales = con.prepareStatement(sqlEliminarMateriales);
+            PreparedStatement stmEliminarProveedor = con.prepareStatement(sqlEliminarProveedor)) {
+
+           // Verificar si el proveedor tiene materiales asociados
+           stmVerificar.setInt(1, this.id);
+           ResultSet rs = stmVerificar.executeQuery();
+           if (rs.next() && rs.getInt(1) > 0) {
+               // Si hay materiales asociados, mostrar una alerta
+               Alert alertaConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+               alertaConfirmacion.setHeaderText(null);
+               Stage stage = (Stage) alertaConfirmacion.getDialogPane().getScene().getWindow();
+               stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+               alertaConfirmacion.setContentText("El proveedor tiene materiales asociados. Si eliminas el proveedor, también se eliminarán los materiales que provee. ¿Deseas continuar?");
+
+               ButtonType btnSi = new ButtonType("Sí");
+               ButtonType btnNo = new ButtonType("No");
+               alertaConfirmacion.getButtonTypes().setAll(btnSi, btnNo);
+
+               Optional<ButtonType> result = alertaConfirmacion.showAndWait();
+               if (result.get() != btnSi) {
+                   // Si el usuario selecciona "No", cancelar la operación
+                   return false;
+               }
+
+               // Eliminar los materiales asociados
+               stmEliminarMateriales.setInt(1, this.id);
+               stmEliminarMateriales.executeUpdate();
+           }
+
+           // Eliminar el proveedor
+           stmEliminarProveedor.setInt(1, this.id);
+           stmEliminarProveedor.executeUpdate();
+
+           return true;
+
+       } catch (SQLException ex) {
+           Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+           return false;
+       }        
         
     }
     

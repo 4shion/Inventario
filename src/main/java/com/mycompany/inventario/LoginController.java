@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,8 +35,8 @@ public class LoginController implements Initializable {
     private Button btnIngresar;
 
     Login login = new Login();
-    
     alertas alert = new alertas();
+    historial h = new historial();
     
     private MainController mainController;
     
@@ -80,6 +81,9 @@ public class LoginController implements Initializable {
             // Cerrar la ventana
             stage.close();
             mainController.mostrarAlertaStockBajo();
+            
+            h.insert("Inicio de sesión", "El usuario " + login.getUsuarioActual() + " ha iniciado sesión", login.getUsuarioActual());
+            
         }
         else {
             
