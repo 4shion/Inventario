@@ -25,6 +25,8 @@ public class App extends Application {
     alertas alert = new alertas();
     private static Parent root;
     private static Map<String, Parent> loadedViews = new HashMap<>();
+    private static Map<String, Object> loadedControllers = new HashMap<>();
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -69,12 +71,21 @@ public class App extends Application {
         } 
         else {
             // Si no está cargada, la cargamos y almacenamos en el Map
-            Parent root = loadFXML(fxml);
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+            Parent root = loader.load();
+
+            // Almacenar tanto la vista como el controlador
             loadedViews.put(fxml, root);
+            loadedControllers.put(fxml, loader.getController());
+
             scene.setRoot(root);
-        }    
+        }
     }
 
+    public static Object getController(String fxml) {
+        return loadedControllers.get(fxml);
+    }
+    
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();

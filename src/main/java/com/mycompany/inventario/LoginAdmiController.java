@@ -5,11 +5,11 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Administrador;
+import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.clases.alertas;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +40,8 @@ public class LoginAdmiController implements Initializable {
     
     Administrador admi = new Administrador();
     alertas alert = new alertas();
+    historial h = new historial();
+    Login login = new Login();
     
     @FXML
     private Button btnAceptar;
@@ -120,7 +122,7 @@ public class LoginAdmiController implements Initializable {
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Administrador agregado correctamente");
                 mainController.actualizarBotonSesion();
-                
+                h.insert("Creación de administrador","Se ha creado correctamente el administrador " + admi.getNombre(), admi.getNombre());
             }
             else{
 

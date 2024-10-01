@@ -925,5 +925,17 @@ public class MateriaController extends App implements Initializable{
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void actualizarMateriales() {
+
+        PedidoController pedidoController = (PedidoController) App.getController("pedido");
+
+        if (pedidoController != null) {
+            // Volver a cargar los datos de la tabla
+            pedidoController.cargarMaterial();
+        } else {
+            System.out.println("Error: No se encontró el controlador de pedidos/.");
+        }
+    }
 
 }

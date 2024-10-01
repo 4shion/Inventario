@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
@@ -54,6 +55,7 @@ public class MainController extends conexion implements Initializable {
     Login login = new Login();
     permisos p = new permisos();
     materia m = new materia();
+    historial h = new historial();
 
     private Stage ventanaEmergente = null; 
     @FXML
@@ -336,6 +338,7 @@ public class MainController extends conexion implements Initializable {
         PswdAdminController.intentosFallidos = 0;
         btnSesion.setText("Iniciar Sesión");
         alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Sesión cerrada correctamente");
+        h.insert("Sesión cerrada","El usuario " + login.getUsuarioActual() + " ha cerrado sesión",login.getUsuarioActual());
         login.cerrarSesion();
         configurarTooltips();
         App.getLoadedViews().clear();

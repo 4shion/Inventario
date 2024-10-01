@@ -13,6 +13,7 @@ com\mycompany\inventario\campos\materia.class
 com\mycompany\inventario\clases\alertas.class
 com\mycompany\inventario\GestorContraController.class
 com\mycompany\inventario\campos\Pswd.class
+com\mycompany\inventario\campos\historial.class
 com\mycompany\inventario\campos\Login.class
 com\mycompany\inventario\campos\pedido.class
 com\mycompany\inventario\PerfilAdminController.class
