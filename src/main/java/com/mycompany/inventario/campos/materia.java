@@ -25,8 +25,8 @@ public class materia extends conexion implements sentencias {
     private int id;
     private String nombre;
     private double precio;
-    private double cantidad;
-    private double cantidad_min;
+    public double cantidad;
+    public double cantidad_min;
     private int idProveedor;
     private String nombreproveedor;
     private String unidadMedida;

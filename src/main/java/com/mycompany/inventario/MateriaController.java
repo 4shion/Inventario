@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -40,8 +41,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
@@ -95,8 +96,6 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private TableColumn<materia, String> colProveedor;
     
-    private BorderPane contentPane;
-    
     materia m = new materia();
     proveedor p = new proveedor();
     alertas alert = new alertas();
@@ -114,21 +113,23 @@ public class MateriaController extends App implements Initializable{
     private TextField txtId;
     @FXML
     private TextField txtCamMín;
-    
     @FXML
     private Pane configuracion;
-    
     @FXML
     private ImageView engranaje;
     @FXML
     private TextField TxtUniMed;
     @FXML
-    private TableColumn<materia, String> ColumUni;
-        
+    private StackPane materialesStackPane;
+    @FXML
+    private Button materiales;
+   
     Login login = new Login();
     permisos per = new permisos();
     boolean permiso = false;
     String h = "Boton Inhabilitado";
+    double cantidad = m.cantidad;
+    double cantidad_min = m.cantidad_min;
     
     
     /**
@@ -145,6 +146,10 @@ public class MateriaController extends App implements Initializable{
         cboSelProov.setDisable(true);
         txtCamMín.setDisable(true);
         TxtUniMed.setDisable(true);
+        
+    Label burbuja = crearBurbuja("!", "#D6454A"); // 
+    materialesStackPane.getChildren().add(1, burbuja);
+    verificarStockBajo(burbuja);
         
         if(permiso){
 
@@ -228,23 +233,28 @@ public class MateriaController extends App implements Initializable{
                 
         mostrarDatos();
         
+        
         table.setRowFactory(tv -> new TableRow<materia>() {
-            @Override
-            protected void updateItem(materia item, boolean empty) {
-                super.updateItem(item, empty);
+        @Override
+        protected void updateItem(materia item, boolean empty) {
+            super.updateItem(item, empty);
 
-                if (item == null || empty) {
-                    setStyle("");
+            if (item == null || empty) {
+                setStyle("");
+                return;
+            } else {
+                if (item.getCantidad() < item.getCantidad_min()) {
+                    setStyle("-fx-background-color: #ff6969;");
+                    verificarStockBajo(burbuja);
+                } else if (item.getCantidad() == item.getCantidad_min()){
+                    setStyle("-fx-background-color: #ffd569");
+                    verificarStockBajo(burbuja);
                 } else {
-                    if (item.getCantidad() < item.getCantidad_min()) {
-                        setStyle("-fx-background-color: #ff6969;");
-                    } else if (item.getCantidad() == item.getCantidad_min()){
-                        setStyle("-fx-background-color: #ffd569");
-                    } else {
-                        setStyle("");
-                    }
-                }
+                    setStyle("");
+                    verificarStockBajo(burbuja);
+                } 
             }
+        }
         });
         
     }
@@ -255,6 +265,42 @@ public class MateriaController extends App implements Initializable{
         return t;
         
     }
+    
+    // metodo para crear la burbuja de notificacion
+    public Label crearBurbuja(String mensaje, String color) {
+        Label burbuja = new Label(mensaje);
+        burbuja.setStyle("-fx-background-color: " + color + "; -fx-text-fill: white; -fx-padding: 2px 3px; -fx-background-radius: 20; -fx-font-size: 1;");
+
+        burbuja.setTranslateX(40);  // horizontal
+        burbuja.setTranslateY(-10);   // vertical
+        burbuja.setVisible(false);    
+        return burbuja;
+    }
+
+    
+    public void mostrarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
+        burbuja.setVisible(true);
+        System.out.println("burbuja mostrada con exito");
+    }
+    
+    public void verificarStockBajo(Label burbuja) {
+        boolean hayStockBajo = false;
+
+        for (materia item : table.getItems()) {
+            if (item.getCantidad() < item.getCantidad_min()) {
+                hayStockBajo = true;
+                System.out.println("stock bajo encontrado");
+                break; 
+            }
+        }
+
+        if (hayStockBajo) {
+            mostrarBurbuja(burbuja, cantidad, cantidad_min);
+        } else {
+            burbuja.setVisible(false); 
+        }
+    }
+
 
     public MateriaController(){
     }
@@ -462,7 +508,7 @@ public class MateriaController extends App implements Initializable{
 
                 Optional<ButtonType> result = alerta2.showAndWait();
                 if (result.get() == btnNo) {
-                    return; // Detenemos la ejecución si el usuario elige No
+                    return; 
                 }
 
             }
@@ -571,7 +617,7 @@ public class MateriaController extends App implements Initializable{
        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
        colProveedor.setCellValueFactory(new PropertyValueFactory<>("nombreproveedor"));
-       ColumUni.setCellValueFactory(new PropertyValueFactory<>("unidadMedida"));
+//       ColumUni.setCellValueFactory(new PropertyValueFactory<>("unidadMedida"));
        colCantidad.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getCantidadConUnidad()));
        colCantMin.setCellValueFactory(cellData -> 
@@ -864,20 +910,16 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private void generarReporteMateriales(ActionEvent event) {
         try {
-            // Cargar el archivo del reporte (.jasper)
+
             JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("ruta/a/reporteMateriales.jasper");
 
-            // Crear un Map para pasar los parámetros al reporte
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("nombreReporte", "Reporte de Materiales");
 
-            // Crear la lista de datos (puedes usar la lista que ya tienes en la tabla)
             JRBeanCollectionDataSource datos = new JRBeanCollectionDataSource(listaMateria);
 
-            // Llenar el reporte con los datos y parámetros
             JasperPrint print = JasperFillManager.fillReport(reporte, parametros, datos);
 
-            // Mostrar el reporte en una vista
             JasperViewer.viewReport(print, false);
         } catch (JRException ex) {
             Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);

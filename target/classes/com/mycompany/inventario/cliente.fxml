@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -64,80 +65,6 @@
             <Button fx:id="btnLimpiar" focusTraversable="false" layoutX="305.0" layoutY="8.0" mnemonicParsing="false" onAction="#Limpiar" style="-fx-background-color: #ad1316;" text="Limpiar" textFill="WHITE" />
          </children>
       </Pane>
-      <HBox id="menuBar" layoutX="20.0" layoutY="20.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button id="mainLogoButton" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #ad1316;">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@logo_frame-removebg-blanco.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets top="8.0" />
-               </HBox.margin>
-            </Button>
-            <ButtonBar prefHeight="58.0" prefWidth="700.0">
-               <buttons>
-                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
-                     <effect>
-                        <Blend />
-                     </effect>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button id="menuCliente" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="66.0" style="-fx-background-color: white;" text="Cliente" textFill="#ad1316">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Button>
-                  <Button id="menuPedido" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Pedido" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button id="menuProveedor" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Proveedor" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button id="menuUsuarios" minWidth="74.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="53.0" prefWidth="106.0" style="-fx-background-color: #ad1316; -fx-border-radius: 0;" text="Usuarios" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button id="menuHistorial" mnemonicParsing="false" onAction="#switchToHistorial" prefHeight="54.0" style="-fx-background-color: #ad1316;" text="Historial" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-               </buttons>
-               <opaqueInsets>
-                  <Insets left="100.0" />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets left="100.0" />
-               </HBox.margin>
-            </ButtonBar>
-            <Button id="helpButton" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
-               <HBox.margin>
-                  <Insets left="180.0" right="10.0" top="13.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView id="helpIMG" fx:id="engranaje" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@ayuda_logo.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </HBox>
       <Pane fx:id="configuracion" layoutX="991.0" layoutY="68.0" prefHeight="304.0" prefWidth="226.0" style="-fx-background-color: rgba(89, 89, 89, 0.5); -fx-opacity: 99%;" visible="false" AnchorPane.topAnchor="58.0">
          <children>
             <Button layoutX="11.0" layoutY="208.0" mnemonicParsing="false" onAction="#bajarPDF" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Manual de Usuario" textFill="WHITE">
@@ -157,5 +84,83 @@
             </Button>
          </children>
       </Pane>
+      <HBox id="menuBar" layoutX="20.0" layoutY="20.0" prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: #ad1316;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button id="mainLogoButton" mnemonicParsing="false" onAction="#switchToMain" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #ad1316;">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logo_frame-removebg-blanco.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin>
+            </Button>
+            <StackPane fx:id="materialesStackPane" prefHeight="58.0" prefWidth="105.0">
+               <children>
+                  <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
+                     <effect>
+                        <Blend />
+                     </effect>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="60.0" right="-20.0" />
+               </HBox.margin>
+            </StackPane>
+            <ButtonBar prefHeight="58.0" prefWidth="601.0">
+               <opaqueInsets>
+                  <Insets left="100.0" />
+               </opaqueInsets>
+               <buttons>
+                  <Button id="menuCliente" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="70.0" style="-fx-background-color: white;" text="Cliente" textFill="#ad1316">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuPedido" mnemonicParsing="false" onAction="#switchToPedido" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Pedido" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuProveedor" mnemonicParsing="false" onAction="#swicthToProveedor" prefHeight="54.0" style="-fx-background-color: #ad1316;" text="Proveedor" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuUsuarios" minWidth="74.0" mnemonicParsing="false" onAction="#switchToUsuarios" prefHeight="53.0" prefWidth="106.0" style="-fx-background-color: #ad1316; -fx-border-radius: 0;" text="Usuarios" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="menuHistorial" mnemonicParsing="false" onAction="#switchToHistorial" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Historial" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+            <Button id="helpButton" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
+               <graphic>
+                  <ImageView id="helpIMG" fx:id="engranaje1" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ayuda_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="200.0" top="13.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
    </children>
 </AnchorPane>

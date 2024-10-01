@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,6 +34,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -80,6 +82,8 @@ public class ClienteController implements Initializable {
     private TableView<cliente> table;
     @FXML
     private TextField txtId;
+    @FXML
+    private StackPane materialesStackPane;
     
     alertas alert = new alertas();
     @FXML
@@ -89,6 +93,7 @@ public class ClienteController implements Initializable {
     @FXML
     private Pane configuracion;
     MainController m = new MainController();
+    MateriaController materiaC = new MateriaController();
     
     Login login = new Login();
     permisos per = new permisos();
@@ -106,6 +111,10 @@ public class ClienteController implements Initializable {
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
         txtTelefono.setDisable(true);
+        
+        Label burbuja = crearBurbuja("!", "white"); // 
+        materialesStackPane.getChildren().add(1, burbuja);
+        materiaC.verificarStockBajo(burbuja);
         
         if(permiso){
 
@@ -189,6 +198,23 @@ public class ClienteController implements Initializable {
         
         mostrardatos();
     }
+    
+    public Label crearBurbuja(String mensaje, String color) {
+        Label burbuja = new Label(mensaje);
+        burbuja.setStyle("-fx-background-color: " + color + "; -fx-text-fill: #AD1316; -fx-padding: 2px 3px; -fx-background-radius: 20; -fx-font-size: 1;");
+
+        burbuja.setTranslateX(40);  // horizontal
+        burbuja.setTranslateY(-10);   // vertical
+        burbuja.setVisible(false);    
+        return burbuja;
+    }
+    
+    public void mostrarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
+        burbuja.setVisible(true);
+        System.out.println("burbuja mostrada con exito");
+    }
+    
+    
     
     public Tooltip TextButton(String s){
 
