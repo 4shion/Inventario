@@ -26,20 +26,15 @@
                <columns>
                   <TableColumn fx:id="colId" prefWidth="56.79998779296875" text="ID" />
                   <TableColumn fx:id="colNombre" prefWidth="157.5999755859375" text="Nombre" />
-                  <TableColumn fx:id="colPrecio" prefWidth="79.20001220703125" text="Precio" />
-                  <TableColumn fx:id="colCantidad" prefWidth="93.5999755859375" text="Cantidad" />
-                  <TableColumn fx:id="colProveedor" prefWidth="108.0" text="Proveedor" />
-                  <TableColumn fx:id="colCantMin" prefWidth="92.800048828125" text="Cantidad_Min" />
-                  <TableColumn fx:id="ColumUni" prefWidth="59.60003662109375" text="Unidad" />
+                  <TableColumn fx:id="colPrecio" prefWidth="88.0" text="Precio" />
+                  <TableColumn fx:id="colCantidad" prefWidth="111.20001220703125" text="Cantidad" />
+                  <TableColumn fx:id="colProveedor" prefWidth="133.5999755859375" text="Proveedor" />
+                  <TableColumn fx:id="colCantMin" prefWidth="103.20001220703125" text="Cantidad_Min" />
                </columns>
             </TableView>
-<<<<<<< HEAD
             
             <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#generarReporteMateriales" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
 
-=======
-            <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#generarReporteMateriales" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
->>>>>>> main
          </children>
       </Pane>
       <Pane layoutX="119.0" layoutY="601.0" prefHeight="46.0" prefWidth="931.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="52.60000000000002" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="149.80000000000018">

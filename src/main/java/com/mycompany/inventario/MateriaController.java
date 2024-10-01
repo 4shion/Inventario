@@ -19,7 +19,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
@@ -93,11 +92,7 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private TableColumn<materia, String> colPrecio;
     @FXML
-<<<<<<< HEAD
-    private TableColumn<materia, Integer> colCantidad;  
-=======
     private TableColumn<materia, String> colCantidad;
->>>>>>> main
     @FXML
     private TableColumn<materia, String> colProveedor;
     
@@ -125,18 +120,10 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private TextField TxtUniMed;
     @FXML
-    private TableColumn<materia, String> ColumUni;
-<<<<<<< HEAD
-    @FXML
     private StackPane materialesStackPane;
     @FXML
     private Button materiales;
-    
-    MainController main = new MainController();
-    
-=======
-        
->>>>>>> main
+   
     Login login = new Login();
     permisos per = new permisos();
     boolean permiso = false;
@@ -246,6 +233,7 @@ public class MateriaController extends App implements Initializable{
                 
         mostrarDatos();
         
+        
         table.setRowFactory(tv -> new TableRow<materia>() {
         @Override
         protected void updateItem(materia item, boolean empty) {
@@ -265,8 +253,6 @@ public class MateriaController extends App implements Initializable{
                     setStyle("");
                     verificarStockBajo(burbuja);
                 } 
-                
-                actualizarBurbuja(burbuja, item.getCantidad(), item.getCantidad_min());
             }
         }
         });
@@ -280,7 +266,7 @@ public class MateriaController extends App implements Initializable{
         
     }
     
-    // Método para crear la burbuja de notificación
+    // metodo para crear la burbuja de notificacion
     public Label crearBurbuja(String mensaje, String color) {
         Label burbuja = new Label(mensaje);
         burbuja.setStyle("-fx-background-color: " + color + "; -fx-text-fill: white; -fx-padding: 2px 3px; -fx-background-radius: 20; -fx-font-size: 1;");
@@ -295,17 +281,6 @@ public class MateriaController extends App implements Initializable{
     public void mostrarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
         burbuja.setVisible(true);
         System.out.println("burbuja mostrada con exito");
-        
-        actualizarBurbuja(burbuja, cantidad, cantidad_min);
-    }
-
-    public void actualizarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
-        if(cantidad < cantidad_min || cantidad_min == cantidad) {
-        burbuja.setVisible(true);
-            
-        } else {
-            burbuja.setVisible(false);
-        }
     }
     
     public void verificarStockBajo(Label burbuja) {
@@ -314,6 +289,7 @@ public class MateriaController extends App implements Initializable{
         for (materia item : table.getItems()) {
             if (item.getCantidad() < item.getCantidad_min()) {
                 hayStockBajo = true;
+                System.out.println("stock bajo encontrado");
                 break; 
             }
         }
@@ -641,7 +617,7 @@ public class MateriaController extends App implements Initializable{
        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
        colProveedor.setCellValueFactory(new PropertyValueFactory<>("nombreproveedor"));
-       ColumUni.setCellValueFactory(new PropertyValueFactory<>("unidadMedida"));
+//       ColumUni.setCellValueFactory(new PropertyValueFactory<>("unidadMedida"));
        colCantidad.setCellValueFactory(cellData -> 
             new SimpleStringProperty(cellData.getValue().getCantidadConUnidad()));
        colCantMin.setCellValueFactory(cellData -> 
