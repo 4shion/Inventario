@@ -38,6 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -86,6 +87,8 @@ public class PedidoController implements Initializable {
     
     @FXML
     private Button btnNoName;
+    @FXML
+    private StackPane materialesStackPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -94,6 +97,10 @@ public class PedidoController implements Initializable {
         configurarColumnas();
                 
         permiso = per.Pedidos(login.getUsuarioActual());
+        
+        Label burbuja = crearBurbuja("!", "white"); // 
+        materialesStackPane.getChildren().add(1, burbuja);
+        actualizarPedido(burbuja);
         
         
         if(permiso){
@@ -180,6 +187,21 @@ public class PedidoController implements Initializable {
             
         }
         
+    }
+    
+    public Label crearBurbuja(String mensaje, String color) {
+        Label burbuja = new Label(mensaje);
+        burbuja.setStyle("-fx-background-color: " + color + "; -fx-text-fill: #AD1316; -fx-padding: 2px 3px; -fx-background-radius: 20; -fx-font-size: 1;");
+
+        burbuja.setTranslateX(40);  // horizontal
+        burbuja.setTranslateY(-10);   // vertical
+        burbuja.setVisible(false);    
+        return burbuja;
+    }
+    
+    public void mostrarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
+        burbuja.setVisible(true);
+        System.out.println("burbuja mostrada con exito");
     }
     
     public Tooltip TextButton(String s){
@@ -626,6 +648,17 @@ public class PedidoController implements Initializable {
         txtNomCliente.setText("Sin nombre");
         txtNomCliente.setDisable(true);
         
-    }    
+    }   
+    
+    public void actualizarPedido(Label burbuja) {
+
+        MateriaController materiaC = (MateriaController) App.getController("materia");
+
+        if (materiaC != null) {
+           materiaC.verificarStockBajo(burbuja);
+        } else {
+            System.out.println("Error: No se encontro el controlador de Materia.");
+        }
+    }
     
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="615.0" prefWidth="840.0" style="-fx-background-color: #ad1316;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.inventario.MainController">
@@ -20,11 +21,6 @@
                   </ImageView>
                   <Pane layoutX="23.0" layoutY="213.0" prefHeight="349.0" prefWidth="303.0">
                      <children>
-                        <Button fx:id="btnMateriales" focusTraversable="false" layoutX="52.0" layoutY="30.0" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
                         <Button fx:id="btnClientes" focusTraversable="false" layoutX="52.0" layoutY="95.0" mnemonicParsing="false" onAction="#switchToCliente" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Clientes" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
@@ -45,6 +41,15 @@
                               <Font size="16.0" />
                            </font>
                         </Button>
+                        <StackPane fx:id="materialesStackPane" layoutX="52.0" layoutY="20.0" prefHeight="63.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="btnMateriales" focusTraversable="false" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </StackPane>
                      </children>
                   </Pane>
                </children>

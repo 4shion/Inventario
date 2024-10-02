@@ -165,7 +165,7 @@ public class MateriaController extends App implements Initializable{
         
     Label burbuja = crearBurbuja("!", "#D6454A"); // 
     materialesStackPane.getChildren().add(1, burbuja);
-//    verificarStockBajo(burbuja);
+    verificarStockBajo(burbuja);
         
         if(permiso){
 
@@ -272,13 +272,13 @@ public class MateriaController extends App implements Initializable{
             } else {
                 if (item.getCantidad() < item.getCantidad_min()) {
                     setStyle("-fx-background-color: #ff6969;");
-//                    verificarStockBajo(burbuja);
+                    verificarStockBajo(burbuja);
                 } else if (item.getCantidad() == item.getCantidad_min()){
                     setStyle("-fx-background-color: #ffd569");
-//                    verificarStockBajo(burbuja);
+                    verificarStockBajo(burbuja);
                 } else {
                     setStyle("");
-//                    verificarStockBajo(burbuja);
+                    verificarStockBajo(burbuja);
                 } 
             }
         }
@@ -310,23 +310,23 @@ public class MateriaController extends App implements Initializable{
         System.out.println("burbuja mostrada con exito");
     }
     
-//    public void verificarStockBajo(Label burbuja) {
-//        boolean hayStockBajo = false;
-//
-//        for (materia item : table.getItems()) {
-//            if (item.getCantidad() < item.getCantidad_min()) {
-//                hayStockBajo = true;
-//                System.out.println("stock bajo encontrado");
-//                break; 
-//            }
-//        }
-//
-//        if (hayStockBajo) {
-//            mostrarBurbuja(burbuja, cantidad, cantidad_min);
-//        } else {
-//            burbuja.setVisible(false); 
-//        }
-//    }
+    public void verificarStockBajo(Label burbuja) {
+        boolean hayStockBajo = false;
+
+        for (materia item : table.getItems()) {
+            if (item.getCantidad() < item.getCantidad_min()) {
+                hayStockBajo = true;
+                System.out.println("stock bajo encontrado");
+                break; 
+            }
+        }
+
+        if (hayStockBajo) {
+            mostrarBurbuja(burbuja, cantidad, cantidad_min);
+        } else {
+            burbuja.setVisible(false); 
+        }
+    }
 
 
     public MateriaController(){

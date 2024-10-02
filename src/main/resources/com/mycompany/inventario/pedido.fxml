@@ -107,7 +107,7 @@
                   <Insets top="8.0" />
                </HBox.margin>
             </Button>
-            <StackPane prefHeight="58.0" prefWidth="105.0">
+            <StackPane fx:id="materialesStackPane" prefHeight="58.0" prefWidth="105.0">
                <children>
                   <Button id="menuMateriales" mnemonicParsing="false" onAction="#switchToMateriales" prefHeight="53.0" style="-fx-background-color: #ad1316;" text="Materiales" textFill="WHITE">
                      <effect>
