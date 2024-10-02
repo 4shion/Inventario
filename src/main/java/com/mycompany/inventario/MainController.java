@@ -31,10 +31,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -68,6 +70,8 @@ public class MainController extends conexion implements Initializable {
     private Button btnProveedores;
     @FXML
     private Button btnUsuarios;
+    @FXML
+    private StackPane materialesStackPane;
     
     private boolean pPro = false;
     private boolean pUsu = false;
@@ -80,13 +84,34 @@ public class MainController extends conexion implements Initializable {
     
     @FXML
     private ImageView engranaje;
+    
+    Label burbuja = crearBurbuja("!", "white"); // 
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         verificarUsuario();
+        
+        materialesStackPane.getChildren().add(1, burbuja);
+        actualizarMain(burbuja);
     }
 
     public MainController() {
+    }
+    
+    public Label crearBurbuja(String mensaje, String color) {
+        Label burbuja = new Label(mensaje);
+        burbuja.setStyle("-fx-background-color: " + color + "; -fx-text-fill: #AD1316; -fx-padding: 2px 3px; -fx-background-radius: 20; -fx-font-size: 1;");
+
+        burbuja.setTranslateX(44);  // horizontal
+        burbuja.setTranslateY(0);   // vertical
+        burbuja.setVisible(false);    
+        return burbuja;
+    }
+    
+    public void mostrarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
+        burbuja.setVisible(true);
+        System.out.println("burbuja mostrada en main con exito");
     }
     
     public Tooltip TextButton(String s){
@@ -426,8 +451,7 @@ public class MainController extends conexion implements Initializable {
                         .append(", Cantidad mínima: ").append(material.getCantidad_min())
                         .append("\n");
             }
-
-            // Mostrar la alerta
+            // mostrar la alerta
             Alert alertaStockBajo = new Alert(Alert.AlertType.WARNING);
             alertaStockBajo.setHeaderText("Stock bajo");
             alertaStockBajo.setContentText(mensaje.toString());
@@ -435,6 +459,18 @@ public class MainController extends conexion implements Initializable {
             stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             alertaStockBajo.showAndWait();
         }
+    }
+    
+    public void actualizarMain(Label burbuja) {
+    
+        MateriaController materiaC = (MateriaController) App.getController("materia");
+
+        if (materiaC!= null) {
+            materiaC.verificarStockBajo(burbuja);
+        } else {
+            System.out.println("Error: No se encontro el controlador de Materia.");
+        }
+        
     }
     
 }

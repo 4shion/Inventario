@@ -93,7 +93,6 @@ public class ClienteController implements Initializable {
     @FXML
     private Pane configuracion;
     MainController m = new MainController();
-    MateriaController materiaC = new MateriaController();
     
     Login login = new Login();
     permisos per = new permisos();
@@ -114,7 +113,7 @@ public class ClienteController implements Initializable {
         
         Label burbuja = crearBurbuja("!", "white"); // 
         materialesStackPane.getChildren().add(1, burbuja);
-        materiaC.verificarStockBajo(burbuja);
+        actualizarCliente(burbuja);
         
         if(permiso){
 
@@ -622,6 +621,17 @@ public class ClienteController implements Initializable {
 
     @FXML
     private void verificar(ActionEvent event) {
+    }
+    
+    public void actualizarCliente(Label burbuja) {
+
+        MateriaController materiaC = (MateriaController) App.getController("materia");
+
+        if (materiaC != null) {
+           materiaC.verificarStockBajo(burbuja);
+        } else {
+            System.out.println("Error: No se encontro el controlador de Materia.");
+        }
     }
     
 }
