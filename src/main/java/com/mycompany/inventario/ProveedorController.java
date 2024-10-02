@@ -286,6 +286,7 @@ public class ProveedorController implements Initializable {
 
             txtNombre.setDisable(true);
             txtCorreo.setDisable(true);
+            txtTelefono.setDisable(true);
 
             btnNuevo.setDisable(true);
         }
@@ -329,6 +330,8 @@ public class ProveedorController implements Initializable {
 
     @FXML
     private void Eliminar(ActionEvent event) {
+        one.setId(Integer.parseInt(txtId.getText()));   
+        
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
         btnEliminar.setDisable(true);
@@ -430,6 +433,7 @@ public class ProveedorController implements Initializable {
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
+        txtTelefono.setDisable(true);
         
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
@@ -463,6 +467,7 @@ public class ProveedorController implements Initializable {
         
         txtNombre.setDisable(true);
         txtCorreo.setDisable(true);
+        txtTelefono.setDisable(true);
         
         txtNombre.clear();
         txtCorreo.clear();
