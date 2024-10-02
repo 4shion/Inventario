@@ -10,6 +10,7 @@ import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.permisos;
+import com.mycompany.inventario.clases.ruta;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -49,7 +50,6 @@ public class MainController extends conexion implements Initializable {
     private Button btnSesion;
 
     private boolean sesionIniciada = false;
-    private boolean Admi = false;
 
     alertas alert = new alertas();
     Login login = new Login();
@@ -84,6 +84,7 @@ public class MainController extends conexion implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         verificarUsuario();
+        
     }
 
     public MainController() {

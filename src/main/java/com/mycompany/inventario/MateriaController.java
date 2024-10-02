@@ -5,12 +5,19 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.proveedor;
+import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
+import com.mycompany.inventario.clases.reportes;
+import com.mycompany.inventario.clases.ruta;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +36,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -47,6 +55,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -100,6 +109,10 @@ public class MateriaController extends App implements Initializable{
     proveedor p = new proveedor();
     alertas alert = new alertas();
     MainController main = new MainController();
+    historial hs = new historial();
+    reportes r = new reportes();
+    usuario u = new usuario();
+    ruta rut = new ruta();
     
     ObservableList<materia> listaMateria;
     ObservableList<proveedor> listaProveedor;
@@ -115,7 +128,6 @@ public class MateriaController extends App implements Initializable{
     private TextField txtCamMín;
     @FXML
     private Pane configuracion;
-    @FXML
     private ImageView engranaje;
     @FXML
     private TextField TxtUniMed;
@@ -130,6 +142,10 @@ public class MateriaController extends App implements Initializable{
     String h = "Boton Inhabilitado";
     double cantidad = m.cantidad;
     double cantidad_min = m.cantidad_min;
+    @FXML
+    private ImageView engranaje1;
+    @FXML
+    private Button btnReporte;
     
     
     /**
@@ -149,7 +165,7 @@ public class MateriaController extends App implements Initializable{
         
     Label burbuja = crearBurbuja("!", "#D6454A"); // 
     materialesStackPane.getChildren().add(1, burbuja);
-    verificarStockBajo(burbuja);
+//    verificarStockBajo(burbuja);
         
         if(permiso){
 
@@ -167,6 +183,7 @@ public class MateriaController extends App implements Initializable{
             btnModificar.setDisable(false);
             btnNuevo.setDisable(false);
             btnLimpiar.setDisable(false);
+            btnReporte.setDisable(false);
             
             btnNuevo.setTooltip(TextButton(h));
             btnCancelar.setTooltip(TextButton(h));
@@ -174,6 +191,7 @@ public class MateriaController extends App implements Initializable{
             btnGuardar.setTooltip(TextButton(h));
             btnModificar.setTooltip(TextButton(h));
             btnLimpiar.setTooltip(TextButton(h));
+            btnReporte.setTooltip(TextButton(h));
             
             btnGuardar.setOnAction(event -> {
                 boolean shouldCancel = true;
@@ -229,6 +247,15 @@ public class MateriaController extends App implements Initializable{
                 System.out.println("Botón Limpiar ha sido presionado.");
             });
             
+            btnReporte.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Reporte ha sido presionado.");
+            });
+            
         }
                 
         mostrarDatos();
@@ -245,13 +272,13 @@ public class MateriaController extends App implements Initializable{
             } else {
                 if (item.getCantidad() < item.getCantidad_min()) {
                     setStyle("-fx-background-color: #ff6969;");
-                    verificarStockBajo(burbuja);
+//                    verificarStockBajo(burbuja);
                 } else if (item.getCantidad() == item.getCantidad_min()){
                     setStyle("-fx-background-color: #ffd569");
-                    verificarStockBajo(burbuja);
+//                    verificarStockBajo(burbuja);
                 } else {
                     setStyle("");
-                    verificarStockBajo(burbuja);
+//                    verificarStockBajo(burbuja);
                 } 
             }
         }
@@ -283,23 +310,23 @@ public class MateriaController extends App implements Initializable{
         System.out.println("burbuja mostrada con exito");
     }
     
-    public void verificarStockBajo(Label burbuja) {
-        boolean hayStockBajo = false;
-
-        for (materia item : table.getItems()) {
-            if (item.getCantidad() < item.getCantidad_min()) {
-                hayStockBajo = true;
-                System.out.println("stock bajo encontrado");
-                break; 
-            }
-        }
-
-        if (hayStockBajo) {
-            mostrarBurbuja(burbuja, cantidad, cantidad_min);
-        } else {
-            burbuja.setVisible(false); 
-        }
-    }
+//    public void verificarStockBajo(Label burbuja) {
+//        boolean hayStockBajo = false;
+//
+//        for (materia item : table.getItems()) {
+//            if (item.getCantidad() < item.getCantidad_min()) {
+//                hayStockBajo = true;
+//                System.out.println("stock bajo encontrado");
+//                break; 
+//            }
+//        }
+//
+//        if (hayStockBajo) {
+//            mostrarBurbuja(burbuja, cantidad, cantidad_min);
+//        } else {
+//            burbuja.setVisible(false); 
+//        }
+//    }
 
 
     public MateriaController(){
@@ -406,10 +433,12 @@ public class MateriaController extends App implements Initializable{
         if(opcion.get() == ButtonType.OK){
             
             m.setId(Integer.parseInt(txtId.getText()));
+            m.setNombre(txtNombre.getText());
 
             if(m.eliminar()){
 
                     alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
+                    hs.insert("Eliminar", "El usuario " + login.getUsuarioActual() + " ha eliminado " + m.getNombre() + " de la lista", login.getUsuarioActual());
 
                 }
                 else{
@@ -779,10 +808,37 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private void switchToHistorial(ActionEvent event) {
         
-        try {
-            App.setRoot("historial");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        if(u.verificar(login.getUsuarioActual())){
+            String ubicacion= "/reportes/frameexperts/Historial.jasper";
+            String titulo= "Informe de Actividades";
+            JasperPrint jasperPrint = r.generarReporte(ubicacion, titulo);
+            
+            String ruta = rut.obtenerRutaDescargas();
+            // Obtener la fecha actual en formato "dd-MM"
+            LocalDate fechaActual = LocalDate.now();
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM");
+            String fechaFormateada = fechaActual.format(formatoFecha);
+
+            // Crear el nombre del archivo con la fecha incluida
+            String relativePath = ruta + "/Informe de Actividades " + fechaFormateada + ".pdf";
+    
+            // Crear un objeto File con la ruta relativa
+            File file = new File(relativePath);
+
+            try {
+                // Exportar el reporte a la ruta relativa
+                JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
+                System.out.println("Reporte generado correctamente en " + file.getPath());
+            } catch (JRException e) {
+                System.out.println("Error al generar el reporte");
+                e.printStackTrace();
+            }
+            
+        }
+        else{
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "No tiene permiso para acceder a esta información");
+            
         }
         
     }
@@ -870,60 +926,122 @@ public class MateriaController extends App implements Initializable{
         } 
     }
     
-    public void generarReporteMateriales(List<materia> materiales) {
-        // Crea una lista para almacenar los parámetros de cada material
-        List<Map<String, Object>> listaMateriales = new ArrayList<>();
-
-        // Itera sobre cada material y guarda los datos en un mapa
-        for (materia m : materiales) {
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("idMaterial", m.getId());
-            parametros.put("nombreMaterial", m.getNombre());
-            parametros.put("cantidadActual", m.getCantidad());
-            parametros.put("restock", m.necesitaRestock() ? "Necesario" : "No necesario");
-            parametros.put("proveedor", m.getNombreproveedor());
-            parametros.put("correoProveedor", p.getCorreo());
-
-            // Añade el mapa de parámetros a la lista
-            listaMateriales.add(parametros);
-        }
-
-        // Luego puedes pasar esta lista a tu reporte Jasper
-        try {
-            JasperReport reporte = JasperCompileManager.compileReport("ruta_al_reporte.jasper");
-            JasperPrint print = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(listaMateriales));
-            JasperViewer.viewReport(print, false);
-        } catch (JRException e) {
-            e.printStackTrace();
-        }
-    }
-
-    
     @FXML
     private void bajarPDF(ActionEvent event) {
-    }
-
-    @FXML
-    private void GenerarReporte(ActionEvent event) {
     }
     
     @FXML
     private void generarReporteMateriales(ActionEvent event) {
-        try {
+        
+        // Verificar si hay stock por debajo de la cantidad mínima
+        boolean hayStockBajo = m.verificarStockBajo();
 
-            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("ruta/a/reporteMateriales.jasper");
+        if (hayStockBajo) {
+            // Mostrar alerta con dos opciones si hay stock bajo
+            Alert alertaConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            alertaConfirmacion.setTitle("Visualización de Stock");
+            alertaConfirmacion.setHeaderText("¿Qué stock deseas visualizar?");
+            alertaConfirmacion.setContentText("Selecciona el tipo de stock que deseas ver:");
+            Stage stage = (Stage) alertaConfirmacion.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
 
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("nombreReporte", "Reporte de Materiales");
+            ButtonType btnStockActual = new ButtonType("Stock Actual");
+            ButtonType btnStockBajo = new ButtonType("Stock Bajo");
+            ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-            JRBeanCollectionDataSource datos = new JRBeanCollectionDataSource(listaMateria);
+            alertaConfirmacion.getButtonTypes().setAll(btnStockActual, btnStockBajo, btnCancelar);
 
-            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, datos);
+            Optional<ButtonType> result = alertaConfirmacion.showAndWait();
 
-            JasperViewer.viewReport(print, false);
-        } catch (JRException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+            if (result.isPresent()) {
+                if (result.get() == btnStockActual) {
+                    // Visualizar el reporte de materiales
+                    String ubicacion = "/reportes/frameexperts/Materiales.jasper";
+                    String titulo = "Stock Actual de Materiales";
+                    
+                    JasperPrint jasperPrint = r.generarReporte(ubicacion, titulo);
+            
+                    String ruta = rut.obtenerRutaDescargas();
+                    // Obtener la fecha actual en formato "dd-MM"
+                    LocalDate fechaActual = LocalDate.now();
+                    DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM");
+                    String fechaFormateada = fechaActual.format(formatoFecha);
+
+                    // Crear el nombre del archivo con la fecha incluida
+                    String relativePath = ruta + "/Stock Actual " + fechaFormateada + ".pdf";
+
+                    // Crear un objeto File con la ruta relativa
+                    File file = new File(relativePath);
+
+                    try {
+                        // Exportar el reporte a la ruta relativa
+                        JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
+                        System.out.println("Reporte generado correctamente en " + file.getPath());
+                    } catch (JRException e) {
+                        System.out.println("Error al generar el reporte");
+                        e.printStackTrace();
+                    }
+                    
+                } else if (result.get() == btnStockBajo) {
+                    // Visualizar el reporte de stock bajo
+                    String ubicacion = "/reportes/frameexperts/MaterialesBajos.jasper";
+                    String titulo = "Materiales con Stock Bajo";
+                    
+                    JasperPrint jasperPrint = r.generarReporte(ubicacion, titulo);
+            
+                    String ruta = rut.obtenerRutaDescargas();
+                    // Obtener la fecha actual en formato "dd-MM"
+                    LocalDate fechaActual = LocalDate.now();
+                    DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM");
+                    String fechaFormateada = fechaActual.format(formatoFecha);
+
+                    // Crear el nombre del archivo con la fecha incluida
+                    String relativePath = ruta + "/Stock Bajo " + fechaFormateada + ".pdf";
+
+                    // Crear un objeto File con la ruta relativa
+                    File file = new File(relativePath);
+
+                    try {
+                        // Exportar el reporte a la ruta relativa
+                        JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
+                        System.out.println("Reporte generado correctamente en " + file.getPath());
+                    } catch (JRException e) {
+                        System.out.println("Error al generar el reporte");
+                        e.printStackTrace();
+                    }
+                    
+                }
+            }
+        } else {
+            // Si no hay stock bajo, visualizar directamente el reporte de materiales
+            String ubicacion = "/reportes/frameexperts/Materiales.jasper";
+            String titulo = "Stock Actual de Materiales";
+            
+            JasperPrint jasperPrint = r.generarReporte(ubicacion, titulo);
+            
+            String ruta = rut.obtenerRutaDescargas();
+            // Obtener la fecha actual en formato "dd-MM"
+            LocalDate fechaActual = LocalDate.now();
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM");
+            String fechaFormateada = fechaActual.format(formatoFecha);
+
+            // Crear el nombre del archivo con la fecha incluida
+            String relativePath = ruta + "/Stock Actual " + fechaFormateada + ".pdf";
+
+            // Crear un objeto File con la ruta relativa
+            File file = new File(relativePath);
+
+            try {
+                // Exportar el reporte a la ruta relativa
+                JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
+                System.out.println("Reporte generado correctamente en " + file.getPath());
+            } catch (JRException e) {
+                System.out.println("Error al generar el reporte");
+                e.printStackTrace();
+            }
+            
         }
+        
     }
     
     public void actualizarMateriales() {

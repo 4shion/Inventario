@@ -299,4 +299,19 @@ public class materia extends conexion implements sentencias {
         return listaMateriales;
     }
     
+    public boolean verificarStockBajo() {
+        String sql = "SELECT COUNT(*) FROM materiaPrima WHERE cantidad < cantidad_min";
+
+        try (Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Si hay al menos un material con stock bajo, retornar true
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false; // Si no hay stock bajo o hay un error, retornar false
+    }
+    
 }

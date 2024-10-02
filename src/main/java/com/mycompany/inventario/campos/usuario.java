@@ -322,4 +322,21 @@ public class usuario extends conexion implements sentencias {
         }
     }
     
+    public boolean verificar(String nom){
+        
+        String query = "SELECT COUNT(*) FROM usuario WHERE codigoAdmin is not NULL and nombre = ?";
+        try (Connection con=getCon();
+             PreparedStatement stmt=con.prepareStatement(query)) {
+            stmt.setString(1, nom);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si hay al menos un material con ese nombre
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de excepciones
+        }
+        return false;
+        
+    }
+    
 }
