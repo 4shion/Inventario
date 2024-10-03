@@ -222,7 +222,7 @@ WHERE
 				<text><![CDATA[Proveedor]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="20" width="556" height="1" uuid="ede3065b-61bf-409c-8882-943458423ee6">
+				<reportElement x="0" y="20" width="556" height="1" forecolor="#1008FF" uuid="ede3065b-61bf-409c-8882-943458423ee6">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

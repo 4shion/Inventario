@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Historial" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[ZnJhbWVleHBlcnRzLmhpc3RvcmlhbCBBUyAsMzcsNDQsMzI2NjNkMzUtOTkwZi00ZWYyLWFhMTct
-Y2I2Mjg5ZDg1ZjliO2ZyYW1lZXhwZXJ0cy51c3VhcmlvIEFTICwyMjYsNzQsZDA4MjU3ZGYtZTA1
-MS00NzgwLWE2ZjAtN2U0NGMxZTlkYTY1Ow==]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -64,12 +60,14 @@ MS00NzgwLWE2ZjAtN2U0NGMxZTlkYTY1Ow==]]>
 	</subDataset>
 	<queryString language="SQL">
 		<![CDATA[SELECT frameexperts.usuario.nombre,
-	frameexperts.historial.accion,
-	frameexperts.historial.fecha,
-	frameexperts.historial.detalle
+       frameexperts.historial.accion,
+       frameexperts.historial.fecha,
+       frameexperts.historial.detalle
 FROM frameexperts.historial
-	INNER JOIN frameexperts.usuario ON 
-	 frameexperts.historial.`Usuario_idUsuario` = frameexperts.usuario.`idUsuario`]]>
+INNER JOIN frameexperts.usuario ON 
+       frameexperts.historial.`Usuario_idUsuario` = frameexperts.usuario.`idUsuario`
+WHERE DATEDIFF(CURDATE(), frameexperts.historial.fecha) <= 15
+ORDER BY frameexperts.historial.fecha DESC]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
@@ -188,7 +186,7 @@ FROM frameexperts.historial
 				<text><![CDATA[Detalle]]></text>
 			</staticText>
 			<line>
-				<reportElement x="2" y="22" width="554" height="1" uuid="3f2ce802-8b0b-48f1-9610-1ca81d97a295">
+				<reportElement x="2" y="22" width="554" height="1" forecolor="#190DFC" uuid="3f2ce802-8b0b-48f1-9610-1ca81d97a295">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

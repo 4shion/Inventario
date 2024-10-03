@@ -69,6 +69,11 @@
                   <Font name="Corbel" size="12.0" />
                </font>
             </Button>
+            <Button fx:id="BtnPedidos" layoutX="564.0" layoutY="443.0" mnemonicParsing="false" onAction="#GenerarPedido" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Obtener Pedidos" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children></Pane>
       <TextField fx:id="idPedido" layoutX="128.0" layoutY="148.0" visible="false" />
       <Pane fx:id="configuracion" layoutX="981.0" layoutY="58.0" prefHeight="304.0" prefWidth="226.0" style="-fx-background-color: rgba(89, 89, 89, 0.5); -fx-opacity: 99%;" visible="false" AnchorPane.topAnchor="58.0">

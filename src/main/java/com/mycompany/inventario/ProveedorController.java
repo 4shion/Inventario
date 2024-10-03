@@ -5,6 +5,7 @@
 package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.proveedor;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -103,6 +103,7 @@ public class ProveedorController implements Initializable {
     usuario u = new usuario();
     reportes r = new reportes();
     ruta rut = new ruta();
+    historial hs = new historial();
     boolean permiso = false;
     String h = "Boton Inhabilitado";
     
@@ -331,6 +332,7 @@ public class ProveedorController implements Initializable {
     @FXML
     private void Eliminar(ActionEvent event) {
         one.setId(Integer.parseInt(txtId.getText()));   
+        one.setNombre(txtNombre.getText());
         
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
@@ -407,6 +409,7 @@ public class ProveedorController implements Initializable {
             if(one.modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                hs.insert("Modificar", "El usuario " + login.getUsuarioActual() + " ha modificar los datos de " + one.getNombre() + " en la tabla proveedores", login.getUsuarioActual());
                 
             }
             else{
@@ -421,6 +424,7 @@ public class ProveedorController implements Initializable {
             if(one.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+                hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha agregado a " + one.getNombre() + " en la tabla proveedores", login.getUsuarioActual());
 
             }
             else{

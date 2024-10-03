@@ -3,6 +3,7 @@ package com.mycompany.inventario;
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.cliente;
 import com.mycompany.inventario.campos.factura;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.pedido;
 import com.mycompany.inventario.campos.usuario;
@@ -59,13 +60,9 @@ public class PedidoController implements Initializable {
     @FXML private Button btnEliminar;
     @FXML private Button btnGuardar;
     @FXML private Button btnLimpiar;
-    @FXML private TextField idPedido;
     @FXML private Pane configuracion;
-    @FXML private ImageView engranaje;
+    private ImageView engranaje;
     @FXML private TextField txtNomCliente;
-    @FXML private TextField correoCliente;
-    @FXML private TextField telfCliente;
-    @FXML private TextField numFactura;
 
     private conexion conexionDB = new conexion();
     private ObservableList<materia> listaMateriales;
@@ -81,14 +78,26 @@ public class PedidoController implements Initializable {
     
     Login login = new Login();
     permisos per = new permisos();
+    historial hs = new historial();
     boolean permiso = false;
     String h = "Boton Inhabilitado";
-    Alert alertachi;
     
     @FXML
     private Button btnNoName;
     @FXML
     private StackPane materialesStackPane;
+    @FXML
+    private Button BtnPedidos;
+    @FXML
+    private TextField idPedido;
+    @FXML
+    private TextField correoCliente;
+    @FXML
+    private TextField telfCliente;
+    @FXML
+    private TextField numFactura;
+    @FXML
+    private ImageView engranaje1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,6 +127,7 @@ public class PedidoController implements Initializable {
             btnNoName.setDisable(false);
             BtnFactura.setDisable(false);
             btnLimpiar.setDisable(false);
+            BtnPedidos.setDisable(false);
             
             TxtCant.setDisable(true);
             TxtServicio.setDisable(true);
@@ -130,6 +140,7 @@ public class PedidoController implements Initializable {
             btnGuardar.setTooltip(TextButton(h));
             btnNoName.setTooltip(TextButton(h));
             btnLimpiar.setTooltip(TextButton(h));
+            BtnPedidos.setTooltip(TextButton(h));
             
             btnGuardar.setOnAction(event -> {
                 boolean shouldCancel = true;
@@ -183,6 +194,15 @@ public class PedidoController implements Initializable {
                     return;
                 }
                 System.out.println("Botón Limpiar ha sido presionado.");
+            });
+            
+            BtnPedidos.setOnAction(event -> {
+                boolean shouldCancel = true;
+                if (shouldCancel) {
+                    event.consume();
+                    return;
+                }
+                System.out.println("Botón Generar Pedidos ha sido presionado.");
             });
             
         }
@@ -267,6 +287,7 @@ public class PedidoController implements Initializable {
             Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
             alerta1.setHeaderText(null);
             alerta1.setContentText("Insertado correctamente");
+            hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha realizado un pedido con fecha " + p.getFechaActual(), login.getUsuarioActual());
             Stage stage1 = (Stage) alerta1.getDialogPane().getScene().getWindow();
             stage1.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
             alerta1.showAndWait(); // Esperar a que el usuario cierre la alerta     
@@ -659,6 +680,38 @@ public class PedidoController implements Initializable {
         } else {
             System.out.println("Error: No se encontro el controlador de Materia.");
         }
+    }
+
+    @FXML
+    private void GenerarPedido(ActionEvent event) {
+        
+        // Visualizar el reporte de materiales
+        String ubicacion = "/reportes/frameexperts/Pedidos.jasper";
+        String titulo = "Reporde de Pedidos";
+
+        JasperPrint jasperPrint = r.generarReporte(ubicacion, titulo);
+
+        String ruta = rut.obtenerRutaDescargas();
+        // Obtener la fecha actual en formato "dd-MM"
+        LocalDate fechaActual = LocalDate.now();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM");
+        String fechaFormateada = fechaActual.format(formatoFecha);
+
+        // Crear el nombre del archivo con la fecha incluida
+        String relativePath = ruta + "/Reporte de pedidos " + fechaFormateada + ".pdf";
+
+        // Crear un objeto File con la ruta relativa
+        File file = new File(relativePath);
+
+        try {
+            // Exportar el reporte a la ruta relativa
+            JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
+            System.out.println("Reporte generado correctamente en " + file.getPath());
+        } catch (JRException e) {
+            System.out.println("Error al generar el reporte");
+            e.printStackTrace();
+        }
+        
     }
     
 }

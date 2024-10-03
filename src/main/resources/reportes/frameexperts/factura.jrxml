@@ -259,12 +259,12 @@ WHERE
 				<reportElement x="0" y="0" width="280" height="35" uuid="0c2b9cd1-e6dc-4889-9c6d-b267c6b5fcd8"/>
 				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00 €;(#,##0.00 €) ">
 				<reportElement x="280" y="0" width="140" height="35" uuid="d8ed9da1-872f-48d9-bc28-62e71db81fd9"/>
 				<textElement textAlignment="Center" markup="html"/>
 				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00 €;(#,##0.00 €) ">
 				<reportElement x="421" y="0" width="134" height="35" uuid="7f9954fe-ed38-4406-ae30-d7e1b7205480"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
@@ -291,7 +291,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[GRACIAS POR SU COMPRA]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00 €;(#,##0.00 €) ">
 				<reportElement x="460" y="121" width="89" height="18" uuid="763da769-b4b3-4734-b671-2584f8c37f60"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>

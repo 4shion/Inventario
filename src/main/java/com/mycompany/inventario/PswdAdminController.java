@@ -4,7 +4,9 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.Pswd;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +29,8 @@ public class PswdAdminController implements Initializable {
     
     Pswd ps = new Pswd();
     alertas alert = new alertas();
+    Login login = new Login();
+    historial hs = new historial();
     MainController main = new MainController();
     public static int intentosFallidos = 0;
 
@@ -80,7 +84,9 @@ public class PswdAdminController implements Initializable {
                     stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
                     alertaFinal.setTitle("Aviso");
                     alertaFinal.setHeaderText(null);
-
+                    
+                    hs.insert("Error", "El usuario " + login.getUsuarioActual() + " ha fallado mas de 3 veces al intentar acceder al perfil de administrador", login.getUsuarioActual());      
+                    
                     // Cerrar el programa después de la alerta
                     alertaFinal.setOnHidden(evt -> System.exit(0));
                     alertaFinal.showAndWait();

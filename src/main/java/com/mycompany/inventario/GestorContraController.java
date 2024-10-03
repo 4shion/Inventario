@@ -6,6 +6,7 @@ package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.GestorContra;
 import com.mycompany.inventario.campos.Login;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
@@ -33,8 +34,6 @@ import javafx.stage.Stage;
 public class GestorContraController implements Initializable {
 
     @FXML
-    private Button verificarContra;
-    @FXML
     private ComboBox<String> cbmUsuario;
     @FXML
     private PasswordField txtContraA;
@@ -53,12 +52,15 @@ public class GestorContraController implements Initializable {
     usuario u = new usuario();
     alertas alert = new alertas();
     Login l = new Login();
+    historial hs = new historial();
     
     private boolean comprobacion;
     
     ObservableList<usuario> listaUsuario;
     @FXML
     private Text textNombre;
+    @FXML
+    private Button verificarContra;
 
 
     /**
@@ -212,6 +214,7 @@ public class GestorContraController implements Initializable {
             if(g.Modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                hs.insert("Modificar", "El usuario " + l.getUsuarioActual() + " ha modificar la contraseña de " + g.getSelecUsuario(), l.getUsuarioActual());
                 Stage stage = (Stage) btnGuardar.getScene().getWindow();
                 // Cerrar la ventana
                 stage.close();

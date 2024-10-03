@@ -6,6 +6,7 @@ package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.cliente;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
@@ -107,11 +108,10 @@ public class ClienteController implements Initializable {
     usuario u = new usuario();
     ruta rut = new ruta();
     reportes r = new reportes();
+    historial hs = new historial();
     
     boolean permiso = false;
     String h = "Boton Inhabilitado";
-    @FXML
-    private ImageView engranaje1;
     
     /**
      * Initializes the controller class.
@@ -295,6 +295,7 @@ public class ClienteController implements Initializable {
             if(one.eliminar()){
 
                     alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
+                    hs.insert("Eliminar", "El usuario " + login.getUsuarioActual() + " ha eliminar a " + one.getNombre() + " de la tabla clientes", login.getUsuarioActual());
 
                 }
                 else{
@@ -353,6 +354,7 @@ public class ClienteController implements Initializable {
             if(one.modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                hs.insert("Modificar", "El usuario " + login.getUsuarioActual() + " ha modificado los datos de " + one.getNombre() + " en la tabla clientes", login.getUsuarioActual());
                 
             }
             else{
@@ -368,6 +370,7 @@ public class ClienteController implements Initializable {
             if(one.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+                hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha agregado a " + one.getNombre() + " a la tabla clientes", login.getUsuarioActual());
 
             }
             else{

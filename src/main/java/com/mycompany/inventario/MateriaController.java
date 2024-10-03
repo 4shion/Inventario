@@ -18,10 +18,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -54,14 +50,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -133,8 +123,6 @@ public class MateriaController extends App implements Initializable{
     private TextField TxtUniMed;
     @FXML
     private StackPane materialesStackPane;
-    @FXML
-    private Button materiales;
    
     Login login = new Login();
     permisos per = new permisos();
@@ -142,8 +130,6 @@ public class MateriaController extends App implements Initializable{
     String h = "Boton Inhabilitado";
     double cantidad = m.cantidad;
     double cantidad_min = m.cantidad_min;
-    @FXML
-    private ImageView engranaje1;
     @FXML
     private Button btnReporte;
     
@@ -438,7 +424,7 @@ public class MateriaController extends App implements Initializable{
             if(m.eliminar()){
 
                     alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
-                    hs.insert("Eliminar", "El usuario " + login.getUsuarioActual() + " ha eliminado " + m.getNombre() + " de la lista", login.getUsuarioActual());
+                    hs.insert("Eliminar", "El usuario " + login.getUsuarioActual() + " ha eliminado " + m.getNombre() + " de la tabla materiales", login.getUsuarioActual());
 
                 }
                 else{
@@ -555,6 +541,7 @@ public class MateriaController extends App implements Initializable{
                 if(m.modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                hs.insert("Modificar", "El usuario " + login.getUsuarioActual() + " ha modificado " + m.getNombre() + " en la tabla materiales", login.getUsuarioActual());
                 
                 }
                 else{
@@ -575,6 +562,7 @@ public class MateriaController extends App implements Initializable{
                 if(m.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+                hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha creado " + m.getNombre() + " en la tabla materiales", login.getUsuarioActual());
 
                 }
                 else{
