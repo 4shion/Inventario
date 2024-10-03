@@ -594,6 +594,8 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private void Cancelar(ActionEvent event) {
         // Llamamos a la versión sobrecargada que no recibe eventos
+        cboSelProov.getSelectionModel().clearSelection();
+        cargarProveedor();
         Cancelar();
     }
 

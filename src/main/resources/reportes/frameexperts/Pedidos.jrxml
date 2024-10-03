@@ -211,7 +211,7 @@ ORDER BY frameexperts.pedido.fecha DESC]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="138" y="0" width="138" height="20" uuid="635cf897-718d-4889-b4a9-e3b966cc0b22">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6f54786-c84b-4603-829f-106867389387"/>
 				</reportElement>

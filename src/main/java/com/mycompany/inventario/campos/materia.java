@@ -270,7 +270,7 @@ public class materia extends conexion implements sentencias {
     public List<materia> obtenerListaMateriales() {
         List<materia> listaMateriales = new ArrayList<>();
 
-        String query = "SELECT nombre, cantidad, cantidad_min FROM materiaPrima";
+        String query = "SELECT nombre, cantidad, cantidad_min, UnidadMedida FROM materiaPrima";
 
         try (Connection conn = getCon(); 
              PreparedStatement pstmt = conn.prepareStatement(query); 
@@ -281,12 +281,14 @@ public class materia extends conexion implements sentencias {
                 String nombreM = rs.getString("nombre");
                 double cantidad = rs.getDouble("cantidad");
                 double cantidad_min = rs.getDouble("cantidad_min");
+                String Unidad = rs.getString("UnidadMedida");
 
                 // Crear el objeto 'materia' y agregarlo a la lista
                 materia material = new materia();
                 material.setNombre(nombreM);
                 material.setCantidad(cantidad);
                 material.setCantidad_min(cantidad_min);
+                material.setUnidadMedida(Unidad);
 
                 listaMateriales.add(material);
             }
