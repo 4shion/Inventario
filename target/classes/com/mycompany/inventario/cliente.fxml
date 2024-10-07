@@ -67,7 +67,7 @@
       </Pane>
       <Pane fx:id="configuracion" layoutX="991.0" layoutY="68.0" prefHeight="304.0" prefWidth="226.0" style="-fx-background-color: rgba(89, 89, 89, 0.5); -fx-opacity: 99%;" visible="false" AnchorPane.topAnchor="58.0">
          <children>
-            <Button layoutX="11.0" layoutY="208.0" mnemonicParsing="false" onAction="#bajarPDF" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Manual de Usuario" textFill="WHITE">
+            <Button layoutX="11.0" layoutY="208.0" mnemonicParsing="false" onAction="#manualUsuario" prefHeight="75.0" prefWidth="204.0" style="-fx-background-color: #8A1011;" text="Manual de Usuario" textFill="WHITE">
                <font>
                   <Font name="Corbel Bold" size="14.0" />
                </font>

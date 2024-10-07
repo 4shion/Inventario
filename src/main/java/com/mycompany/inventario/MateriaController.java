@@ -1061,19 +1061,20 @@ public class MateriaController extends App implements Initializable{
         }
     }
     
-    public void manualUsuario() {
+    @FXML
+    public void manualUsuario(ActionEvent event) {
     
         String filePath = getClass().getResource("/ayuda/manualFrameExperts.chm").getPath();
         File file = new File(filePath);
-//          if (file.exists()) {
-//                try {
-//                    Desktop.getDesktop().open(file);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//           } else {
-//               System.out.println("El archivo CHM no existe.");
-//           }
+          if (file.exists()) {
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+           } else {
+               System.out.println("El archivo CHM no existe.");
+           }
         }
         
     }
