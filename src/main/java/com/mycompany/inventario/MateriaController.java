@@ -13,6 +13,7 @@ import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
 import com.mycompany.inventario.clases.reportes;
 import com.mycompany.inventario.clases.ruta;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -919,6 +920,19 @@ public class MateriaController extends App implements Initializable{
     
     @FXML
     private void bajarPDF(ActionEvent event) {
+        
+        String filePath = getClass().getResource("/ayuda/manualFrameExperts.hnd").getPath();
+        File file = new File(filePath);
+          if (file.exists()) {
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+          } else {
+              System.out.println("El archivo CHM no existe.");
+          }
+        
     }
     
     @FXML
