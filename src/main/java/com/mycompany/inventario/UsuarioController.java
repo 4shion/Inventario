@@ -395,7 +395,6 @@ public class UsuarioController implements Initializable {
         
        txtNombre.setDisable(false);
        txtCorreo.setDisable(false);
-       txtCodigo.setDisable(false);
        
        checkCliente.setDisable(false);
        checkFacturacion.setDisable(false);
@@ -418,6 +417,13 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void Eliminar(ActionEvent event) {
+        
+        if(txtNombre.getText().equals(login.getUsuarioActual())){
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No es posible eliminarse a uno mismo");
+            return;
+            
+        }
         
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
