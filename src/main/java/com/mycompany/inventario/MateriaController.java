@@ -11,11 +11,8 @@ import com.mycompany.inventario.campos.proveedor;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
-<<<<<<< HEAD
-=======
 import com.mycompany.inventario.clases.reportes;
 import com.mycompany.inventario.clases.ruta;
->>>>>>> main
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
