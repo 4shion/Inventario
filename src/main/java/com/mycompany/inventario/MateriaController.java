@@ -118,6 +118,7 @@ public class MateriaController extends App implements Initializable{
     private TextField txtCamMín;
     @FXML
     private Pane configuracion;
+    @FXML
     private ImageView engranaje;
     @FXML
     private TextField TxtUniMed;
@@ -1045,5 +1046,22 @@ public class MateriaController extends App implements Initializable{
             System.out.println("Error: No se encontró el controlador de pedidos/.");
         }
     }
+    
+    public void manualUsuario() {
+    
+        String filePath = getClass().getResource("/ayuda/manualFrameExperts.chm").getPath();
+        File file = new File(filePath);
+//          if (file.exists()) {
+//                try {
+//                    Desktop.getDesktop().open(file);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//           } else {
+//               System.out.println("El archivo CHM no existe.");
+//           }
+        }
+        
+    }
 
-}
+

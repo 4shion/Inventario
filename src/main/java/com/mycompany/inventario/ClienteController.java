@@ -73,6 +73,7 @@ public class ClienteController implements Initializable {
     private Button btnLimpiar;
     @FXML
     private TextField txtBusqueda;
+    @FXML
     private ImageView engranaje;
     
     private boolean modificar = false;
@@ -224,7 +225,7 @@ public class ClienteController implements Initializable {
     
     public void mostrarBurbuja(Label burbuja, double cantidad, double cantidad_min) {
         burbuja.setVisible(true);
-        System.out.println("burbuja mostrada con exito");
+        System.out.println("burbuja mostrada con exito en cliente");
     }
     
     

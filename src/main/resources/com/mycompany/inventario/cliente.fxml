@@ -147,7 +147,7 @@
             </ButtonBar>
             <Button id="helpButton" mnemonicParsing="false" onAction="#Config" style="-fx-background-color: #ad1316;">
                <graphic>
-                  <ImageView id="helpIMG" fx:id="engranaje1" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="helpIMG" fx:id="engranaje" fitHeight="24.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@ayuda_logo.png" />
                      </image>
