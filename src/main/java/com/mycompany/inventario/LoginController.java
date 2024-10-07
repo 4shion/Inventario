@@ -7,6 +7,7 @@ package com.mycompany.inventario;
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.clases.alertas;
+import com.mycompany.inventario.clases.permisos;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -37,6 +38,7 @@ public class LoginController implements Initializable {
     Login login = new Login();
     alertas alert = new alertas();
     historial h = new historial();
+    permisos p = new permisos();
     
     private MainController mainController;
     
@@ -80,8 +82,10 @@ public class LoginController implements Initializable {
             Stage stage = (Stage) btnIngresar.getScene().getWindow();
             // Cerrar la ventana
             stage.close();
-            mainController.mostrarAlertaStockBajo();
-            
+            if(p.Materiales(login.getUsuarioActual())){
+                mainController.mostrarAlertaStockBajo();
+            }
+                
             h.insert("Inicio de sesión", "El usuario " + login.getUsuarioActual() + " ha iniciado sesión", login.getUsuarioActual());
             
         }

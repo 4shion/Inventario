@@ -4,7 +4,9 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.PerfilAdmin;
+import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class PerfilAdminController implements Initializable {
     
     PerfilAdmin p = new PerfilAdmin();
     alertas alert = new alertas();
+    historial hs = new historial();
+    Login login = new Login();
 
     /**
      * Initializes the controller class.
@@ -93,9 +97,13 @@ public class PerfilAdminController implements Initializable {
             alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El codigo debe tener un mínimo de 6 caracteres y debe contener letras y números");
             return;
         }
-        if (!txtContra.getText().matches("^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$")) {
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La contraseña debe tener un mínimo de 6 caracteres, contener letras, números, al menos una mayúscula y un carácter especial.");
-            return;
+        if (!txtContra.getText().isEmpty()) {
+            if (!txtContra.getText().matches("^(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$")) {
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "La contraseña debe tener un mínimo de 6 caracteres, contener letras, números, al menos una mayúscula y un carácter especial.");
+                return;
+            } else {
+                p.setCodigo(txtContra.getText()); // Solo se guarda la nueva contraseña si fue ingresada
+            }
         }
         
         p.setCodigo(txtContra.getText());
@@ -106,6 +114,7 @@ public class PerfilAdminController implements Initializable {
         if(p.Modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                hs.insert("Modificar", "El usuario " + login.getUsuarioActual() + " ha modificar los datos de " + p.getNombre(), login.getUsuarioActual());
                 
                 Stage stage = (Stage) btnGuardar.getScene().getWindow();
                 // Cerrar la ventana

@@ -1,10 +1,12 @@
 package com.mycompany.inventario.campos;
 
+import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 
 public class pedido extends conexion {
 
@@ -25,6 +27,7 @@ public class pedido extends conexion {
     private Integer numFactura;
 
     public pedido() {}
+    alertas alert = new alertas();
 
     public pedido(Integer idPedido, String servicio, Double totalPedido, Integer idCliente, Double Cant, String nombreC, String nombreM, Double StockRestante, Double precio, String unidad) {
         this.idPedido = idPedido;
@@ -274,7 +277,7 @@ public class pedido extends conexion {
             if (rs.next()) {
                 this.idCliente = rs.getInt("idCliente");
             } else {
-                throw new SQLException("No se encontró un cliente con el nombre " + nombreCliente);
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Cliente no registrado");
             }
         } catch (SQLException ex) {
             Logger.getLogger(pedido.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,10 +6,17 @@ package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.cliente;
+import com.mycompany.inventario.campos.historial;
+import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.permisos;
+import com.mycompany.inventario.clases.reportes;
+import com.mycompany.inventario.clases.ruta;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -37,6 +44,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  * FXML Controller class
@@ -63,7 +73,6 @@ public class ClienteController implements Initializable {
     private Button btnLimpiar;
     @FXML
     private TextField txtBusqueda;
-    @FXML
     private ImageView engranaje;
     
     private boolean modificar = false;
@@ -96,6 +105,11 @@ public class ClienteController implements Initializable {
     
     Login login = new Login();
     permisos per = new permisos();
+    usuario u = new usuario();
+    ruta rut = new ruta();
+    reportes r = new reportes();
+    historial hs = new historial();
+    
     boolean permiso = false;
     String h = "Boton Inhabilitado";
     
@@ -281,6 +295,7 @@ public class ClienteController implements Initializable {
             if(one.eliminar()){
 
                     alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
+                    hs.insert("Eliminar", "El usuario " + login.getUsuarioActual() + " ha eliminar a " + one.getNombre() + " de la tabla clientes", login.getUsuarioActual());
 
                 }
                 else{
@@ -339,6 +354,7 @@ public class ClienteController implements Initializable {
             if(one.modificar()){
                 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Modificado correctamente");
+                hs.insert("Modificar", "El usuario " + login.getUsuarioActual() + " ha modificado los datos de " + one.getNombre() + " en la tabla clientes", login.getUsuarioActual());
                 
             }
             else{
@@ -354,6 +370,7 @@ public class ClienteController implements Initializable {
             if(one.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+                hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha agregado a " + one.getNombre() + " a la tabla clientes", login.getUsuarioActual());
 
             }
             else{
@@ -498,10 +515,37 @@ public class ClienteController implements Initializable {
     @FXML
     private void switchToHistorial(ActionEvent event) {
         
-        try {
-            App.setRoot("historial");
-        } catch (IOException ex) {
-            Logger.getLogger(MateriaController.class.getName()).log(Level.SEVERE, null, ex);
+        if(u.verificar(login.getUsuarioActual())){
+            String ubicacion= "/reportes/frameexperts/Historial.jasper";
+            String titulo= "Informe de Actividades";
+            JasperPrint jasperPrint = r.generarReporte(ubicacion, titulo);
+            
+            String ruta = rut.obtenerRutaDescargas();
+            // Obtener la fecha actual en formato "dd-MM"
+            LocalDate fechaActual = LocalDate.now();
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM");
+            String fechaFormateada = fechaActual.format(formatoFecha);
+
+            // Crear el nombre del archivo con la fecha incluida
+            String relativePath = ruta + "/Informe de Actividades " + fechaFormateada + ".pdf";
+    
+            // Crear un objeto File con la ruta relativa
+            File file = new File(relativePath);
+
+            try {
+                // Exportar el reporte a la ruta relativa
+                JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
+                System.out.println("Reporte generado correctamente en " + file.getPath());
+            } catch (JRException e) {
+                System.out.println("Error al generar el reporte");
+                e.printStackTrace();
+            }
+            
+        }
+        else{
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "No tiene permiso para acceder a esta información");
+            
         }
         
     }

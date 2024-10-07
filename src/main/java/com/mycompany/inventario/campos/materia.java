@@ -270,7 +270,7 @@ public class materia extends conexion implements sentencias {
     public List<materia> obtenerListaMateriales() {
         List<materia> listaMateriales = new ArrayList<>();
 
-        String query = "SELECT nombre, cantidad, cantidad_min FROM materiaPrima";
+        String query = "SELECT nombre, cantidad, cantidad_min, UnidadMedida FROM materiaPrima";
 
         try (Connection conn = getCon(); 
              PreparedStatement pstmt = conn.prepareStatement(query); 
@@ -281,12 +281,14 @@ public class materia extends conexion implements sentencias {
                 String nombreM = rs.getString("nombre");
                 double cantidad = rs.getDouble("cantidad");
                 double cantidad_min = rs.getDouble("cantidad_min");
+                String Unidad = rs.getString("UnidadMedida");
 
                 // Crear el objeto 'materia' y agregarlo a la lista
                 materia material = new materia();
                 material.setNombre(nombreM);
                 material.setCantidad(cantidad);
                 material.setCantidad_min(cantidad_min);
+                material.setUnidadMedida(Unidad);
 
                 listaMateriales.add(material);
             }
@@ -297,6 +299,21 @@ public class materia extends conexion implements sentencias {
         }
 
         return listaMateriales;
+    }
+    
+    public boolean verificarStockBajo() {
+        String sql = "SELECT COUNT(*) FROM materiaPrima WHERE cantidad < cantidad_min";
+
+        try (Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Si hay al menos un material con stock bajo, retornar true
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false; // Si no hay stock bajo o hay un error, retornar false
     }
     
 }

@@ -2,6 +2,7 @@ com\mycompany\inventario\campos\usuario.class
 com\mycompany\inventario\clases\navegacion$1.class
 com\mycompany\inventario\ClienteController.class
 com\mycompany\inventario\campos\factura.class
+com\mycompany\inventario\clases\ruta.class
 com\mycompany\inventario\App.class
 com\mycompany\inventario\PswdAdminController.class
 com\mycompany\inventario\clases\reportes.class
@@ -19,7 +20,6 @@ com\mycompany\inventario\campos\pedido.class
 com\mycompany\inventario\PerfilAdminController.class
 com\mycompany\inventario\clases\conexion.class
 com\mycompany\inventario\MateriaController$1.class
-com\mycompany\inventario\HistorialController.class
 com\mycompany\inventario\campos\PerfilAdmin.class
 module-info.class
 com\mycompany\inventario\clases\encriptacion.class

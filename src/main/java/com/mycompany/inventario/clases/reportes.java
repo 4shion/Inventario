@@ -16,31 +16,31 @@ public class reportes extends conexion {
     public reportes() {
     }
     
-    public void reporteMateriales(String ubicacion, String titulo) {
-        try {
+    public JasperPrint generarReporte(String ubicacion, String titulo) {
+        JasperPrint jasperPrint = null;
 
+        try {
+            // Ruta al archivo .jasper
             String reportPath = getClass().getResource(ubicacion).getPath();
 
+            // Parámetros del informe
             Map<String, Object> parameters = new HashMap<>();
 
-            //consulta materiales que necesitan restock
-            String query = "SELECT * FROM materiales WHERE cantidadActual < cantidadMinima";
-            parameters.put("QUERY_RESTOCK", query);
+            // Agrega parámetros según sea necesario
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, getCon());
+            // Llenar el informe
+            jasperPrint = JasperFillManager.fillReport(reportPath, parameters, getCon());
 
-            if (jasperPrint.getPages().isEmpty()) {
-                System.out.println("El reporte no contiene datos.");
-            } else {
-                JasperViewer viewer = new JasperViewer(jasperPrint, false);
-                viewer.setTitle(titulo);
-                viewer.setVisible(true);
-                System.out.println("Reporte generado correctamente.");
-            }
+            // Mostrar el informe en una nueva ventana
+            JasperViewer viewer = new JasperViewer(jasperPrint, false);
+            viewer.setTitle(titulo);
+            viewer.setVisible(true);
 
         } catch (JRException ex) {
-            Logger.getLogger(reportes.class.getName()).log(Level.SEVERE, "Error al generar el informe: ", ex);
+            Logger.getLogger(reportes.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        return jasperPrint; // Devolver el objeto JasperPrint
     }
 
     public JasperPrint generarFactura(String ubicacion, String titulo, int Nrofactura) {

@@ -33,7 +33,7 @@
                </columns>
             </TableView>
             
-            <Button id="getReportes" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#generarReporteMateriales" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
+            <Button id="getReportes" fx:id="btnReporte" layoutX="555.0" layoutY="500.0" mnemonicParsing="false" onAction="#generarReporteMateriales" style="-fx-background-color: #ad1316; -fx-background-radius: 100;" text="Obtener Reportes" textFill="WHITE" />
 
          </children>
       </Pane>

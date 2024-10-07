@@ -1,6 +1,7 @@
 module com.mycompany.inventario {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.swing;
     requires java.base;
     requires java.sql;
     requires jasperreports;

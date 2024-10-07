@@ -10,6 +10,7 @@ import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.permisos;
+import com.mycompany.inventario.clases.ruta;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -51,7 +52,6 @@ public class MainController extends conexion implements Initializable {
     private Button btnSesion;
 
     private boolean sesionIniciada = false;
-    private boolean Admi = false;
 
     alertas alert = new alertas();
     Login login = new Login();
@@ -447,8 +447,8 @@ public class MainController extends conexion implements Initializable {
 
             for (materia material : materialesStockBajo) {
                 mensaje.append("Nombre: ").append(material.getNombre())
-                        .append(", Cantidad: ").append(material.getCantidad())
-                        .append(", Cantidad mínima: ").append(material.getCantidad_min())
+                        .append(", Cantidad: ").append(material.getCantidad()).append(" ").append(material.getUnidadMedida())  // Concatenar cantidad con su unidad
+                        .append(", Cantidad mínima: ").append(material.getCantidad_min()).append(" ").append(material.getUnidadMedida()) // Concatenar cantidad mínima con su unidad
                         .append("\n");
             }
             // mostrar la alerta
@@ -460,6 +460,7 @@ public class MainController extends conexion implements Initializable {
             alertaStockBajo.showAndWait();
         }
     }
+
     
     public void actualizarMain(Label burbuja) {
     
