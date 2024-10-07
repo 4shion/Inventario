@@ -1,4 +1,5 @@
 package com.mycompany.inventario;
+import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import javafx.application.Application;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 /**
@@ -20,6 +22,7 @@ public class App extends Application {
 
     //Nat Contra:123
     //Walter Contra:6291291 CodAdmi:321
+    materia m = new materia();
     
     private static Scene scene;
     alertas alert = new alertas();
