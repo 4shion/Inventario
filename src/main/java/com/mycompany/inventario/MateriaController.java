@@ -118,6 +118,7 @@ public class MateriaController extends App implements Initializable{
     private TextField txtCamMín;
     @FXML
     private Pane configuracion;
+    @FXML
     private ImageView engranaje;
     @FXML
     private TextField TxtUniMed;

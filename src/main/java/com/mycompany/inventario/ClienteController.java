@@ -73,6 +73,7 @@ public class ClienteController implements Initializable {
     private Button btnLimpiar;
     @FXML
     private TextField txtBusqueda;
+    @FXML
     private ImageView engranaje;
     
     private boolean modificar = false;
