@@ -10,6 +10,8 @@ import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.permisos;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -415,7 +417,18 @@ public class MainController extends conexion implements Initializable {
     
     @FXML
     private void bajarPDF() {
-    
+        
+        String filePath = getClass().getResource("/ayuda/manualFrameExperts.hnd").getPath();
+        File file = new File(filePath);
+          if (file.exists()) {
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+          } else {
+              System.out.println("El archivo CHM no existe.");
+          }
     }
     
     @FXML
