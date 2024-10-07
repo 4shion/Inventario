@@ -319,7 +319,7 @@ public class MainController extends conexion implements Initializable {
                 ventanaEmergente.close();
                 ventanaEmergente = null;
             }
-
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
 
