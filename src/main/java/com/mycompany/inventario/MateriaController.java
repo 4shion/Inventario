@@ -96,6 +96,7 @@ public class MateriaController extends App implements Initializable{
     @FXML
     private TableColumn<materia, String> colProveedor;
     
+    //Hola
     materia m = new materia();
     proveedor p = new proveedor();
     alertas alert = new alertas();
@@ -930,7 +931,7 @@ public class MateriaController extends App implements Initializable{
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
           } else {
-              System.out.println("El archivo CHM no existe.");
+              System.out.println("El archivo HND no existe.");
           }
         
     }
@@ -1060,6 +1061,10 @@ public class MateriaController extends App implements Initializable{
             System.out.println("Error: No se encontró el controlador de pedidos/.");
         }
     }
+<<<<<<< HEAD
+
+}
+=======
     
     @FXML
     public void manualUsuario(ActionEvent event) {
@@ -1078,5 +1083,6 @@ public class MateriaController extends App implements Initializable{
         }
         
     }
+>>>>>>> diseño
 
 
