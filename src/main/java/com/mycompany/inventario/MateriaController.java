@@ -931,7 +931,7 @@ public class MateriaController extends App implements Initializable{
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
           } else {
-              System.out.println("El archivo CHM no existe.");
+              System.out.println("El archivo HND no existe.");
           }
         
     }
