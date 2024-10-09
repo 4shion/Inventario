@@ -6,7 +6,6 @@ package com.mycompany.inventario.campos;
 
 import com.mycompany.inventario.clases.conexion;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;

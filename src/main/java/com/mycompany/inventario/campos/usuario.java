@@ -5,7 +5,6 @@
  */
 package com.mycompany.inventario.campos;
 
-import static com.mycompany.inventario.clases.alertas.ShowAlert;
 import com.mycompany.inventario.clases.conexion;
 import com.mycompany.inventario.clases.encriptacion;
 import com.mycompany.inventario.clases.sentencias;
@@ -17,7 +16,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert;
 
 /**
  *
@@ -149,7 +147,7 @@ public class usuario extends conexion implements sentencias {
         
         String codEncriptado = encriptacion.hash(this.codigo);
         
-        String sqlUsuario = "INSERT INTO usuario (codigoAdmin, nombre, IdUsuario, correo, codigo) VALUES (?, ?, NULL, ?, ?)";
+        String sqlUsuario = "INSERT INTO usuario (codigoAdmin, nombre, IdUsuario, correo, codigo, estado) VALUES (?, ?, NULL, ?, ?, true)";
         String sqlPermisos = "INSERT INTO permisos (materiales, pedido, cliente, facturacion, proveedores, usuarios, Usuario_idUsuario) VALUES (?, ?, ?, ?, ?, ?, LAST_INSERT_ID())";
         
         try (Connection con = getCon();
@@ -191,7 +189,7 @@ public class usuario extends conexion implements sentencias {
                  "p.materiales, p.pedido, p.cliente, p.facturacion, p.proveedores, p.usuarios " +
                  "FROM usuario u " +
                  "JOIN permisos p ON u.idUsuario = p.Usuario_idUsuario " +
-                 "WHERE u.codigoAdmin IS NULL";
+                 "WHERE u.codigoAdmin IS NULL and estado != false";
 
 
         try (Connection con = getCon();
@@ -264,16 +262,11 @@ public class usuario extends conexion implements sentencias {
     @Override
     public boolean eliminar() {
         
-        String sqlUsuario = "delete from usuario where idUsuario = ?";
-        String sqlPermisos = "delete from permisos where Usuario_idUsuario = ?";
+        String sqlUsuario = "update cliente set estado = false where idUsuario = ?";
         
         try(Connection con = getCon();
-            PreparedStatement stmPermisos = con.prepareStatement(sqlPermisos);
             PreparedStatement stmUsuario = con.prepareStatement(sqlUsuario))
         {
-            
-            stmPermisos.setInt(1, this.id);
-            stmPermisos.execute();
             
             stmUsuario.setInt(1, this.id);
             stmUsuario.execute();
@@ -291,22 +284,22 @@ public class usuario extends conexion implements sentencias {
     
     public boolean existeUsuario(String nombre) {
         
-        String query = "SELECT COUNT(*) FROM Usuario WHERE nombre = ?";
+        String query = "SELECT COUNT(*) FROM Usuario WHERE nombre = ? and estado != false";
         try (Connection con=getCon();
              PreparedStatement stmt=con.prepareStatement(query)) {
             stmt.setString(1, nombre);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Retorna true si hay al menos un material con ese nombre
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Manejo de excepciones
+            e.printStackTrace();
         }
-        return false; // Si ocurre un error o no se encuentra, retornar false
+        return false;
     }
     
     public void buscarUsuario(String nombreUsuario) {
-        String consulta = "SELECT IdUsuario FROM Usuario WHERE nombre = ?";
+        String consulta = "SELECT IdUsuario FROM Usuario WHERE nombre = ? and estado != false";
 
         try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
             stmt.setString(1, nombreUsuario);
@@ -324,7 +317,7 @@ public class usuario extends conexion implements sentencias {
     
     public boolean verificar(String nom){
         
-        String query = "SELECT COUNT(*) FROM usuario WHERE codigoAdmin is not NULL and nombre = ?";
+        String query = "SELECT COUNT(*) FROM usuario WHERE codigoAdmin is not NULL and nombre = ? and estado != false";
         try (Connection con=getCon();
              PreparedStatement stmt=con.prepareStatement(query)) {
             stmt.setString(1, nom);

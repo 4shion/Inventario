@@ -287,7 +287,7 @@ public class ClienteController implements Initializable {
         alerta1.setHeaderText(null);
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
-        alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        alerta1.setContentText("¿Desea dar de baja a este cliente?");
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
         if(opcion.get() == ButtonType.OK){
@@ -296,13 +296,13 @@ public class ClienteController implements Initializable {
 
             if(one.eliminar()){
 
-                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
-                    hs.insert("Eliminar", "El usuario " + login.getUsuarioActual() + " ha eliminar a " + one.getNombre() + " de la tabla clientes", login.getUsuarioActual());
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "El cliente ha sido dado de baja correctamente");
+                    hs.insert("Dar de baja", "El usuario " + login.getUsuarioActual() + " ha dado de baja a " + one.getNombre() + " de la tabla clientes", login.getUsuarioActual());
 
                 }
                 else{
 
-                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido dar de baja a este cliente correctamente");
 
                 }
         } 
@@ -326,7 +326,6 @@ public class ClienteController implements Initializable {
         if (txtNombre.getText().isEmpty() || 
             txtCorreo.getText().isEmpty() || 
             txtTelefono.getText().isEmpty()) {
-
             alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Todos los campos son obligatorios");
             return;
         }
@@ -348,6 +347,13 @@ public class ClienteController implements Initializable {
         one.setCorreo(txtCorreo.getText());
         one.setTelefono(txtTelefono.getText());
         
+        if(one.existeCliente()){
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El cliente ya existe");
+            return;
+            
+        }
+        
         if(modificar){
             
             one.setId(Integer.parseInt(txtId.getText()));
@@ -368,19 +374,19 @@ public class ClienteController implements Initializable {
             
         }
         else{
-        
-            if(one.insertar()){
-
-                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
-                hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha agregado a " + one.getNombre() + " a la tabla clientes", login.getUsuarioActual());
-
-            }
-            else{
-
-                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
-
-            }
             
+                if(one.insertar()){
+
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
+                    hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha agregado a " + one.getNombre() + " a la tabla clientes", login.getUsuarioActual());
+
+                }
+                else{
+
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
+
+                }
+                
         }
         
         txtNombre.setDisable(true);
