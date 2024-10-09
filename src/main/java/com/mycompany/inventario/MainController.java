@@ -86,8 +86,7 @@ public class MainController extends conexion implements Initializable {
     @FXML
     private ImageView engranaje;
     
-    Label burbuja = crearBurbuja("!", "white"); // 
-    
+    Label burbuja = crearBurbuja("!", "white");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -357,6 +356,7 @@ public class MainController extends conexion implements Initializable {
         sesionIniciada = true;
         btnSesion.setText("Cerrar Sesión");
         verificacionPermisos();
+        App.cargarControllerMateria();
     }
 
     public void cerrarSesion() {

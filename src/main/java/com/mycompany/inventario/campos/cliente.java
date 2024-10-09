@@ -83,7 +83,7 @@ public class cliente extends conexion implements sentencias{
     public boolean insertar() {
         
         
-        String sql = "insert into cliente values(null, ?, ?, ?)";
+        String sql = "insert into cliente values(null, ?, ?, ?, true)";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))
@@ -110,7 +110,7 @@ public class cliente extends conexion implements sentencias{
     public ArrayList consulta() {
         
         ArrayList<cliente> clientes = new ArrayList<>();
-        String sql = "select c.idCliente, c.nombre, c.correo, c.telefono from cliente c where nombre != 'Sin nombre'";
+        String sql = "select c.idCliente, c.nombre, c.correo, c.telefono from cliente c where nombre != 'Sin nombre' and estado != false";
         
         try(
             Connection con = getCon();
@@ -169,7 +169,7 @@ public class cliente extends conexion implements sentencias{
     @Override
     public boolean eliminar() {
         
-        String sql = "delete from cliente where idCliente = ?";
+        String sql = "update cliente set estado = false where idCliente = ?";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))
@@ -192,7 +192,7 @@ public class cliente extends conexion implements sentencias{
         String correo;
         int idC;
         int telf;
-        String consulta = "SELECT correo, telefono, IdCliente FROM Cliente WHERE nombre = ?";
+        String consulta = "SELECT correo, telefono, IdCliente FROM Cliente WHERE nombre = ? and estado != false";
 
         try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
             stmt.setString(1, nombreCliente);
@@ -212,5 +212,22 @@ public class cliente extends conexion implements sentencias{
         } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }   
+    }
+    
+    public boolean existeCliente() {
+        String query = "SELECT COUNT(*) FROM Cliente WHERE nombre = ? and estado != false";
+        try (Connection con = getCon();
+            PreparedStatement stm = con.prepareStatement(query)) {
+            
+            stm.setString(1, this.nombre);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 }

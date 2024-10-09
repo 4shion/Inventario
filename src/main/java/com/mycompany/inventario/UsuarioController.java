@@ -421,7 +421,7 @@ public class UsuarioController implements Initializable {
         
         if(txtNombre.getText().equals(login.getUsuarioActual())){
             
-            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No es posible eliminarse a uno mismo");
+            alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No es posible darse de baja a uno mismo");
             return;
             
         }
@@ -436,7 +436,7 @@ public class UsuarioController implements Initializable {
         Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
-        alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        alerta1.setContentText("¿Desea dar de baja al usuario seleccionado?");
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         Optional<ButtonType> opcion = alerta1.showAndWait();
@@ -447,13 +447,13 @@ public class UsuarioController implements Initializable {
 
             if(one.eliminar()){
 
-                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
-                    hs.insert("Eliminar", "El usuario " + login.getUsuarioActual() + " ha eliminado el usuario " + one.getNombre() + " de la tabla usuarios", login.getUsuarioActual());
+                    alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Usuario dado de baja correctamente");
+                    hs.insert("Dar de baja", "El usuario " + login.getUsuarioActual() + " ha dado de baja al usuario " + one.getNombre() + " de la tabla usuarios", login.getUsuarioActual());
 
                 }
                 else{
 
-                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido dar de baja correctamente");
 
                 }
         } 
@@ -505,6 +505,13 @@ public class UsuarioController implements Initializable {
         one.setNombre(txtNombre.getText());
         one.setCodigo(txtCodigo.getText());
         one.setCorreo(txtCorreo.getText());
+        
+        if(one.existeUsuario(one.getNombre())){
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El Usuario ya existe");
+            return;
+            
+        }
         
         one.setPcliente(checkCliente.isSelected());
         one.setPfactura(checkFacturacion.isSelected());

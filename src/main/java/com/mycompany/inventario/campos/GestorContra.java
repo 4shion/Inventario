@@ -42,8 +42,8 @@ public class GestorContra extends conexion {
     }
     
     public boolean verificarContraSeleccionada(String contraIngresada) {
-        String sqlUsu = "SELECT codigo FROM Usuario WHERE nombre = ?";
-        String sqlAdmi = "SELECT codigo FROM Usuario WHERE codigoAdmin is NOT NULL";
+        String sqlUsu = "SELECT codigo FROM Usuario WHERE nombre = ? and estado != false";
+        String sqlAdmi = "SELECT codigo FROM Usuario WHERE codigoAdmin is NOT NULL and estado != false";
         
         try (Connection con = getCon();
              PreparedStatement pstmtUsu = con.prepareStatement(sqlUsu);
@@ -76,7 +76,7 @@ public class GestorContra extends conexion {
     
     public boolean verificarCodAdmi(String contraIngresada){
         
-        String sqlAdmi = "SELECT codigoAdmin FROM Usuario WHERE codigoAdmin is NOT NULL";
+        String sqlAdmi = "SELECT codigoAdmin FROM Usuario WHERE codigoAdmin is NOT NULL and != false";
         
         try (Connection con = getCon();
             PreparedStatement pstmtAdmi = con.prepareStatement(sqlAdmi)) {
@@ -103,7 +103,7 @@ public class GestorContra extends conexion {
         
         String codEncriptado = encriptacion.hash(this.ContraN);
         
-        String sql="UPDATE Usuario SET codigo = ? WHERE nombre = ?"; 
+        String sql="UPDATE Usuario SET codigo = ? WHERE nombre = ? and estado != false"; 
         
         try( 
                Connection con=getCon();

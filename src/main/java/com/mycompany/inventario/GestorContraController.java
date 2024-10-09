@@ -184,7 +184,7 @@ public class GestorContraController implements Initializable {
                 cbmUsuario.setValue(null);
                 txtContraA.setDisable(true);
                 btnOlvidar.setDisable(true);
-                textNombre.setText(l.getUsuarioActual());
+                textNombre.setText(cbmUsuario.getSelectionModel().getSelectedItem());
                 
             } else {
                 alert.ShowAlert(Alert.AlertType.ERROR, "Código Incorrecto", "El código de recuperación ingresado no es válido.");

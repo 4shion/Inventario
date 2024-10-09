@@ -58,7 +58,7 @@ public class Login extends conexion {
     
     public boolean verificar(){
         
-        String sql = "SELECT codigo FROM usuario WHERE nombre = ?";
+        String sql = "SELECT codigo FROM usuario WHERE nombre = ? and estado != false";
     
         try (Connection con = getCon();
              PreparedStatement pstmt = con.prepareStatement(sql)) {

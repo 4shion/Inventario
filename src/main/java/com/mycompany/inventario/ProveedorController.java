@@ -346,7 +346,7 @@ public class ProveedorController implements Initializable {
         Alert alerta1 = new Alert(Alert.AlertType.CONFIRMATION);
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
-        alerta1.setContentText("¿Desea eliminar el registro seleccionado?");
+        alerta1.setContentText("¿Desea dar de baja el registro seleccionado?");
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
         Optional<ButtonType> opcion = alerta1.showAndWait();
@@ -355,9 +355,9 @@ public class ProveedorController implements Initializable {
             
             // Eliminar el proveedor
             if (one.eliminar()) {
-                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Eliminado correctamente");
+                alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Proveedor dado de baja correctamente");
             } else {
-                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido eliminar correctamente");
+                alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido dar de baja al proveedor correctamente");
             }
         } else {
             Cancelar(event); // Si no se confirma la eliminación, cancelar
@@ -401,6 +401,13 @@ public class ProveedorController implements Initializable {
         one.setNombre(txtNombre.getText());
         one.setCorreo(txtCorreo.getText());
         one.setTelefono(txtTelefono.getText());
+        
+        if(one.existeProveedor()){
+            
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El proveedor ya existe");
+            return;
+            
+        }
         
         if(modificar){
             

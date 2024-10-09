@@ -38,7 +38,7 @@ public class Pswd extends conexion {
     
     public boolean verificar(){
         
-        String sql = "SELECT codigo FROM usuario WHERE codigoAdmin is NOT NULL";
+        String sql = "SELECT codigo FROM usuario WHERE codigoAdmin is NOT NULL and estado != false";
     
         try (Connection con = getCon();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
