@@ -429,6 +429,13 @@ public class ProveedorController implements Initializable {
         }
         else{
         
+            if(one.existeProveedor()){
+            
+                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El proveedor ya existe");
+                return;
+
+            }
+            
             if(one.insertar()){
 
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Aviso", "Insertado correctamente");
@@ -695,7 +702,6 @@ public class ProveedorController implements Initializable {
 
         if (materiaController != null) {
             // Volver a cargar los datos de la tabla
-            materiaController.mostrarDatos();
             materiaController.cargarProveedor();
         } else {
             System.out.println("Error: No se encontro el controlador de Materia.");

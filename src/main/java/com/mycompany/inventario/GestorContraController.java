@@ -7,6 +7,7 @@ package com.mycompany.inventario;
 import com.mycompany.inventario.campos.GestorContra;
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.historial;
+import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
@@ -114,15 +115,14 @@ public class GestorContraController implements Initializable {
         
     }    
     
-    private void cargarUsuario() {
+    public void cargarUsuario() {
+        listaUsuario = FXCollections.observableArrayList(new usuario().consulta());
         
-        listaUsuario = FXCollections.observableArrayList(u.consulta());
-        for (usuario object : listaUsuario) {
-            
-            cbmUsuario.getItems().add(object.getNombre());
+        cbmUsuario.getItems().clear();
         
-        }
-
+        cbmUsuario.getItems().addAll(
+            listaUsuario.stream().map(usuario::getNombre).toList()
+        );
     }
     
     private int buscarUsuario() {

@@ -4,6 +4,7 @@
  */
 package com.mycompany.inventario;
 
+import com.mycompany.inventario.campos.GestorContra;
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.usuario;
@@ -426,6 +427,8 @@ public class UsuarioController implements Initializable {
             
         }
         
+        one.setNombre(txtNombre.getText());
+        
         btnGuardar.setDisable(true);
         btnCancelar.setDisable(true);
         btnEliminar.setDisable(true);
@@ -475,6 +478,7 @@ public class UsuarioController implements Initializable {
         checkUsuarios.setSelected(false);
         
         mostrardatos();
+        actualizarGestos();
         
     }
 
@@ -505,13 +509,6 @@ public class UsuarioController implements Initializable {
         one.setNombre(txtNombre.getText());
         one.setCodigo(txtCodigo.getText());
         one.setCorreo(txtCorreo.getText());
-        
-        if(one.existeUsuario(one.getNombre())){
-            
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El Usuario ya existe");
-            return;
-            
-        }
         
         one.setPcliente(checkCliente.isSelected());
         one.setPfactura(checkFacturacion.isSelected());
@@ -594,6 +591,7 @@ public class UsuarioController implements Initializable {
         modificar = false;
         
         mostrardatos();
+        actualizarGestos();
         
     }
 
@@ -802,6 +800,18 @@ public class UsuarioController implements Initializable {
             materiaController.verificarStockBajo(burbuja);
         } else {
             System.out.println("Error: No se encontro el controlador de Materia.");
+        }
+        
+    }
+    
+    public void actualizarGestos() {
+    
+        GestorContraController Controller = (GestorContraController) App.getController("gestorContra");
+
+        if (Controller != null) {
+            Controller.cargarUsuario();
+        } else {
+            System.out.println("Error: No se encontro el controlador de GestorContraseñas.");
         }
         
     }

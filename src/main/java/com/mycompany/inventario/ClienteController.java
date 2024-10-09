@@ -347,13 +347,6 @@ public class ClienteController implements Initializable {
         one.setCorreo(txtCorreo.getText());
         one.setTelefono(txtTelefono.getText());
         
-        if(one.existeCliente()){
-            
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El cliente ya existe");
-            return;
-            
-        }
-        
         if(modificar){
             
             one.setId(Integer.parseInt(txtId.getText()));
@@ -374,6 +367,13 @@ public class ClienteController implements Initializable {
             
         }
         else{
+            
+                if(one.existeCliente()){
+            
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El cliente ya existe");
+                    return;
+
+                }
             
                 if(one.insertar()){
 

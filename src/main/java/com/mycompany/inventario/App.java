@@ -78,6 +78,44 @@ public class App extends Application {
             System.err.println("Error al cargar el controlador de Materia: " + e.getMessage());
         }
     }
+    
+    public static void cargarControllerPedido() {
+        try {
+            // Cargar la vista de Materia
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/mycompany/inventario/pedido.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador
+            PedidoController pedidoController = loader.getController();
+
+            // Almacenar la vista y el controlador en sus respectivas listas
+            loadedViews.put("pedido", root);
+            loadedControllers.put("pedido", pedidoController);
+
+            System.out.println("Controller de pedido almacenado correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al cargar el controlador de pedido: " + e.getMessage());
+        }
+    }
+    
+    public static void cargarControllerGestor() {
+        try {
+            // Cargar la vista de Materia
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/mycompany/inventario/gestorContra.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador
+            GestorContraController gestorController = loader.getController();
+
+            // Almacenar la vista y el controlador en sus respectivas listas
+            loadedViews.put("gestorContra", root);
+            loadedControllers.put("gestorContra", gestorController);
+
+            System.out.println("Controller de Gestor de contraseñas almacenado correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al cargar el controlador de Controlador de contraseñas: " + e.getMessage());
+        }
+    }
 
     public static Scene getScene() {
         return scene;

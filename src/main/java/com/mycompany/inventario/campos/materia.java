@@ -174,7 +174,7 @@ public class materia extends conexion implements sentencias {
     @Override
     public boolean modificar() {
         
-        String sql="UPDATE materiaprima SET nombre=?,precio=?,cantidad=?,cantidad_min=?,Proveedor_idProveedor=?,UnidadMedida=? WHERE idMaterial=?"; 
+        String sql="UPDATE materiaPrima SET nombre=?,precio=?,cantidad=?,cantidad_min=?,Proveedor_idProveedor=?,UnidadMedida=? WHERE idMaterial=?"; 
         
         try( 
                Connection con=getCon();

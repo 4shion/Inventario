@@ -451,6 +451,7 @@ public class MateriaController extends App implements Initializable{
         TxtUniMed.clear();
         
         mostrarDatos();
+        actualizarMateriales();
         
     }
 
@@ -534,13 +535,6 @@ public class MateriaController extends App implements Initializable{
             m.setCantidad(c);
             m.setCantidad_min(cm);
 
-            if(m.existeMaterial(m.getNombre())){
-            
-                alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Ese material ya existe");
-                return;
-
-            }
-
             if(bandera){//modificar
 
                 m.setId(Integer.parseInt(txtId.getText()));
@@ -561,6 +555,13 @@ public class MateriaController extends App implements Initializable{
 
             }else{
 
+                if(m.existeMaterial(m.getNombre())){
+            
+                    alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Ese material ya existe");
+                    return;
+
+                }
+                
                 if (m.existeMaterial(txtNombre.getText())) {
                     alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El material ya existe en la base de datos");
                     return;
@@ -581,6 +582,7 @@ public class MateriaController extends App implements Initializable{
             } 
 
             mostrarDatos();
+            actualizarMateriales();
             Cancelar(event);
             Limpiar(event);
         }
@@ -655,14 +657,13 @@ public class MateriaController extends App implements Initializable{
    }
     
     public void cargarProveedor() {
+        listaProveedor = FXCollections.observableArrayList(new proveedor().consulta());
         
-        listaProveedor = FXCollections.observableArrayList(p.consulta());
-        for (proveedor object : listaProveedor) {
-            
-            cboSelProov.getItems().add(object.getNombre());
+        cboSelProov.getItems().clear();
         
-        }
-
+        cboSelProov.getItems().addAll(
+            listaProveedor.stream().map(proveedor::getNombre).toList()
+        );
     }
     
     private int buscarProveedor() {

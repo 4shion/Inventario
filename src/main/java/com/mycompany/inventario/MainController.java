@@ -357,6 +357,8 @@ public class MainController extends conexion implements Initializable {
         btnSesion.setText("Cerrar Sesión");
         verificacionPermisos();
         App.cargarControllerMateria();
+        App.cargarControllerGestor();
+        App.cargarControllerPedido();
     }
 
     public void cerrarSesion() {

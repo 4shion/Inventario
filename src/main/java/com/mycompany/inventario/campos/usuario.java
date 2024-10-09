@@ -262,7 +262,7 @@ public class usuario extends conexion implements sentencias {
     @Override
     public boolean eliminar() {
         
-        String sqlUsuario = "update cliente set estado = false where idUsuario = ?";
+        String sqlUsuario = "update usuario set estado = false where idUsuario = ?";
         
         try(Connection con = getCon();
             PreparedStatement stmUsuario = con.prepareStatement(sqlUsuario))
