@@ -58,6 +58,7 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
+	<parameter name="RUTA_IMAGEN" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT mp.nombre AS nombreMaterial,
 	mp.precio,
@@ -67,12 +68,14 @@
 	p.correo,
 	mp.cantidad,
 	mp.cantidad_min,
-	mp.`UnidadMedida`
+	mp.`UnidadMedida`,
+	mp.estado
 FROM frameexperts.materiaprima mp
 	INNER JOIN frameexperts.proveedor p ON 
 	 mp.`Proveedor_idProveedor` = p.`idProveedor` 
 WHERE 
-	 mp.cantidad_min > mp.cantidad]]>
+	 mp.`cantidad_min` > mp.`cantidad` 
+	 AND mp.`estado` = 'false']]>
 	</queryString>
 	<field name="nombreMaterial" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
@@ -122,6 +125,12 @@ WHERE
 		<property name="com.jaspersoft.studio.field.tree.path" value="materiaprima"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="estado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="estado"/>
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materiaprima"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<title>
 		<band height="196" splitType="Stretch">
 			<line>
@@ -165,15 +174,15 @@ WHERE
 				<reportElement x="95" y="40" width="205" height="15" uuid="9e654bf3-b64a-4ec8-b8e0-3bed103a8bd8"/>
 				<text><![CDATA[Dublin, D06 T0C8, Ireland]]></text>
 			</staticText>
-			<image>
-				<reportElement x="17" y="7" width="50" height="50" uuid="03f7a487-e36d-4673-ab24-a64e6dced59e"/>
-				<imageExpression><![CDATA["C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/src/main/resources/reportes/frameexperts/logo_e_corner.png"]]></imageExpression>
-			</image>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="460" y="10" width="96" height="20" uuid="b8fde1da-193c-4256-b735-c59b17517616"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="20" y="10" width="50" height="50" uuid="09b8b44d-9cb7-4a2e-8f96-856cdc264d81"/>
+				<imageExpression><![CDATA[$P{RUTA_IMAGEN}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

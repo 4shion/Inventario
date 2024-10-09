@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Materiales" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[ZnJhbWVleHBlcnRzLm1hdGVyaWFwcmltYSBBUyAsNTUsOTYsMjg5ODllYzMtYjlmMS00NjA3LWE5
-MGItZTU4M2U0ZmM1ZDcxO2ZyYW1lZXhwZXJ0cy5wcm92ZWVkb3IgQVMgLDMxMCwxMDQsYzYxNGE3
-YzMtYjk1Yy00YzNiLWEyNmUtYjMwZDYxMWRjOGIyOw==]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -62,20 +58,19 @@ YzMtYjk1Yy00YzNiLWEyNmUtYjMwZDYxMWRjOGIyOw==]]>
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
+	<parameter name="RUTA_IMAGEN" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT 
-    mp.nombre AS nombreMaterial,
-    mp.precio,
-    CONCAT(mp.cantidad, mp.UnidadMedida) AS cantidadConUnidad,
-    CONCAT(mp.cantidad_min, mp.UnidadMedida) AS cantidadMinConUnidad,
-    p.nombre AS nombreProveedor,
-    p.correo
-FROM 
-    frameexperts.materiaprima mp
-INNER JOIN 
-    frameexperts.proveedor p 
-ON 
-    mp.Proveedor_idProveedor = p.idProveedor]]>
+		<![CDATA[SELECT mp.nombre AS nombreMaterial,
+	mp.precio,
+	CONCAT( mp.cantidad,mp.UnidadMedida) AS cantidadConUnidad,
+	CONCAT( mp.cantidad_min,mp.UnidadMedida) AS cantidadMinConUnidad,
+	p.nombre AS nombreProveedor,
+	p.correo,
+	mp.estado
+FROM frameexperts.materiaprima mp
+	INNER JOIN frameexperts.proveedor p ON 
+	 mp.`Proveedor_idProveedor` = p.`idProveedor` 
+	 AND mp.`estado` != 'false']]>
 	</queryString>
 	<field name="nombreMaterial" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
@@ -105,6 +100,12 @@ ON
 		<property name="com.jaspersoft.studio.field.name" value="correo"/>
 		<property name="com.jaspersoft.studio.field.label" value="correo"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="proveedor"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="estado"/>
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materiaprima"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<title>
@@ -143,10 +144,6 @@ ON
 				<reportElement x="95" y="40" width="205" height="15" uuid="7105e2d4-4714-4f9f-aeba-a1a3a0baca6b"/>
 				<text><![CDATA[Dublin, D06 T0C8, Ireland]]></text>
 			</staticText>
-			<image>
-				<reportElement x="17" y="7" width="50" height="50" uuid="9edd9e6f-3a92-4d8d-833b-0ae84949510c"/>
-				<imageExpression><![CDATA["C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/src/main/resources/reportes/frameexperts/logo_e_corner.png"]]></imageExpression>
-			</image>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="460" y="10" width="96" height="20" uuid="577e04e9-839b-4990-afcc-d046453fd8d7"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
@@ -159,6 +156,10 @@ ON
 				</textElement>
 				<text><![CDATA[Stock Actual]]></text>
 			</staticText>
+			<image>
+				<reportElement x="20" y="10" width="50" height="50" uuid="a99faaa5-a70b-402f-83ae-97a5413cc647"/>
+				<imageExpression><![CDATA[$P{RUTA_IMAGEN}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

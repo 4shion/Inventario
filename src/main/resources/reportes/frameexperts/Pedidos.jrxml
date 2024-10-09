@@ -58,6 +58,7 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
+	<parameter name="RUTA_IMAGEN" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT frameexperts.pedido.servicio,
        frameexperts.pedido.fecha,
@@ -136,10 +137,6 @@ ORDER BY frameexperts.pedido.fecha DESC]]>
 				<reportElement x="95" y="40" width="205" height="15" uuid="da640b09-286f-4df7-bbfc-bcbe7b6f5041"/>
 				<text><![CDATA[Dublin, D06 T0C8, Ireland]]></text>
 			</staticText>
-			<image>
-				<reportElement x="17" y="7" width="50" height="50" uuid="e17cca84-ab3d-4a90-8719-cb25935ac0d6"/>
-				<imageExpression><![CDATA["C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/src/main/resources/reportes/frameexperts/logo_e_corner.png"]]></imageExpression>
-			</image>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="460" y="10" width="96" height="20" uuid="b2401491-658f-4fc3-aad0-47997d135d32"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
@@ -152,6 +149,10 @@ ORDER BY frameexperts.pedido.fecha DESC]]>
 				</textElement>
 				<text><![CDATA[Pedidos]]></text>
 			</staticText>
+			<image>
+				<reportElement x="20" y="10" width="50" height="50" uuid="ccb4d56c-5579-40fa-84eb-26f569051b3f"/>
+				<imageExpression><![CDATA[$P{RUTA_IMAGEN}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

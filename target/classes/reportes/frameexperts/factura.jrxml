@@ -65,6 +65,7 @@ OSwxODMsOWEyMDA4MWUtYWEyYy00YWEwLWJjZDMtN2Q0MTQ4YmJmZjU0Ow==]]>
 		</queryString>
 	</subDataset>
 	<parameter name="factNumero" class="java.lang.Integer"/>
+	<parameter name="RUTA_IMAGEN" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT DISTINCT p.servicio,
 	p.fecha,
@@ -211,8 +212,8 @@ WHERE
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="17" y="7" width="50" height="50" uuid="905c0672-7f53-4b2e-88bf-f71d0337bcfa"/>
-				<imageExpression><![CDATA["C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/src/main/resources/reportes/frameexperts/logo_e_corner.png"]]></imageExpression>
+				<reportElement x="17" y="15" width="50" height="50" uuid="9449d57a-bfd0-477d-8e2b-8a7c99a267f8"/>
+				<imageExpression><![CDATA[$P{RUTA_IMAGEN}]]></imageExpression>
 			</image>
 		</band>
 	</title>
