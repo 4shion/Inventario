@@ -140,7 +140,7 @@ WHERE
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="9" y="100" width="538" height="60" uuid="800be4b1-cef7-4584-950b-6156123e0675"/>
+				<reportElement x="9" y="100" width="538" height="60" forecolor="#AD1316" uuid="800be4b1-cef7-4584-950b-6156123e0675"/>
 				<textElement textAlignment="Center">
 					<font size="33" isBold="true"/>
 				</textElement>

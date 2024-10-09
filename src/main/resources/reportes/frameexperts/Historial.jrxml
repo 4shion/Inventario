@@ -103,7 +103,7 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="188" y="100" width="180" height="50" uuid="121222dd-947d-447c-843b-40ee1aec53b1"/>
+				<reportElement x="188" y="100" width="180" height="50" forecolor="#AD1316" uuid="121222dd-947d-447c-843b-40ee1aec53b1"/>
 				<textElement textAlignment="Center">
 					<font size="33" isBold="true"/>
 				</textElement>
@@ -195,9 +195,9 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="36">
+		<band height="45">
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="0" y="6" width="100" height="20" uuid="bc3e7dff-eab2-47d9-887d-8a692b9d072f">
+				<reportElement style="Detail" positionType="Float" x="0" y="6" width="100" height="38" uuid="bc3e7dff-eab2-47d9-887d-8a692b9d072f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6c68642-0576-4bdd-881a-00d099e5f7bc"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -206,7 +206,7 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="100" y="6" width="138" height="20" uuid="a5911346-73eb-4066-9545-a4eb54357788">
+				<reportElement style="Detail" positionType="Float" x="100" y="6" width="138" height="38" uuid="a5911346-73eb-4066-9545-a4eb54357788">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="399b91f8-5b06-4887-9dee-787cf1e9eb62"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -215,7 +215,7 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 				<textFieldExpression><![CDATA[$F{accion}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="238" y="6" width="138" height="20" uuid="507c9510-ce89-49a1-89a1-1de88ef0356e">
+				<reportElement style="Detail" positionType="Float" x="238" y="6" width="138" height="38" uuid="507c9510-ce89-49a1-89a1-1de88ef0356e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="61bb71ed-ffc0-429a-81ad-e4884ef01d77"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -224,16 +224,16 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" x="376" y="6" width="157" height="30" uuid="0f3a3291-63d0-40ed-9aaf-7a18cc98230d">
+				<reportElement style="Detail" positionType="Float" x="376" y="6" width="157" height="38" uuid="0f3a3291-63d0-40ed-9aaf-7a18cc98230d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7960897c-8574-4182-84ea-f1162682d217"/>
 				</reportElement>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="false"/>
+					<font fontName="Arial" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{detalle}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="2" y="35" width="552" height="1" uuid="176f22f2-6e02-4804-9bc3-56694594bf9b">
+				<reportElement x="0" y="44" width="552" height="1" uuid="176f22f2-6e02-4804-9bc3-56694594bf9b">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

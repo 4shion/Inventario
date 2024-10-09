@@ -1082,12 +1082,7 @@ public class MateriaController extends App implements Initializable{
                System.out.println("El archivo CHM no existe.");
            }
         }
-<<<<<<< HEAD
-        
-    }
-=======
     
 }
 
->>>>>>> main
 
