@@ -62,6 +62,7 @@ YzMtYjk1Yy00YzNiLWEyNmUtYjMwZDYxMWRjOGIyOw==]]>
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
+	<parameter name="RUTA_IMAGEN" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT 
     mp.nombre AS nombreMaterial,
@@ -143,10 +144,6 @@ ON
 				<reportElement x="95" y="40" width="205" height="15" uuid="7105e2d4-4714-4f9f-aeba-a1a3a0baca6b"/>
 				<text><![CDATA[Dublin, D06 T0C8, Ireland]]></text>
 			</staticText>
-			<image>
-				<reportElement x="17" y="7" width="50" height="50" uuid="9edd9e6f-3a92-4d8d-833b-0ae84949510c"/>
-				<imageExpression><![CDATA["C:/Users/User/Documents/NetBeansProjects/Inventario/Inventario/src/main/resources/reportes/frameexperts/logo_e_corner.png"]]></imageExpression>
-			</image>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="460" y="10" width="96" height="20" uuid="577e04e9-839b-4990-afcc-d046453fd8d7"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
@@ -159,6 +156,10 @@ ON
 				</textElement>
 				<text><![CDATA[Stock Actual]]></text>
 			</staticText>
+			<image>
+				<reportElement x="20" y="10" width="50" height="50" uuid="a99faaa5-a70b-402f-83ae-97a5413cc647"/>
+				<imageExpression><![CDATA[$P{RUTA_IMAGEN}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

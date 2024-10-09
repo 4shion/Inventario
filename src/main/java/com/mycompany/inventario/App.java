@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 /**
@@ -22,7 +21,6 @@ public class App extends Application {
 
     //Nat Contra:123
     //Walter Contra:6291291 CodAdmi:321
-    materia m = new materia();
     
     private static Scene scene;
     alertas alert = new alertas();
@@ -61,7 +59,25 @@ public class App extends Application {
             
         }
     }
+    
+    public static void cargarControllerMateria() {
+        try {
+            // Cargar la vista de Materia
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/mycompany/inventario/Materia.fxml"));
+            Parent root = loader.load();
 
+            // Obtener el controlador
+            MateriaController materiaController = loader.getController();
+
+            // Almacenar la vista y el controlador en sus respectivas listas
+            loadedViews.put("materia", root);
+            loadedControllers.put("materia", materiaController);
+
+            System.out.println("Controller de Materia almacenado correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al cargar el controlador de Materia: " + e.getMessage());
+        }
+    }
 
     public static Scene getScene() {
         return scene;

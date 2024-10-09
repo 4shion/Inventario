@@ -1061,10 +1061,7 @@ public class MateriaController extends App implements Initializable{
             System.out.println("Error: No se encontró el controlador de pedidos/.");
         }
     }
-<<<<<<< HEAD
 
-}
-=======
     
     @FXML
     public void manualUsuario(ActionEvent event) {
@@ -1081,8 +1078,7 @@ public class MateriaController extends App implements Initializable{
                System.out.println("El archivo CHM no existe.");
            }
         }
-        
-    }
->>>>>>> diseño
+    
+}
 
 
