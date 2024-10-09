@@ -696,6 +696,7 @@ public class ProveedorController implements Initializable {
         if (materiaController != null) {
             // Volver a cargar los datos de la tabla
             materiaController.mostrarDatos();
+            materiaController.cargarProveedor();
         } else {
             System.out.println("Error: No se encontro el controlador de Materia.");
         }

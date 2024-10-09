@@ -654,7 +654,7 @@ public class MateriaController extends App implements Initializable{
        
    }
     
-    private void cargarProveedor() {
+    public void cargarProveedor() {
         
         listaProveedor = FXCollections.observableArrayList(p.consulta());
         for (proveedor object : listaProveedor) {
