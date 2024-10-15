@@ -4,7 +4,6 @@
  */
 package com.mycompany.inventario;
 
-import com.mycompany.inventario.campos.GestorContra;
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.usuario;

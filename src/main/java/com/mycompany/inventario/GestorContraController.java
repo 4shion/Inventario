@@ -7,7 +7,6 @@ package com.mycompany.inventario;
 import com.mycompany.inventario.campos.GestorContra;
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.historial;
-import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
@@ -162,15 +161,20 @@ public class GestorContraController implements Initializable {
     @FXML
     private void Olvidar(ActionEvent event) {
 
+        if (cbmUsuario.getSelectionModel().getSelectedItem() == null) {
+            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Por favor seleccione un usuario antes de continuar");
+            return;
+        }
+        u.setNombre(cbmUsuario.getSelectionModel().getSelectedItem());
+        
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Recuperar Contraseña");
         dialog.setHeaderText("Introduzca el código de recuperación");
         dialog.setContentText("Código:");
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
-
         Optional<String> result = dialog.showAndWait();
-
+        
         result.ifPresent(codigoIngresado -> {
             if (g.verificarCodAdmi(codigoIngresado)) {
                 alert.ShowAlert(Alert.AlertType.CONFIRMATION, "Código Correcto", "Puede proceder a cambiar su contraseña.");
@@ -184,7 +188,7 @@ public class GestorContraController implements Initializable {
                 cbmUsuario.setValue(null);
                 txtContraA.setDisable(true);
                 btnOlvidar.setDisable(true);
-                textNombre.setText(cbmUsuario.getSelectionModel().getSelectedItem());
+                textNombre.setText(u.getNombre());
                 
             } else {
                 alert.ShowAlert(Alert.AlertType.ERROR, "Código Incorrecto", "El código de recuperación ingresado no es válido.");

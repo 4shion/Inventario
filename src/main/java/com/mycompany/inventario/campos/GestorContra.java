@@ -76,7 +76,7 @@ public class GestorContra extends conexion {
     
     public boolean verificarCodAdmi(String contraIngresada){
         
-        String sqlAdmi = "SELECT codigoAdmin FROM Usuario WHERE codigoAdmin is NOT NULL and != false";
+        String sqlAdmi = "SELECT codigoAdmin FROM Usuario WHERE codigoAdmin is NOT NULL and estado != false";
         
         try (Connection con = getCon();
             PreparedStatement pstmtAdmi = con.prepareStatement(sqlAdmi)) {
