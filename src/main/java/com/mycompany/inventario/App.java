@@ -1,5 +1,4 @@
 package com.mycompany.inventario;
-import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.clases.alertas;
 import com.mycompany.inventario.clases.conexion;
 import javafx.application.Application;

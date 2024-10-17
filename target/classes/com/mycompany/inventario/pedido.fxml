@@ -46,11 +46,6 @@
                   <Font name="Corbel" size="16.0" />
                </font>
             </Text>
-            <Button fx:id="BtnFactura" layoutX="681.0" layoutY="443.0" mnemonicParsing="false" onAction="#Factura" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Generar Factura" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
             <TextField fx:id="TxtCant" focusTraversable="false" layoutX="638.0" layoutY="14.0" prefHeight="25.0" prefWidth="86.0" />
             <Button fx:id="BtnAgregar" layoutX="735.0" layoutY="14.0" mnemonicParsing="false" onAction="#Agregar" prefHeight="25.0" prefWidth="42.0" style="-fx-background-color: grey;" text="+" textFill="WHITE">
                <font>
@@ -69,7 +64,7 @@
                   <Font name="Corbel" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="BtnPedidos" layoutX="564.0" layoutY="443.0" mnemonicParsing="false" onAction="#GenerarPedido" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Obtener Pedidos" textFill="WHITE">
+            <Button fx:id="BtnPedidos" layoutX="680.0" layoutY="444.0" mnemonicParsing="false" onAction="#GenerarPedido" style="-fx-background-radius: 100; -fx-background-color: #ad1316;" text="Obtener Pedidos" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

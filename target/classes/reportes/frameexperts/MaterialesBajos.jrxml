@@ -239,7 +239,7 @@ WHERE
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="50">
+		<band height="66">
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="0" y="0" width="79" height="20" uuid="2bdb7f4e-ade4-4f4e-9f30-b433fb491c19">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2f04370-9c45-467a-af8f-749f888b0104"/>
@@ -313,7 +313,7 @@ WHERE
 				<text><![CDATA[Nombre:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="40" width="556" height="1" uuid="45c50112-76cd-4b66-a836-5a24bc6d4f09">
+				<reportElement x="0" y="52" width="556" height="1" uuid="45c50112-76cd-4b66-a836-5a24bc6d4f09">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

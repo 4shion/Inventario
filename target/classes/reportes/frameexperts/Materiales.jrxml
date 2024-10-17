@@ -216,7 +216,7 @@ FROM frameexperts.materiaprima mp
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="62">
+		<band height="77">
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="0" y="2" width="92" height="20" uuid="9371a4c1-1a87-4a88-9bf6-0bb37e694e41">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f59fdcde-a115-49ee-b2f6-696203f45967"/>
@@ -290,7 +290,7 @@ FROM frameexperts.materiaprima mp
 				<textFieldExpression><![CDATA[$F{nombreProveedor}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="42" width="556" height="1" uuid="2a5fa292-f0ed-47af-b19d-4aab63c30db0">
+				<reportElement x="0" y="71" width="556" height="1" uuid="2a5fa292-f0ed-47af-b19d-4aab63c30db0">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

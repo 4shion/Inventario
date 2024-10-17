@@ -402,13 +402,6 @@ public class ProveedorController implements Initializable {
         one.setCorreo(txtCorreo.getText());
         one.setTelefono(txtTelefono.getText());
         
-        if(one.existeProveedor()){
-            
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "El proveedor ya existe");
-            return;
-            
-        }
-        
         if(modificar){
             
             one.setId(Integer.parseInt(txtId.getText()));

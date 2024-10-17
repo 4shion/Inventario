@@ -2,7 +2,6 @@ package com.mycompany.inventario;
 
 import com.mycompany.inventario.campos.Login;
 import com.mycompany.inventario.campos.cliente;
-import com.mycompany.inventario.campos.factura;
 import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.materia;
 import com.mycompany.inventario.campos.pedido;
@@ -55,7 +54,6 @@ public class PedidoController implements Initializable {
     @FXML private TableColumn<pedido, String> ColumStock;
     @FXML private ComboBox<String> CbmMateriales;
     @FXML private Text txtCosto;
-    @FXML private Button BtnFactura;
     @FXML private TextField TxtCant;
     @FXML private Button BtnAgregar;
     @FXML private Button btnEliminar;
@@ -69,7 +67,6 @@ public class PedidoController implements Initializable {
     private ObservableList<materia> listaMateriales;
     private alertas alert = new alertas();
     private pedido p = new pedido();
-    private factura f = new factura();
     private cliente client = new cliente();
     private reportes r = new reportes();
     private MainController main = new MainController();
@@ -95,10 +92,6 @@ public class PedidoController implements Initializable {
     private TextField correoCliente;
     @FXML
     private TextField telfCliente;
-    @FXML
-    private TextField numFactura;
-    @FXML
-    private ImageView engranaje1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,7 +119,6 @@ public class PedidoController implements Initializable {
             BtnAgregar.setDisable(false);
             btnEliminar.setDisable(false);
             btnNoName.setDisable(false);
-            BtnFactura.setDisable(false);
             btnLimpiar.setDisable(false);
             BtnPedidos.setDisable(false);
             
@@ -136,7 +128,6 @@ public class PedidoController implements Initializable {
             CbmMateriales.setDisable(true);
             
             BtnAgregar.setTooltip(TextButton(h));
-            BtnFactura.setTooltip(TextButton(h));
             btnEliminar.setTooltip(TextButton(h));
             btnGuardar.setTooltip(TextButton(h));
             btnNoName.setTooltip(TextButton(h));
@@ -177,15 +168,6 @@ public class PedidoController implements Initializable {
                     return;
                 }
                 System.out.println("Botón Cliente Sin Nombre ha sido presionado.");
-            });
-            
-            BtnFactura.setOnAction(event -> {
-                boolean shouldCancel = true;
-                if (shouldCancel) {
-                    event.consume();
-                    return;
-                }
-                System.out.println("Botón Factura ha sido presionado.");
             });
             
             btnLimpiar.setOnAction(event -> {
@@ -294,7 +276,6 @@ public class PedidoController implements Initializable {
             alerta1.showAndWait(); // Esperar a que el usuario cierre la alerta     
             
             p.searchId();
-            f.setIdPedido(p.getIdPedido());
 
             List<String> materialesPorDebajoMinimo = new ArrayList<>();
             for (int i = 0; i < numFilas; i++) {
@@ -316,21 +297,6 @@ public class PedidoController implements Initializable {
                 stageMateriales.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
                 alertaMateriales.showAndWait();
             }
-
-            // Mostrar la segunda alerta para generar factura
-            Alert alerta2 = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta2.setHeaderText(null);
-            alerta2.setContentText("¿Desea generar factura del pedido?");
-            Stage stage = (Stage) alerta2.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
-            ButtonType btnSi = new ButtonType("Sí");
-            ButtonType btnNo = new ButtonType("No");
-            alerta2.getButtonTypes().setAll(btnSi, btnNo);
-
-            Optional<ButtonType> result = alerta2.showAndWait();
-            if (result.get() == btnSi) {
-                Factura(event);
-            }
             
         } else {
             alert.ShowAlert(Alert.AlertType.ERROR, "Aviso", "No se ha podido insertar correctamente");
@@ -338,6 +304,7 @@ public class PedidoController implements Initializable {
         
         CbmMateriales.getSelectionModel().clearSelection();
         cargarMaterial();
+        limpiarCampos();
         
     }
 
@@ -412,60 +379,7 @@ public class PedidoController implements Initializable {
             Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al agregar el pedido", e);
         }
     }
-
-    @FXML
-    private void Factura(ActionEvent event) {
-        
-        if (f.getIdPedido() == null) {
-            alert.ShowAlert(Alert.AlertType.ERROR, "Error", "Debe guardar el pedido antes de generar la factura.");
-            return;
-        }
-        
-        f.setSubTotal(calcularSubtotal());
-        f.setTotal(calcularTotal());
-        client.buscarDatosCliente(txtNomCliente.getText());
-        f.setIdcliente(client.getId());
-        f.insertar();
-        f.obtenerNumFac();
-        int numFactura = f.getNumFactura();
-
-        try {
-            String ubicacion = "/reportes/frameexperts/factura.jasper";
-            String titulo = "Factura N~" + numFactura;
-            System.out.println(f.getSubTotal());
-            System.out.println(f.getTotal());
-            JasperPrint jasperPrint = r.generarFactura(ubicacion, titulo, numFactura);
-            
-            String ruta = rut.obtenerRutaDescargas();
-            String relativePath = ruta + "/Factura_" + numFactura + ".pdf";
     
-            // Crear un objeto File con la ruta relativa
-            File file = new File(relativePath);
-
-            try {
-                // Exportar el reporte a la ruta relativa
-                JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
-                System.out.println("Reporte generado correctamente en " + file.getPath());
-            } catch (JRException e) {
-                System.out.println("Error al generar el reporte");
-                e.printStackTrace();
-            }
-            
-        } catch (Exception e) {
-            Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, "Error al generar el reporte", e);
-        }
-        
-        limpiarCampos();
-        table.getItems().clear();
-        txtNomCliente.setDisable(false);
-        btnEliminar.setDisable(true);
-        btnGuardar.setDisable(false);
-        CbmMateriales.setDisable(false);
-        CbmMateriales.getSelectionModel().clearSelection();
-        cargarMaterial();
-        f.setIdPedido(null);
-    }
-
     @FXML
     private void Config(ActionEvent event) {
 
@@ -682,24 +596,7 @@ public class PedidoController implements Initializable {
         main.abrirformularios("pswdAdmin.fxml", "Ingrese su contraseña de Administrador");
     
     }
-
-    @FXML
-    private void bajarPDF(ActionEvent event) {
-        
-        String filePath = getClass().getResource("/ayuda/manualFrameExperts.hnd").getPath();
-        File file = new File(filePath);
-          if (file.exists()) {
-                try {
-                    Desktop.getDesktop().open(file);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-          } else {
-              System.out.println("El archivo CHM no existe.");
-          }
-        
-    }
-
+    
     @FXML
     private void NoName(ActionEvent event) {
         
