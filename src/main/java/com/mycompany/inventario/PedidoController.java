@@ -304,6 +304,7 @@ public class PedidoController implements Initializable {
         
         CbmMateriales.getSelectionModel().clearSelection();
         cargarMaterial();
+        table.getItems().clear();
         limpiarCampos();
         
     }

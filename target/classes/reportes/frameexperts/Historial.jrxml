@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Historial" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
@@ -196,7 +196,7 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 	</columnHeader>
 	<detail>
 		<band height="45">
-			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="0" y="6" width="100" height="38" uuid="bc3e7dff-eab2-47d9-887d-8a692b9d072f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6c68642-0576-4bdd-881a-00d099e5f7bc"/>
 				</reportElement>
@@ -205,7 +205,7 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="100" y="6" width="138" height="38" uuid="a5911346-73eb-4066-9545-a4eb54357788">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="399b91f8-5b06-4887-9dee-787cf1e9eb62"/>
 				</reportElement>
@@ -214,7 +214,7 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{accion}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="238" y="6" width="138" height="38" uuid="507c9510-ce89-49a1-89a1-1de88ef0356e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="61bb71ed-ffc0-429a-81ad-e4884ef01d77"/>
 				</reportElement>
@@ -223,7 +223,7 @@ ORDER BY frameexperts.historial.fecha DESC]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" x="376" y="6" width="157" height="38" uuid="0f3a3291-63d0-40ed-9aaf-7a18cc98230d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7960897c-8574-4182-84ea-f1162682d217"/>
 				</reportElement>
