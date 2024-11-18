@@ -284,7 +284,7 @@ public class usuario extends conexion implements sentencias {
     
     public boolean existeUsuario(String nombre) {
         
-        String query = "SELECT COUNT(*) FROM Usuario WHERE nombre = ? and estado != false";
+        String query = "SELECT COUNT(*) FROM usuario WHERE nombre = ? and estado != false";
         try (Connection con=getCon();
              PreparedStatement stmt=con.prepareStatement(query)) {
             stmt.setString(1, nombre);
@@ -299,7 +299,7 @@ public class usuario extends conexion implements sentencias {
     }
     
     public void buscarUsuario(String nombreUsuario) {
-        String consulta = "SELECT IdUsuario FROM Usuario WHERE nombre = ? and estado != false";
+        String consulta = "SELECT IdUsuario FROM usuario WHERE nombre = ? and estado != false";
 
         try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
             stmt.setString(1, nombreUsuario);

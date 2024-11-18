@@ -76,8 +76,8 @@ public class PerfilAdmin extends conexion {
         // Encripta la contraseña antes de guardarla
         String contraseñaEncriptada = encriptador.hash(this.codigo);
 
-        String sql = "update usuario set codigoAdmin = ?, nombre = ?, correo = ?, codigo = ?"
-                    + " where codigoAdmin is NOT NULL and estado != false";
+        String sql = "UPDATE usuario SET codigoAdmin = ?, nombre = ?, correo = ?, codigo = ?"
+                    + " WHERE codigoAdmin IS NOT NULL and estado != false";
 
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql)) {
@@ -98,7 +98,7 @@ public class PerfilAdmin extends conexion {
     public ArrayList Consulta(){
         
         ArrayList<PerfilAdmin> perfilA = new ArrayList<>();
-        String sql = "select * from usuario where codigoAdmin is not NULL and estado != false";
+        String sql = "SELECT * FROM usuario WHERE codigoAdmin IS NOT NULL and estado != false";
         
         try(
 

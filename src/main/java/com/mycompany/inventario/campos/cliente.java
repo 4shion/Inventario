@@ -83,7 +83,7 @@ public class cliente extends conexion implements sentencias{
     public boolean insertar() {
         
         
-        String sql = "insert into cliente values(null, ?, ?, ?, true)";
+        String sql = "INSERT INTO cliente VALUES(NULL, ?, ?, ?, true)";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))
@@ -110,7 +110,7 @@ public class cliente extends conexion implements sentencias{
     public ArrayList consulta() {
         
         ArrayList<cliente> clientes = new ArrayList<>();
-        String sql = "select c.idCliente, c.nombre, c.correo, c.telefono from cliente c where nombre != 'Sin nombre' and estado != false";
+        String sql = "SELECT c.idCliente, c.nombre, c.correo, c.telefono FROM cliente c WHERE nombre != 'Sin nombre' and estado != false";
         
         try(
             Connection con = getCon();
@@ -142,8 +142,8 @@ public class cliente extends conexion implements sentencias{
     @Override
     public boolean modificar() {
         
-        String sql = "update cliente set nombre = ?, correo = ?, telefono = ?"
-                + " where idCliente = ?";
+        String sql = "UPDATE cliente SET nombre = ?, correo = ?, telefono = ?"
+                + " WHERE idCliente = ?";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))
@@ -169,7 +169,7 @@ public class cliente extends conexion implements sentencias{
     @Override
     public boolean eliminar() {
         
-        String sql = "update cliente set estado = false where idCliente = ?";
+        String sql = "UPDATE cliente SET estado = false WHERE idCliente = ?";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))
@@ -192,7 +192,7 @@ public class cliente extends conexion implements sentencias{
         String correo;
         int idC;
         int telf;
-        String consulta = "SELECT correo, telefono, IdCliente FROM Cliente WHERE nombre = ? and estado != false";
+        String consulta = "SELECT correo, telefono, IdCliente FROM cliente WHERE nombre = ? and estado != false";
 
         try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
             stmt.setString(1, nombreCliente);
@@ -215,7 +215,7 @@ public class cliente extends conexion implements sentencias{
     }
     
     public boolean existeCliente() {
-        String query = "SELECT COUNT(*) FROM Cliente WHERE nombre = ? and estado != false";
+        String query = "SELECT COUNT(*) FROM cliente WHERE nombre = ? and estado != false";
         try (Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(query)) {
             

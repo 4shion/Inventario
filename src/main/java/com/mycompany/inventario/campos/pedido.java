@@ -176,11 +176,11 @@ public class pedido extends conexion {
     
     public ArrayList<pedido> consulta() {
         ArrayList<pedido> pedidos = new ArrayList<>();
-        String sql = "SELECT pedido.*, detallepedido.*, cliente.nombre AS nombreC, materiaPrima.nombre AS nombreM, detallepedido.cantidad, materiaPrima.precio, materiaPrima.UnidadMedida AS uni "
+        String sql = "SELECT pedido.*, detallepedido.*, cliente.nombre AS nombreC, materiaprima.nombre AS nombreM, detallepedido.cantidad, materiaprima.precio, materiaprima.UnidadMedida AS uni "
                    + "FROM pedido "
                    + "LEFT JOIN detallepedido ON detallepedido.Pedido_idPedido = pedido.idPedido "
                    + "LEFT JOIN cliente ON pedido.Cliente_idCliente = cliente.idCliente "
-                   + "LEFT JOIN materiaPrima ON detallepedido.materiaPrima_idMaterial = materiaPrima.idMaterial";
+                   + "LEFT JOIN materiaprima ON detallepedido.materiaprima_idMaterial = materiaprima.idMaterial";
 
         try (Connection con = getCon();
              Statement stm = con.createStatement();
@@ -217,9 +217,9 @@ public class pedido extends conexion {
     public boolean insertar() {
         obtenerIdClientePorNombre(nombreC);
         setListaMaterialesId(obtenerIdMaterial(listaMaterialesN));
-        String sqlPedido = "INSERT INTO Pedido (idPedido, servicio, fecha, totalPedido, Cliente_idCliente) VALUES (null, ?, ?, ?, ?)";
-        String sqlDetalle = "INSERT INTO detallePedido (Pedido_idPedido, materiaPrima_idMaterial, cantidad) VALUES (?, ?, ?)";
-        String sqlUpdateStock = "UPDATE materiaPrima SET cantidad = cantidad - ? WHERE idMaterial = ?";
+        String sqlPedido = "INSERT INTO pedido (idPedido, servicio, fecha, totalPedido, Cliente_idCliente) VALUES (null, ?, ?, ?, ?)";
+        String sqlDetalle = "INSERT INTO detallepedido (Pedido_idPedido, materiaPrima_idMaterial, cantidad) VALUES (?, ?, ?)";
+        String sqlUpdateStock = "UPDATE materiaprima SET cantidad = cantidad - ? WHERE idMaterial = ?";
 
         try (Connection con = getCon()) {
             con.setAutoCommit(false);
@@ -285,7 +285,7 @@ public class pedido extends conexion {
     }
 
     public int[] obtenerIdMaterial(String[] listaM) {
-        String sql = "SELECT idMaterial FROM materiaPrima WHERE nombre = ?";
+        String sql = "SELECT idMaterial FROM materiaprima WHERE nombre = ?";
         int[] listaMaterialesIds = new int[listaM.length];
 
         try (Connection con = getCon();
@@ -319,7 +319,7 @@ public class pedido extends conexion {
     }
 
     private Object obtenerValorMaterial(String columna, String nombreMaterial) {
-        String query = "SELECT " + columna + " FROM materiaPrima WHERE nombre = ?";
+        String query = "SELECT " + columna + " FROM materiaprima WHERE nombre = ?";
         try (Connection con = getCon();
              PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setString(1, nombreMaterial);

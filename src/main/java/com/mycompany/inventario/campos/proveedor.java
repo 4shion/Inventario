@@ -207,7 +207,7 @@ public class proveedor extends conexion implements sentencias {
     }
     
     public boolean existeProveedor() {
-        String query = "SELECT COUNT(*) FROM Proveedor WHERE nombre = ? and estado != false";
+        String query = "SELECT COUNT(*) FROM proveedor WHERE nombre = ? and estado != false";
         try (Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(query)) {
             

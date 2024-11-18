@@ -115,7 +115,7 @@ public class materia extends conexion implements sentencias {
     
     @Override
     public boolean insertar() {
-        String sql="insert into materiaPrima(idMaterial,nombre,precio,cantidad,cantidad_min,Proveedor_idProveedor,UnidadMedida, estado) values(?,?,?,?,?,?,?,true)";
+        String sql="INSERT INTO materiaprima(idMaterial,nombre,precio,cantidad,cantidad_min,Proveedor_idProveedor,UnidadMedida, estado) VALUES(?,?,?,?,?,?,?,true)";
                 try( 
                     Connection con=getCon();
                     PreparedStatement stm=con.prepareStatement(sql)){
@@ -174,7 +174,7 @@ public class materia extends conexion implements sentencias {
     @Override
     public boolean modificar() {
         
-        String sql="UPDATE materiaPrima SET nombre=?,precio=?,cantidad=?,cantidad_min=?,Proveedor_idProveedor=?,UnidadMedida=? WHERE idMaterial=?"; 
+        String sql="UPDATE materiaprima SET nombre=?,precio=?,cantidad=?,cantidad_min=?,Proveedor_idProveedor=?,UnidadMedida=? WHERE idMaterial=?"; 
         
         try( 
                Connection con=getCon();
@@ -202,7 +202,7 @@ public class materia extends conexion implements sentencias {
     @Override
     public boolean eliminar() {
         
-        String sql = "update materiaPrima set estado = false where idMateria = ?";
+        String sql = "UPDATE materiaprima SET estado = false WHERE idMateria = ?";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))
@@ -236,7 +236,7 @@ public class materia extends conexion implements sentencias {
     
     public boolean existeMaterial(String nombre) {
         
-        String query = "SELECT COUNT(*) FROM materiaPrima WHERE nombre = ? and estado != false";
+        String query = "SELECT COUNT(*) FROM materiaprima WHERE nombre = ? and estado != false";
         try (Connection con=getCon();
              PreparedStatement stmt=con.prepareStatement(query)) {
             stmt.setString(1, nombre);
@@ -251,7 +251,7 @@ public class materia extends conexion implements sentencias {
     }
     
     public void buscarCantMaterial(String nombreMaterial) {
-        String consulta = "SELECT cantidad, cantidad_min FROM materiaPrima WHERE nombre = ? and estado != false";
+        String consulta = "SELECT cantidad, cantidad_min FROM materiaprima WHERE nombre = ? and estado != false";
 
         try (PreparedStatement stmt = getCon().prepareStatement(consulta)) {
             stmt.setString(1, nombreMaterial);
@@ -271,7 +271,7 @@ public class materia extends conexion implements sentencias {
     public List<materia> obtenerListaMateriales() {
         List<materia> listaMateriales = new ArrayList<>();
 
-        String query = "SELECT nombre, cantidad, cantidad_min, UnidadMedida FROM materiaPrima where estado != false";
+        String query = "SELECT nombre, cantidad, cantidad_min, UnidadMedida FROM materiaprima WHERE estado != false";
 
         try (Connection conn = getCon(); 
              PreparedStatement pstmt = conn.prepareStatement(query); 
@@ -303,7 +303,7 @@ public class materia extends conexion implements sentencias {
     }
     
     public boolean verificarStockBajo() {
-        String sql = "SELECT COUNT(*) FROM materiaPrima WHERE cantidad < cantidad_min and estado != false";
+        String sql = "SELECT COUNT(*) FROM materiaprima WHERE cantidad < cantidad_min and estado != false";
 
         try (Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
             ResultSet rs = stm.executeQuery();

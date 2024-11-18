@@ -63,8 +63,8 @@ public class Administrador extends conexion {
         
         String codEncriptado = encriptacion.hash(this.cod);
         
-        String sqlUsuario = "INSERT INTO usuario (codigoAdmin, nombre, IdUsuario, correo, codigo, estado) VALUES (?, ?, NULL, ?, ?, true)";
-        String sqlPermisos = "INSERT INTO permisos (materiales, pedido, cliente, facturacion, proveedores, usuarios, Usuario_idUsuario) VALUES (?, ?, ?, ?, ?, ?, LAST_INSERT_ID())";
+        String sqlUsuario = "INSERT INTO usuario (codigoAdmin, nombre, idUsuario, correo, codigo, estado) VALUES (?, ?, NULL, ?, ?, true)";
+        String sqlPermisos = "INSERT INTO permisos (materiales, pedido, Cliente, facturacion, proveedores, usuarios, Usuario_idUsuario) VALUES (?, ?, ?, ?, ?, ?, LAST_INSERT_ID())";
         
         try (Connection con = getCon();
              PreparedStatement stmUsuario = con.prepareStatement(sqlUsuario);

@@ -33,10 +33,10 @@ public class conexion {
     
     public conexion() {
     
-        this.base = "frameexperts";
-        this.host = "localhost";
-        this.usuario = "root";
-        this.contra = "";
+        this.base = "b18wqy0mvtwaylhk23wv";
+        this.host = "b18wqy0mvtwaylhk23wv-mysql.services.clever-cloud.com";
+        this.usuario = "utoro35wgscmr1jw";
+        this.contra = "7WnuqlO2LC6SZb6bw6xD";
         
     }
 
