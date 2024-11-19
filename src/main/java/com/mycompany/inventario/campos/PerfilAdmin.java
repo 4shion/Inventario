@@ -95,7 +95,7 @@ public class PerfilAdmin extends conexion {
         }
         
     }
-    public ArrayList Consulta(){
+    public ArrayList<PerfilAdmin> Consulta(){
         
         ArrayList<PerfilAdmin> perfilA = new ArrayList<>();
         String sql = "SELECT * FROM usuario WHERE codigoAdmin IS NOT NULL and estado != false";

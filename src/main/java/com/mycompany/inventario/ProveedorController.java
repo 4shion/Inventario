@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -348,7 +349,7 @@ public class ProveedorController implements Initializable {
         alerta1.setHeaderText(null);
         alerta1.setContentText("¿Desea dar de baja el registro seleccionado?");
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+        stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
         Optional<ButtonType> opcion = alerta1.showAndWait();
 
         if (opcion.isPresent() && opcion.get() == ButtonType.OK) {
@@ -504,12 +505,13 @@ public class ProveedorController implements Initializable {
     
     public void mostrardatos(){
         
-    lista = FXCollections.observableArrayList(one.consulta());
+    List<proveedor> proveedores = one.consulta();
+    ObservableList<proveedor> lista = FXCollections.observableArrayList(proveedores);
     ColumID.setCellValueFactory(new PropertyValueFactory<>("id"));
     ColumNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     ColumCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
     ColumTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-    table.setItems(lista);
+    table.setItems(lista);  
         
     }
 

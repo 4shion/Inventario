@@ -107,7 +107,7 @@ public class cliente extends conexion implements sentencias{
     }
 
     @Override
-    public ArrayList consulta() {
+    public ArrayList<cliente> consulta() {
         
         ArrayList<cliente> clientes = new ArrayList<>();
         String sql = "SELECT c.idCliente, c.nombre, c.correo, c.telefono FROM cliente c WHERE nombre != 'Sin nombre' and estado != false";

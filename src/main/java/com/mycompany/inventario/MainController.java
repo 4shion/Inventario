@@ -469,7 +469,7 @@ public class MainController extends conexion implements Initializable {
             alertaStockBajo.setHeaderText("Stock bajo");
             alertaStockBajo.setContentText(mensaje.toString());
             Stage stage = (Stage) alertaStockBajo.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
             alertaStockBajo.showAndWait();
         }
     }

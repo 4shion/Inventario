@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -416,7 +417,7 @@ public class MateriaController extends App implements Initializable{
         alerta1.setHeaderText(null);
         alerta1.setContentText("¿Desea dar de baja el registro seleccionado?");
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+        stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
         if(opcion.get() == ButtonType.OK){
@@ -520,7 +521,7 @@ public class MateriaController extends App implements Initializable{
                 alerta2.setHeaderText(null);
                 alerta2.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea continuar?");
                 Stage stage = (Stage) alerta2.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
                 ButtonType btnSi = new ButtonType("Sí");
                 ButtonType btnNo = new ButtonType("No");
                 alerta2.getButtonTypes().setAll(btnSi, btnNo);
@@ -592,7 +593,7 @@ public class MateriaController extends App implements Initializable{
             alerta.setHeaderText(null);
             alerta.setContentText("Error en el formato de número: " + e.getMessage());
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
             alerta.show();
             
         }
@@ -641,7 +642,10 @@ public class MateriaController extends App implements Initializable{
     
     public void mostrarDatos(){
         
-       listaMateria = FXCollections.observableArrayList(m.consulta());
+       List<materia> listaMateriales = m.consulta();
+
+    // Convertir el List a ObservableList
+       ObservableList<materia> listaMateria = FXCollections.observableArrayList(listaMateriales);
        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
        colProveedor.setCellValueFactory(new PropertyValueFactory<>("nombreproveedor"));
@@ -738,7 +742,7 @@ public class MateriaController extends App implements Initializable{
             alerta3.setHeaderText(null);
             alerta3.setContentText("La Cantidad Total es inferior a la Cantidad mínima. ¿Desea visualizar los datos del proveedor?");
             Stage stage = (Stage) alerta3.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
             ButtonType btnSi = new ButtonType("Sí");
             ButtonType btnNo = new ButtonType("No");
             alerta3.getButtonTypes().setAll(btnSi, btnNo);
@@ -760,7 +764,7 @@ public class MateriaController extends App implements Initializable{
                     "Teléfono: " + proveedorTelefono
                 );
                 Stage stageP = (Stage) alertaProveedor.getDialogPane().getScene().getWindow();
-                stageP.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                stageP.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
                 alertaProveedor.showAndWait();
                 
             }
@@ -954,7 +958,7 @@ public class MateriaController extends App implements Initializable{
             alertaConfirmacion.setHeaderText("¿Qué stock deseas visualizar?");
             alertaConfirmacion.setContentText("Selecciona el tipo de stock que deseas ver:");
             Stage stage = (Stage) alertaConfirmacion.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
 
             ButtonType btnStockActual = new ButtonType("Stock Actual");
             ButtonType btnStockBajo = new ButtonType("Stock Bajo");

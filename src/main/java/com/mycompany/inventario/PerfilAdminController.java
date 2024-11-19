@@ -10,7 +10,10 @@ import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -131,7 +134,11 @@ public class PerfilAdminController implements Initializable {
     
     public void mostrasdatos(){
         
-        ArrayList<PerfilAdmin> perfiles = p.Consulta();  
+        List<PerfilAdmin> perfiles = p.Consulta();
+
+        // Convertir el List a ObservableList
+        ObservableList<PerfilAdmin> listaPerfiles = FXCollections.observableArrayList(perfiles);
+ 
         PerfilAdmin perfil = perfiles.get(0);
         
         txtNombre.setText(perfil.getNombre());

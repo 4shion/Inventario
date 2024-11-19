@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -286,7 +287,7 @@ public class ClienteController implements Initializable {
         alerta1.setTitle("Aviso");
         alerta1.setHeaderText(null);
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+        stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
         alerta1.setContentText("¿Desea dar de baja a este cliente?");
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
@@ -450,7 +451,10 @@ public class ClienteController implements Initializable {
     
     public void mostrardatos(){
         
-        lista = FXCollections.observableArrayList(one.consulta());
+        List<cliente> listaClientesList = one.consulta();
+
+        // Convertir el List a ObservableList
+        ObservableList<cliente> lista = FXCollections.observableArrayList(listaClientesList); 
         ColumID.setCellValueFactory(new PropertyValueFactory<>("id"));
         ColumNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         ColumCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));

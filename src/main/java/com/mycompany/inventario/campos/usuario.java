@@ -182,7 +182,7 @@ public class usuario extends conexion implements sentencias {
     }
 
     @Override
-    public ArrayList consulta() {
+    public ArrayList<usuario> consulta() {
         
         ArrayList<usuario> usuarios = new ArrayList<>();
         String sql = "SELECT u.idUsuario, u.nombre, u.correo, u.codigo, u.codigoAdmin, " +

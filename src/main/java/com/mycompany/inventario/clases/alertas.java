@@ -8,26 +8,24 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-/**
- *
- * @author User
- */
 public class alertas {
-    
-    public alertas(){
 
+    // Constructor vacío
+    public alertas() {
     }
     
+    // Método estático para mostrar alertas
     public static void ShowAlert(Alert.AlertType Alerta, String titulo, String contenido) {
-        
         Alert alert = new Alert(Alerta);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(contenido);
+
+        // Usamos alertas.class para obtener la clase actual
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+        Image image = new Image(alertas.class.getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm());
+        stage.getIcons().add(image);
+
         alert.show();
-        
     }
-    
 }

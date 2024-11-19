@@ -440,7 +440,7 @@ public class UsuarioController implements Initializable {
         alerta1.setHeaderText(null);
         alerta1.setContentText("¿Desea dar de baja al usuario seleccionado?");
         Stage stage = (Stage) alerta1.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+        stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
         Optional<ButtonType> opcion = alerta1.showAndWait();
         
         if(opcion.get() == ButtonType.OK){

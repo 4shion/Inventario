@@ -135,7 +135,7 @@ public class materia extends conexion implements sentencias {
     }
 
     @Override
-    public ArrayList consulta() {
+    public ArrayList<materia> consulta() {
         
         ArrayList<materia> materia=new ArrayList<>();
 

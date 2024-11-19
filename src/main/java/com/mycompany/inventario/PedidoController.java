@@ -272,7 +272,7 @@ public class PedidoController implements Initializable {
             alerta1.setContentText("Insertado correctamente");
             hs.insert("Crear", "El usuario " + login.getUsuarioActual() + " ha realizado un pedido con fecha " + p.getFechaActual(), login.getUsuarioActual());
             Stage stage1 = (Stage) alerta1.getDialogPane().getScene().getWindow();
-            stage1.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            stage1.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
             alerta1.showAndWait(); // Esperar a que el usuario cierre la alerta     
             
             p.searchId();
@@ -294,7 +294,7 @@ public class PedidoController implements Initializable {
                 alertaMateriales.setContentText("Los siguientes materiales están por debajo de la cantidad mínima:\n" + 
                     String.join("\n", materialesPorDebajoMinimo));
                 Stage stageMateriales = (Stage) alertaMateriales.getDialogPane().getScene().getWindow();
-                stageMateriales.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                stageMateriales.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
                 alertaMateriales.showAndWait();
             }
             
@@ -439,7 +439,11 @@ public class PedidoController implements Initializable {
     }
 
     public void cargarMaterial() {
-        listaMateriales = FXCollections.observableArrayList(new materia().consulta());
+        List<materia> listaMaterialesList = new materia().consulta();
+
+        // Convertir el List a ObservableList
+        ObservableList<materia> listaMateriales = FXCollections.observableArrayList(listaMaterialesList);
+
         
         CbmMateriales.getItems().clear();
         

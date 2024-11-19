@@ -10,6 +10,7 @@ import com.mycompany.inventario.campos.historial;
 import com.mycompany.inventario.campos.usuario;
 import com.mycompany.inventario.clases.alertas;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -115,8 +116,8 @@ public class GestorContraController implements Initializable {
     }    
     
     public void cargarUsuario() {
-        listaUsuario = FXCollections.observableArrayList(new usuario().consulta());
-        
+        List<usuario> usuarios = new usuario().consulta();  // Obtener la lista de usuarios
+        ObservableList<usuario> listaUsuario = FXCollections.observableArrayList(usuarios);  // Convertir a ObservableList        
         cbmUsuario.getItems().clear();
         
         cbmUsuario.getItems().addAll(
@@ -172,7 +173,7 @@ public class GestorContraController implements Initializable {
         dialog.setHeaderText("Introduzca el código de recuperación");
         dialog.setContentText("Código:");
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+        stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
         Optional<String> result = dialog.showAndWait();
         
         result.ifPresent(codigoIngresado -> {

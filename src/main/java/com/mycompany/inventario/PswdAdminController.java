@@ -81,7 +81,7 @@ public class PswdAdminController implements Initializable {
                 javafx.application.Platform.runLater(() -> {
                     Alert alertaFinal = new Alert(Alert.AlertType.ERROR, "Demasiados intentos fallidos. Cerrando el programa.");
                     Stage stage = (Stage) alertaFinal.getDialogPane().getScene().getWindow();
-                    stage.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+                    stage.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
                     alertaFinal.setTitle("Aviso");
                     alertaFinal.setHeaderText(null);
                     

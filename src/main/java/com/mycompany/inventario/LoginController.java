@@ -73,7 +73,7 @@ public class LoginController implements Initializable {
             alertSesionIniciada.setHeaderText(null);
             alertSesionIniciada.setContentText("Sesión iniciada correctamente");
             Stage stage1 = (Stage) alertSesionIniciada.getDialogPane().getScene().getWindow();
-            stage1.getIcons().add(new Image("/com/mycompany/inventario/logo_e_corner.png"));
+            stage1.getIcons().add(new Image(getClass().getResource("/com/mycompany/inventario/logo_e_corner.png").toExternalForm()));
             alertSesionIniciada.showAndWait();
             
             

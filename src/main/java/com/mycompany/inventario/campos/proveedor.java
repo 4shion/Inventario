@@ -102,7 +102,7 @@ public class proveedor extends conexion implements sentencias {
     }
 
     @Override
-    public ArrayList consulta() {
+    public ArrayList<proveedor> consulta() {
         
         ArrayList<proveedor> proveedores = new ArrayList<>();
         String sql = "select * from proveedor where estado != false";
