@@ -126,6 +126,11 @@
                             <goal>single</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <!-- Default configuration for running -->
+                        <!-- Usage: mvn clean javafx:run -->
+                        <id>default-cli</id>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

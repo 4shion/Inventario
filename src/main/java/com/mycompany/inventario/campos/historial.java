@@ -70,7 +70,7 @@ public class historial extends conexion{
         
         usu.buscarUsuario(NomUsuario);
         setIdUsuario(usu.getId());
-        String sql = "INSERT INTO historial (idHistorial, accion, fecha, detalle, Usuario_idUsuario) VALUES (null, ?, ?, ?, ?)";
+        String sql = "INSERT INTO historial (idHistorial, accion, fecha, detalle, Usuario_idUsuario) VALUES (NULL, ?, ?, ?, ?)";
         
         try(Connection con = getCon();
             PreparedStatement stm = con.prepareStatement(sql))
