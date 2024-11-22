@@ -2,21 +2,22 @@
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Detalle" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0754547-0c26-4c92-ac77-b0d2ac1ea0b4">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario_Nube"/>
 	<parameter name="ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[new Integer (1)]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT frameexperts.detallepedido.cantidad,
-	frameexperts.detallepedido.`Pedido_idPedido`,
-	frameexperts.materiaprima.nombre,
-	frameexperts.materiaprima.precio,
-	CONCAT(frameexperts.detallepedido.cantidad,frameexperts.materiaprima.UnidadMedida) AS cantidadConUnidad,
-	frameexperts.materiaprima.`UnidadMedida`
-FROM frameexperts.detallepedido
-	INNER JOIN frameexperts.materiaprima ON 
-	 frameexperts.detallepedido.`materiaPrima_idMaterial` = frameexperts.materiaprima.`idMaterial`
-	 WHERE frameexperts.detallepedido.`Pedido_idPedido` = $P{ID}]]>
+		<![CDATA[SELECT b18wqy0mvtwaylhk23wv.detallepedido.cantidad,
+       b18wqy0mvtwaylhk23wv.detallepedido.`Pedido_idPedido`,
+       b18wqy0mvtwaylhk23wv.materiaprima.nombre,
+       b18wqy0mvtwaylhk23wv.materiaprima.precio,
+       CONCAT(b18wqy0mvtwaylhk23wv.detallepedido.cantidad, b18wqy0mvtwaylhk23wv.materiaprima.UnidadMedida) AS cantidadConUnidad,
+       b18wqy0mvtwaylhk23wv.materiaprima.`UnidadMedida`
+FROM b18wqy0mvtwaylhk23wv.detallepedido
+       INNER JOIN b18wqy0mvtwaylhk23wv.materiaprima ON 
+       b18wqy0mvtwaylhk23wv.detallepedido.`materiaPrima_idMaterial` = b18wqy0mvtwaylhk23wv.materiaprima.`idMaterial`
+WHERE b18wqy0mvtwaylhk23wv.detallepedido.`Pedido_idPedido` = $P{ID}
+]]>
 	</queryString>
 	<field name="cantidad" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="cantidad"/>

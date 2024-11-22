@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Materiales" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Inventario_Nube"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
@@ -61,16 +61,17 @@
 	<parameter name="RUTA_IMAGEN" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT mp.nombre AS nombreMaterial,
-	mp.precio,
-	CONCAT( mp.cantidad,mp.UnidadMedida) AS cantidadConUnidad,
-	CONCAT( mp.cantidad_min,mp.UnidadMedida) AS cantidadMinConUnidad,
-	p.nombre AS nombreProveedor,
-	p.correo,
-	mp.estado
-FROM frameexperts.materiaprima mp
-	INNER JOIN frameexperts.proveedor p ON 
-	 mp.`Proveedor_idProveedor` = p.`idProveedor` 
-	 AND mp.`estado` != 'false']]>
+       mp.precio,
+       CONCAT(mp.cantidad, mp.UnidadMedida) AS cantidadConUnidad,
+       CONCAT(mp.cantidad_min, mp.UnidadMedida) AS cantidadMinConUnidad,
+       p.nombre AS nombreProveedor,
+       p.correo,
+       mp.estado
+FROM b18wqy0mvtwaylhk23wv.materiaprima mp
+       INNER JOIN b18wqy0mvtwaylhk23wv.proveedor p ON 
+       mp.`Proveedor_idProveedor` = p.`idProveedor` 
+       AND mp.`estado` != 'false'
+]]>
 	</queryString>
 	<field name="nombreMaterial" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
